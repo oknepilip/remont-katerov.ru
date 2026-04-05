@@ -608,7 +608,12 @@
         rgba(212,137,10,0.1)
       );
     }
-
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);  /* ← 4 в ряд */
+  grid-template-rows: repeat(2, 1fr);     /* ← 2 ряда */
+  gap: 2px;
+}
     .process-step {
       padding: 0 30px 0 0;
       position: relative;
@@ -835,6 +840,15 @@
       0%   { left: -100%; }
       100% { left: 100%; }
     }
+    .card-interior .service-card-bg { 
+  background: linear-gradient(160deg, #2a1a20 0%, #3a2a25 50%, #251a15 100%);
+}
+.card-diagnostic .service-card-bg { 
+  background: linear-gradient(160deg, #0a1a28 0%, #142838 50%, #081820 100%);
+}
+.card-supply .service-card-bg { 
+  background: linear-gradient(160deg, #1a2028 0%, #2a3038 50%, #152025 100%);
+}
   </style>
 </head>
 <body>
@@ -1050,7 +1064,80 @@
         </a>
       </div>
     </div>
+<!-- 6. Интерьерные работы -->
+<div class="service-card card-interior">
+  <div class="service-card-bg"></div>
+  <div class="service-card-overlay"></div>
+  <div class="card-icon">
+    <svg viewBox="0 0 100 100" fill="none">
+      <!-- Иконка интерьера: кресло -->
+      <rect x="25" y="40" width="20" height="30" rx="3" stroke="white" stroke-width="2"/>
+      <rect x="55" y="35" width="15" height="35" rx="2" stroke="white" stroke-width="2"/>
+      <circle cx="35" cy="25" r="8" stroke="white" stroke-width="2" fill="none"/>
+      <line x1="35" y1="20" x2="35" y2="15" stroke="white" stroke-width="2"/>
+    </svg>
+  </div>
+  <div class="service-card-content">
+    <div class="service-number">06</div>
+    <div class="service-name">Интерьер</div>
+    <div class="service-title">ИНТЕРЬЕРНЫЕ РАБОТЫ</div>
+    <div class="service-desc">Обшивка салонов, ремонт мебели, отделка кают, декор интерьеров.</div>
+    <a href="#" class="service-arrow">
+      Подробнее
+      <svg width="14" height="10"><path d="M9 1L13 5L9 9M1 5H13" stroke="#d4890a" stroke-width="1.5"/></svg>
+    </a>
+  </div>
+</div>
 
+<!-- 7. Техобслуживание и диагностика -->
+<div class="service-card card-diagnostic">
+  <div class="service-card-bg"></div>
+  <div class="service-card-overlay"></div>
+  <div class="card-icon">
+    <svg viewBox="0 0 100 100" fill="none">
+      <!-- Диагностика: прибор -->
+      <rect x="20" y="30" width="60" height="40" rx="4" stroke="white" stroke-width="2"/>
+      <circle cx="50" cy="50" r="12" stroke="white" stroke-width="2"/>
+      <line x1="35" y1="45" x2="65" y2="55" stroke="white" stroke-width="2"/>
+      <line x1="40" y1="50" x2="60" y2="50" stroke="white" stroke-width="2"/>
+    </svg>
+  </div>
+  <div class="service-card-content">
+    <div class="service-number">07</div>
+    <div class="service-name">Техобслуживание</div>
+    <div class="service-title">ДИАГНОСТИКА</div>
+    <div class="service-desc">Техническое обслуживание, дефектование, инструментальная диагностика.</div>
+    <a href="#" class="service-arrow">
+      Подробнее
+      <svg width="14" height="10"><path d="M9 1L13 5L9 9M1 5H13" stroke="#d4890a" stroke-width="1.5"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- 8. Поставки оборудования -->
+<div class="service-card card-supply">
+  <div class="service-card-bg"></div>
+  <div class="service-card-overlay"></div>
+  <div class="card-icon">
+    <svg viewBox="0 0 100 100" fill="none">
+      <!-- Поставки: коробка -->
+      <rect x="20" y="60" width="40" height="25" rx="3" stroke="white" stroke-width="2"/>
+      <rect x="40" y="45" width="25" height="20" rx="2" stroke="white" stroke-width="2"/>
+      <circle cx="65" cy="55" r="8" stroke="white" stroke-width="2" fill="none"/>
+      <line x1="65" y1="40" x2="65" y2="47" stroke="white" stroke-width="2"/>
+    </svg>
+  </div>
+  <div class="service-card-content">
+    <div class="service-number">08</div>
+    <div class="service-name">Поставки</div>
+    <div class="service-title">ЗАПАСНЫЕ ЧАСТИ</div>
+    <div class="service-desc">Поставка оригинальных и аналоговых запчастей для всех типов судового оборудования.</div>
+    <a href="#" class="service-arrow">
+      Подробнее
+      <svg width="14" height="10"><path d="M9 1L13 5L9 9M1 5H13" stroke="#d4890a" stroke-width="1.5"/></svg>
+    </a>
+  </div>
+</div>
   </div>
 </section>
 
