@@ -849,6 +849,16 @@
 .card-supply .service-card-bg { 
   background: linear-gradient(160deg, #1a2028 0%, #2a3038 50%, #152025 100%);
 }
+    .logo img {
+  height: 52px !important;  /* БОЛЬШЕ */
+  filter: brightness(0) invert(1);  /* БЕЛЫЙ */
+  display: block;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .logo img { height: 44px !important; }  /* Мобильные */
+}
   </style>
 </head>
 <body>
@@ -856,7 +866,7 @@
 <!-- ─── NAV ─── -->
 <nav>
   <a href="#" class="logo">
-  <img src="logo.png" alt="Судоремонт СПб" style="height: 42px; width: auto;">
+  <img src="logo.png" alt="Судоремонт СПб" style="height: 62px; width: auto;">
   <span>remont-katerov.ru c 2024 года</span>
   </a>
   
@@ -1238,7 +1248,7 @@
   <div class="footer-top">
     <div class="footer-brand">
       <a href="#" class="logo">
-       <img src="logo.png" alt="Судоремонт СПб" style="height: 45px;">
+       <img src="logo.png" alt="Судоремонт СПб" style="height: 65px;">
         <span>remont-katerov.ru</span>
       </a>
 
