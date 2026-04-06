@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Каталог двигателей — remont-katerov.ru</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#f5f3ef; --bg2:#edeae4; --surface:#ffffff;
+      --navy:#1a2535; --mid:#5a6a7e; --silver:#8a9ab5; --light:#c4cdd8;
+      --accent:#1e4d8c; --accent2:#f06a00; --white:#ffffff; --text:#1a2535; --text2:#4a5568;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--bg); color:var(--text); font-family:'Barlow',sans-serif; font-weight:300; overflow-x:hidden; }
+    .cursor-glow { position:fixed; pointer-events:none; z-index:9999; width:400px; height:400px; border-radius:50%; background:radial-gradient(circle, rgba(240,106,0,0.08) 0%, transparent 70%); transform:translate(-50%,-50%); transition:left 0.05s,top 0.05s; }
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; justify-content:space-between; align-items:center; padding:9px 60px; background:rgba(245,243,239,0.95); backdrop-filter:blur(12px); border-bottom:1px solid rgba(26,37,53,0.08); }
+    .logo { display:flex; flex-direction:row; align-items:center; gap:12px; text-decoration:none; }
+    .logo-icon { width:48px; height:48px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .logo-icon img { width:48px; height:48px; object-fit:contain; mix-blend-mode:multiply; }
+    .logo-name { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:3px; color:var(--navy); line-height:1; }
+    .logo-sub { font-family:'Barlow Condensed',sans-serif; font-size:9px; letter-spacing:4px; color:var(--mid); text-transform:uppercase; margin-top:2px; }
+    .nav-links { display:flex; gap:32px; list-style:none; align-items:center; }
+    .nav-links a { color:var(--mid); text-decoration:none; font-size:12px; letter-spacing:2px; text-transform:uppercase; font-weight:500; transition:color 0.3s; }
+    .nav-links a:hover { color:var(--navy); }
+    .nav-cta { background:var(--accent)!important; color:var(--white)!important; padding:10px 24px; font-weight:600!important; }
+    .page-hero { padding:120px 60px 60px; background:var(--navy); position:relative; overflow:hidden; }
+    .page-hero::before { content:''; position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px); background-size:80px 80px; }
+    .page-eyebrow { font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:5px; color:var(--accent2); text-transform:uppercase; margin-bottom:16px; display:flex; align-items:center; gap:12px; position:relative; z-index:1; }
+    .page-eyebrow::before { content:''; display:inline-block; width:24px; height:1px; background:var(--accent2); }
+    .page-hero h1 { font-family:'Bebas Neue',sans-serif; font-size:clamp(48px,7vw,88px); color:var(--white); line-height:0.95; letter-spacing:2px; margin-bottom:20px; position:relative; z-index:1; }
+    .page-hero p { font-size:16px; line-height:1.8; color:rgba(255,255,255,0.6); max-width:600px; position:relative; z-index:1; }
+    .page-content { padding:60px; }
+    .section-tag { font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:5px; text-transform:uppercase; color:var(--accent2); margin-bottom:16px; display:flex; align-items:center; gap:12px; }
+    .section-tag::before { content:''; display:inline-block; width:24px; height:1px; background:var(--accent2); }
+    .section-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(36px,5vw,60px); line-height:0.95; letter-spacing:1px; color:var(--navy); margin-bottom:30px; }
+    .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:60px; }
+    .grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+    .card { background:var(--surface); border:1px solid rgba(26,37,53,0.08); padding:28px; transition:box-shadow 0.3s,transform 0.3s; }
+    .card:hover { box-shadow:0 8px 30px rgba(26,37,53,0.10); transform:translateY(-3px); }
+    .card-num { font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--accent2); margin-bottom:8px; }
+    .card-title { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:1px; color:var(--navy); margin-bottom:10px; }
+    .card-desc { font-size:13px; line-height:1.7; color:var(--text2); }
+    .card-tag { display:inline-block; font-family:'Barlow Condensed',sans-serif; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--accent); border:1px solid rgba(30,77,140,0.3); padding:4px 10px; margin-top:12px; }
+    .btn-primary { background:var(--accent); color:var(--white); padding:14px 32px; font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; letter-spacing:3px; text-transform:uppercase; text-decoration:none; display:inline-block; transition:background 0.3s; }
+    .btn-primary:hover { background:#163d70; }
+    .reveal { opacity:0; transform:translateY(24px); transition:opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    footer { background:var(--navy); padding:30px 60px; display:flex; justify-content:space-between; align-items:center; }
+    footer span { font-size:12px; color:rgba(255,255,255,0.3); }
+
+    .engines-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:60px; }
+    .engine-card { background:var(--surface); border:1px solid rgba(26,37,53,0.08); padding:28px; position:relative; overflow:hidden; transition:box-shadow 0.3s, transform 0.3s, border-color 0.3s; }
+    .engine-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--accent); transform:scaleX(0); transform-origin:left; transition:transform 0.4s; }
+    .engine-card:hover { box-shadow:0 8px 30px rgba(26,37,53,0.10); transform:translateY(-3px); border-color:rgba(30,77,140,0.2); }
+    .engine-card:hover::before { transform:scaleX(1); }
+    .engine-brand { font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:1px; color:var(--navy); margin-bottom:6px; }
+    .engine-models { font-family:'Barlow Condensed',sans-serif; font-size:12px; letter-spacing:2px; color:var(--accent2); text-transform:uppercase; margin-bottom:12px; }
+    .engine-desc { font-size:13px; line-height:1.7; color:var(--text2); }
+    .engine-badge { position:absolute; top:20px; right:20px; width:36px; height:36px; border:1px solid rgba(26,37,53,0.1); display:flex; align-items:center; justify-content:center; }
+    .engine-badge svg { width:18px; height:18px; stroke:var(--accent); }
+  </style>
+</head>
+<body>
+<div class="cursor-glow" id="cursorGlow"></div>
+<nav>
+  <a href="index.html" class="logo">
+    <div class="logo-icon"><img src="logo.jpg" alt="remont-katerov.ru"></div>
+    <div style="display:flex;flex-direction:column;">
+      <div class="logo-name">REMONT-KATEROV.RU</div>
+      <div class="logo-sub">Профессиональный судоремонт</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#services">Услуги</a></li>
+    <li><a href="index.html#about">О нас</a></li>
+    <li><a href="works.html">Наши работы</a></li>
+    <li><a href="engines.html">Двигатели</a></li>
+    <li><a href="index.html#contact">Контакты</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Заявка</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <div class="page-eyebrow">Оборудование</div>
+  <h1>КАТАЛОГ<br>ДВИГАТЕЛЕЙ</h1>
+  <p>Ремонтируем и обслуживаем двигатели всех ведущих мировых производителей. Поставка оригинальных запчастей.</p>
+</div>
+
+<div class="page-content">
+  <div class="section-tag">Производители</div>
+  <h2 class="section-title">РАБОТАЕМ<br>СО ВСЕМИ МАРКАМИ</h2>
+
+  <div class="engines-grid">
+    
+    <div class="engine-card reveal" style="transition-delay:0.00s">
+      <div class="engine-badge">
+        <svg viewBox="0 0 26 26" fill="none" stroke-width="1.5" stroke-linecap="round">
+          <circle cx="13" cy="13" r="9"/><circle cx="13" cy="13" r="4"/>
+          <line x1="13" y1="4" x2="13" y2="7"/><line x1="13" y1="19" x2="13" y2="22"/>
+          <line x1="4" y1="13" x2="7" y2="13"/><line x1="19" y1="13" x2="22" y2="13"/>
+        </svg>
+      </div>
+      <div class="engine-brand">Volvo Penta</div>
+      <div class="engine-models">IPS, D3, D4, D6, D9, D11, D13</div>
+      <div class="engine-desc">Шведский производитель премиум-двигателей для катеров и яхт</div>
+    </div>
+    <div class="engine-card reveal" style="transition-delay:0.06s">
+      <div class="engine-badge">
+        <svg viewBox="0 0 26 26" fill="none" stroke-width="1.5" stroke-linecap="round">
+          <circle cx="13" cy="13" r="9"/><circle cx="13" cy="13" r="4"/>
+          <line x1="13" y1="4" x2="13" y2="7"/><line x1="13" y1="19" x2="13" y2="22"/>
+          <line x1="4" y1="13" x2="7" y2="13"/><line x1="19" y1="13" x2="22" y2="13"/>
+        </svg>
+      </div>
+      <div class="engine-brand">Cummins Marine</div>
+      <div class="engine-models">QSB, QSC, QSL, QSM, QSX</div>
+      <div class="engine-desc">Надёжные американские дизельные двигатели для коммерческого флота</div>
+    </div>
+    <div class="engine-card reveal" style="transition-delay:0.12s">
+      <div class="engine-badge">
+        <svg viewBox="0 0 26 26" fill="none" stroke-width="1.5" stroke-linecap="round">
+          <circle cx="13" cy="13" r="9"/><circle cx="13" cy="13" r="4"/>
+          <line x1="13" y1="4" x2="13" y2="7"/><line x1="13" y1="19" x2="13" y2="22"/>
+          <line x1="4" y1="13" x2="7" y2="13"/><line x1="19" y1="13" x2="22" y2="13"/>
+        </svg>
+      </div>
+      <div class="engine-brand">MAN Marine</div>
+      <div class="engine-models">R6, V8, V12</div>
+      <div class="engine-desc">Немецкие высокооборотные двигатели для быстроходных судов</div>
+    </div>
+    <div class="engine-card reveal" style="transition-delay:0.18s">
+      <div class="engine-badge">
+        <svg viewBox="0 0 26 26" fill="none" stroke-width="1.5" stroke-linecap="round">
+          <circle cx="13" cy="13" r="9"/><circle cx="13" cy="13" r="4"/>
+          <line x1="13" y1="4" x2="13" y2="7"/><line x1="13" y1="19" x2="13" y2="22"/>
+          <line x1="4" y1="13" x2="7" y2="13"/><line x1="19" y1="13" x2="22" y2="13"/>
+        </svg>
+      </div>
+      <div class="engine-brand">MTU (Rolls-Royce)</div>
+      <div class="engine-models">Series 2000, 4000</div>
+      <div class="engine-desc">Высокопроизводительные двигатели для военных и коммерческих судов</div>
+    </div>
+    <div class="engine-card reveal" style="transition-delay:0.24s">
+      <div class="engine-badge">
+        <svg viewBox="0 0 26 26" fill="none" stroke-width="1.5" stroke-linecap="round">
+          <circle cx="13" cy="13" r="9"/><circle cx="13" cy="13" r="4"/>
+          <line x1="13" y1="4" x2="13" y2="7"/><line x1="13" y1="19" x2="13" y2="22"/>
+          <line x1="4" y1="13" x2="7" y2="13"/><line x1="19" y1="13" x2="22" y2="13"/>
+        </svg>
+      </div>
+      <div class="engine-brand">Caterpillar Marine</div>
+      <div class="engine-models">C7, C9, C12, C18, C32</div>
+      <div class="engine-desc">Американские промышленные двигатели с широкой сервисной сетью</div>
+    </div>
+    <div class="engine-card reveal" style="transition-delay:0.30s">
+      <div class="engine-badge">
+        <svg viewBox="0 0 26 26" fill="none" stroke-width="1.5" stroke-linecap="round">
+          <circle cx="13" cy="13" r="9"/><circle cx="13" cy="13" r="4"/>
+          <line x1="13" y1="4" x2="13" y2="7"/><line x1="13" y1="19" x2="13" y2="22"/>
+          <line x1="4" y1="13" x2="7" y2="13"/><line x1="19" y1="13" x2="22" y2="13"/>
+        </svg>
+      </div>
+      <div class="engine-brand">Yanmar Marine</div>
+      <div class="engine-models">4LH, 6LY, 6CX</div>
+      <div class="engine-desc">Японские надёжные двигатели для маломерных судов</div>
+    </div>
+    <div class="engine-card reveal" style="transition-delay:0.36s">
+      <div class="engine-badge">
+        <svg viewBox="0 0 26 26" fill="none" stroke-width="1.5" stroke-linecap="round">
+          <circle cx="13" cy="13" r="9"/><circle cx="13" cy="13" r="4"/>
+          <line x1="13" y1="4" x2="13" y2="7"/><line x1="13" y1="19" x2="13" y2="22"/>
+          <line x1="4" y1="13" x2="7" y2="13"/><line x1="19" y1="13" x2="22" y2="13"/>
+        </svg>
+      </div>
+      <div class="engine-brand">Mercury Marine</div>
+      <div class="engine-models">Diesel TDI, TDI SCi</div>
+      <div class="engine-desc">Компактные двигатели для катеров и моторных яхт</div>
+    </div>
+    <div class="engine-card reveal" style="transition-delay:0.42s">
+      <div class="engine-badge">
+        <svg viewBox="0 0 26 26" fill="none" stroke-width="1.5" stroke-linecap="round">
+          <circle cx="13" cy="13" r="9"/><circle cx="13" cy="13" r="4"/>
+          <line x1="13" y1="4" x2="13" y2="7"/><line x1="13" y1="19" x2="13" y2="22"/>
+          <line x1="4" y1="13" x2="7" y2="13"/><line x1="19" y1="13" x2="22" y2="13"/>
+        </svg>
+      </div>
+      <div class="engine-brand">Scania Marine</div>
+      <div class="engine-models">DI9, DI13, DC16</div>
+      <div class="engine-desc">Шведские двигатели для паромов и рабочих судов</div>
+    </div>
+    <div class="engine-card reveal" style="transition-delay:0.48s">
+      <div class="engine-badge">
+        <svg viewBox="0 0 26 26" fill="none" stroke-width="1.5" stroke-linecap="round">
+          <circle cx="13" cy="13" r="9"/><circle cx="13" cy="13" r="4"/>
+          <line x1="13" y1="4" x2="13" y2="7"/><line x1="13" y1="19" x2="13" y2="22"/>
+          <line x1="4" y1="13" x2="7" y2="13"/><line x1="19" y1="13" x2="22" y2="13"/>
+        </svg>
+      </div>
+      <div class="engine-brand">John Deere Marine</div>
+      <div class="engine-models">4045, 6068, 6090</div>
+      <div class="engine-desc">Простые в обслуживании двигатели для рабочего флота</div>
+    </div>
+    <div class="engine-card reveal" style="transition-delay:0.54s">
+      <div class="engine-badge">
+        <svg viewBox="0 0 26 26" fill="none" stroke-width="1.5" stroke-linecap="round">
+          <circle cx="13" cy="13" r="9"/><circle cx="13" cy="13" r="4"/>
+          <line x1="13" y1="4" x2="13" y2="7"/><line x1="13" y1="19" x2="13" y2="22"/>
+          <line x1="4" y1="13" x2="7" y2="13"/><line x1="19" y1="13" x2="22" y2="13"/>
+        </svg>
+      </div>
+      <div class="engine-brand">ZF Marine</div>
+      <div class="engine-models">Редукторы ZF 25—10000</div>
+      <div class="engine-desc">Ведущий производитель судовых редукторов и трансмиссий</div>
+    </div>
+    <div class="engine-card reveal" style="transition-delay:0.60s">
+      <div class="engine-badge">
+        <svg viewBox="0 0 26 26" fill="none" stroke-width="1.5" stroke-linecap="round">
+          <circle cx="13" cy="13" r="9"/><circle cx="13" cy="13" r="4"/>
+          <line x1="13" y1="4" x2="13" y2="7"/><line x1="13" y1="19" x2="13" y2="22"/>
+          <line x1="4" y1="13" x2="7" y2="13"/><line x1="19" y1="13" x2="22" y2="13"/>
+        </svg>
+      </div>
+      <div class="engine-brand">Baudouin</div>
+      <div class="engine-models">4W, 6W, 12M</div>
+      <div class="engine-desc">Французские судовые двигатели для коммерческого флота</div>
+    </div>
+    <div class="engine-card reveal" style="transition-delay:0.66s">
+      <div class="engine-badge">
+        <svg viewBox="0 0 26 26" fill="none" stroke-width="1.5" stroke-linecap="round">
+          <circle cx="13" cy="13" r="9"/><circle cx="13" cy="13" r="4"/>
+          <line x1="13" y1="4" x2="13" y2="7"/><line x1="13" y1="19" x2="13" y2="22"/>
+          <line x1="4" y1="13" x2="7" y2="13"/><line x1="19" y1="13" x2="22" y2="13"/>
+        </svg>
+      </div>
+      <div class="engine-brand">Steyr Motors</div>
+      <div class="engine-models">SE 136, 236, 336</div>
+      <div class="engine-desc">Австрийские компактные дизели для маломерных судов</div>
+    </div>
+  </div>
+
+  <div style="background:var(--navy); padding:40px 60px; display:flex; justify-content:space-between; align-items:center; gap:40px; margin-bottom:20px;">
+    <div style="position:relative; z-index:1;">
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:36px; color:white; letter-spacing:1px; margin-bottom:8px;">НЕТ ВАШЕЙ МАРКИ?</div>
+      <div style="font-size:14px; color:rgba(255,255,255,0.55); max-width:400px; line-height:1.7;">Свяжитесь с нами — мы работаем с любыми судовыми двигателями и всегда найдём решение.</div>
+    </div>
+    <a href="index.html#contact" class="btn-primary" style="flex-shrink:0;">Оставить заявку →</a>
+  </div>
+</div>
+
+<footer>
+  <span>© 2024–2025 remont-katerov.ru</span>
+  <span>Лицензия Российского морского регистра судоходства</span>
+</footer>
+<script>
+  const glow = document.getElementById('cursorGlow');
+  document.addEventListener('mousemove', e => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top  = e.clientY + 'px';
+  });
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, {threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+</script>
+</body>
+</html>
