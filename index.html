@@ -986,7 +986,7 @@
     .service-card:nth-child(8) { transition-delay: 0.54s; }
 
     /* ─── CURSOR GLOW ─── */
-    .cursor-glow {
+    /* ─── .cursor-glow {
       position: fixed;
       pointer-events: none;
       z-index: 9999;
@@ -997,7 +997,7 @@
       transform: translate(-50%, -50%);
       transition: left 0.05s, top 0.05s;
       opacity: 1;
-    }
+    }─── */!!!!!!!!!!!!
 
     /* ─── WATERLINE WAVE ─── */
     .hero-waterline {
@@ -1148,12 +1148,139 @@
       .stats-bar { flex-wrap: wrap; }
       .stat-item { min-width: 50%; }
     }
+    /* ─── CUSTOM CURSOR ─── */
+*, *::before, *::after { cursor: none !important; }
+
+.cur {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  top: 0; left: 0;
+  transform: translate(-50%, -50%);
+  transition: transform 0.18s cubic-bezier(.4,0,.2,1),
+              width 0.22s cubic-bezier(.4,0,.2,1),
+              height 0.22s cubic-bezier(.4,0,.2,1),
+              background 0.2s, opacity 0.2s, border-color 0.2s;
+  will-change: transform;
+}
+
+/* — базовый курсор: пиктограмма катера — */
+.cur-boat {
+  width: 36px;
+  height: 36px;
+  opacity: 0.85;
+}
+.cur-boat svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 1px 3px rgba(30,77,140,0.25));
+  transition: stroke 0.2s;
+}
+
+/* — на карточке услуги: круг с текстом ОТКРЫТЬ — */
+.cur-card {
+  width: 72px;
+  height: 72px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}
+.cur-card span {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #fff;
+  white-space: nowrap;
+}
+
+/* — на фото about: круг с лупой — */
+.cur-photo {
+  width: 64px;
+  height: 64px;
+  background: rgba(26,37,53,0.75);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  backdrop-filter: blur(4px);
+}
+.cur-photo svg {
+  width: 22px;
+  height: 22px;
+  stroke: #fff;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+/* — на кнопках: заливка-пилюля — */
+.cur-btn {
+  width: 48px;
+  height: 48px;
+  border: 1.5px solid var(--accent2);
+  border-radius: 50%;
+  background: rgba(240,106,0,0.1);
+  opacity: 0;
+}
+
+/* состояния видимости */
+.cur--card  .cur-boat  { opacity: 0; }
+.cur--card  .cur-card  { opacity: 1; }
+.cur--photo .cur-boat  { opacity: 0; }
+.cur--photo .cur-photo { opacity: 1; }
+.cur--btn   .cur-boat  { opacity: 0; }
+.cur--btn   .cur-btn   { opacity: 1; }
+
+/* скрываем на тач-устройствах */
+@media (hover: none) {
+  .cur { display: none; }
+  *, *::before, *::after { cursor: auto !important; }
+}
   </style>
 </head>
 <body>
 
-<div class="cursor-glow" id="cursorGlow"></div>
-
+<!--<div class="cursor-glow" id="cursorGlow"></div>-->!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+<!-- ─── CUSTOM CURSOR ─── -->
+<div class="cur" id="cur">
+  <!-- базовый: катер -->
+  <div class="cur-boat">
+    <svg viewBox="0 0 40 28" xmlns="http://www.w3.org/2000/svg">
+      <!-- корпус -->
+      <path d="M2 18 L6 10 L32 10 L38 18 Q20 24 2 18Z"/>
+      <!-- палуба/рубка -->
+      <rect x="12" y="5" width="12" height="5" rx="1"/>
+      <!-- мачта -->
+      <line x1="22" y1="1" x2="22" y2="10"/>
+      <!-- волна под килем -->
+      <path d="M2 21 Q10 24 20 21 Q30 18 38 21" opacity="0.45"/>
+    </svg>
+  </div>
+  <!-- на карточке -->
+  <div class="cur-card"><span>Открыть</span></div>
+  <!-- на фото -->
+  <div class="cur-photo">
+    <svg viewBox="0 0 24 24">
+      <circle cx="10" cy="10" r="6"/>
+      <line x1="14.5" y1="14.5" x2="20" y2="20"/>
+      <line x1="10" y1="7" x2="10" y2="13"/>
+      <line x1="7" y1="10" x2="13" y2="10"/>
+    </svg>
+  </div>
+  <!-- на кнопке -->
+  <div class="cur-btn"></div>
+</div>
 <!-- ─── NAV ─── -->
 <nav id="mainNav">
   <a href="#" class="logo">
@@ -1599,13 +1726,59 @@
   }, { passive: true });
 
   // ─── CURSOR GLOW — вся страница ───
-  const glow = document.getElementById('cursorGlow');
+  /* ─── CURSOR GLOW const glow = document.getElementById('cursorGlow');
   if (glow) {
     document.addEventListener('mousemove', (e) => {
       glow.style.left = e.clientX + 'px';
       glow.style.top  = e.clientY + 'px';
     });
+  } ─── */!!!!!!!!!!!!!
+    // ─── CUSTOM CURSOR ─── 
+(function () {
+  const cur = document.getElementById('cur');
+  if (!cur) return;
+
+  let mx = -200, my = -200;
+
+  // плавное движение
+  document.addEventListener('mousemove', (e) => {
+    mx = e.clientX;
+    my = e.clientY;
+    cur.style.left = mx + 'px';
+    cur.style.top  = my + 'px';
+  });
+
+  // скрываем когда мышь покидает окно
+  document.addEventListener('mouseleave', () => cur.style.opacity = '0');
+  document.addEventListener('mouseenter', () => cur.style.opacity = '1');
+
+  // определяем зону под курсором
+  function getZone(el) {
+    if (!el) return 'default';
+    if (el.closest('.service-card'))  return 'card';
+    if (el.closest('.about-visual'))  return 'photo';
+    if (
+      el.closest('.btn-primary') ||
+      el.closest('.btn-ghost')   ||
+      el.closest('.btn-send')    ||
+      el.closest('.nav-cta')
+    ) return 'btn';
+    return 'default';
   }
+
+  let currentZone = 'default';
+
+  document.addEventListener('mouseover', (e) => {
+    const zone = getZone(e.target);
+    if (zone === currentZone) return;
+    currentZone = zone;
+
+    cur.className = 'cur';                          // сброс
+    if (zone === 'card')  cur.classList.add('cur--card');
+    if (zone === 'photo') cur.classList.add('cur--photo');
+    if (zone === 'btn')   cur.classList.add('cur--btn');
+  });
+})();
 
   // ─── FORM SUBMIT → email ───
   function handleSubmit(e) {
