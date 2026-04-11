@@ -1547,7 +1547,7 @@
   const grid = document.querySelector('.hero-grid');
   window.addEventListener('scroll', () => {
     const y = window.scrollY;
-    if (ship) ship.style.transform = `translateY(calc(-58% + ${y * 0.25}px))`;
+    if (ship) ship.style.transform = `translateY(calc(-58% + ${y * 0.5}px))`;
     if (grid) grid.style.transform = `translateY(${y * 0.08}px)`;
   }, { passive: true });
 
