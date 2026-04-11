@@ -1432,14 +1432,16 @@
     document.addEventListener('mouseleave', () => cur.style.opacity = '0');
     document.addEventListener('mouseenter', () => cur.style.opacity = '1');
 
-    function getZone(el) {
-      if (!el) return 'default';
-      if (el.closest('.service-card')) return 'card';
-      if (el.closest('.about-visual')) return 'photo';
-      if (el.closest('.btn-primary') || el.closest('.btn-ghost') ||
-          el.closest('.btn-send')    || el.closest('.nav-cta')) return 'btn';
-      return 'default';
-    }
+   function getZone(el) {
+  if (!el) return 'default';
+  if (el.closest('.service-card')) return 'card';
+  if (el.closest('.about-visual')) return 'photo';
+  if (el.closest('.btn-primary') || el.closest('.btn-ghost') ||
+      el.closest('.btn-send')    || el.closest('.nav-cta')   ||
+      el.closest('.nav-links a') || el.closest('.service-arrow') ||
+      el.closest('.footer-col a')) return 'btn';
+  return 'default';
+}
 
     let currentZone = 'default';
     document.addEventListener('mouseover', (e) => {
