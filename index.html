@@ -247,6 +247,60 @@
   margin-bottom: 22px; font-weight: 400;
 }
 .hero-buttons { display: flex; gap: 16px; align-items: center; }
+    /* ─── СТИЛИ КНОПОК (восстановлены) ─── */
+.btn-primary {
+  background: var(--accent); color: var(--white);
+  padding: 16px 36px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.3s, transform 0.2s;
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+}
+.btn-primary:hover { background: #163d70; transform: translateY(-1px); }
+
+.btn-ghost {
+  color: var(--navy); padding: 16px 36px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 600;
+  letter-spacing: 3px; text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid rgba(26,37,53,0.25);
+  transition: border-color 0.3s, color 0.3s;
+  display: inline-block;
+  background: transparent;
+}
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ─── КОРРЕКТИРОВКА СЛАЙДЕРА: ДЕЛАЕМ ЕГО ФОНОВЫМ ─── */
+/* На десктопе возвращаем полупрозрачность и multiply, как было у старой картинки */
+@media (min-width: 901px) {
+  .hero-slider {
+    opacity: 0.25;           /* лёгкая прозрачность, текст читается */
+  }
+  .slide img {
+    mix-blend-mode: multiply; /* эффект наложения, как в исходном дизайне */
+  }
+}
+
+/* На мобильных оставляем opacity: 0.2 (уже задано), но тоже можно multiply */
+@media (max-width: 900px) {
+  .slide img {
+    mix-blend-mode: multiply;
+  }
+}
+
+/* Чтобы кнопки в Hero не разъезжались на мобильных */
+@media (max-width: 900px) {
+  .hero-buttons .btn-primary,
+  .hero-buttons .btn-ghost {
+    width: 100%;
+    text-align: center;
+  }
+}
 
     /* ─── STATS BAR ─── */
     .stats-bar {
