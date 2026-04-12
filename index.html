@@ -22,7 +22,24 @@
       --text:     #1a2535;
       --text2:    #4a5568;
     }
+/* Подложка под текст для лучшей читаемости */
+.hero-content {
+  background: rgba(245, 243, 239, 0.7); /* полупрозрачный бежевый (как фон сайта) */
+  backdrop-filter: blur(8px);           /* лёгкое размытие фона под текстом */
+  -webkit-backdrop-filter: blur(8px);
+  padding: 30px 40px;
+  border-radius: 4px;
+  max-width: 700px;
+  margin-left: 0;
+}
 
+/* На мобильных чуть меньше отступы */
+@media (max-width: 900px) {
+  .hero-content {
+    padding: 20px 24px;
+    background: rgba(245, 243, 239, 0.75);
+  }
+}
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
 
