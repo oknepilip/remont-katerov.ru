@@ -137,131 +137,116 @@
     }
 
     /* ─── HERO ─── */
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 0 60px 70px;
-      overflow: hidden;
-      background: var(--bg);
-    }
-    .hero-grid {
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(30,77,140,0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(30,77,140,0.06) 1px, transparent 1px);
-      background-size: 80px 80px;
-      z-index: 0;
-    }
-    .hero-glow {
-      position: absolute; top: -10%; right: -5%;
-      width: 70%; height: 100%;
-      background: radial-gradient(ellipse 70% 80% at 70% 40%, rgba(30,77,140,0.08) 0%, transparent 70%);
-      z-index: 0;
-    }
-    .hero-waterline {
-      position: absolute; left: 0; right: 0;
-      bottom: 140px; height: 3px;
-      z-index: 2; overflow: hidden; background: none;
-    }
-    .hero-waterline svg {
-      position: absolute; bottom: 0; left: -200px;
-      width: calc(100% + 400px); height: 10px;
-      animation: wavemove 4s linear infinite;
-    }
-    @keyframes wavemove {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(200px); }
-    }
+/* ─── HERO (обновлённый) ─── */
+.hero {
+  position: relative;
+  min-height: 85vh;         /* было 100vh, уменьшено */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 60px 40px;     /* уменьшен нижний отступ */
+  overflow: hidden;
+  background: var(--bg);
+}
+@media (max-width: 900px) {
+  .hero {
+    min-height: 600px;      /* фиксированная высота для мобильных */
+    padding: 0 20px 30px;
+    justify-content: flex-end;
+  }
+}
 
-    /* ── Корабль — десктоп ── */
-    .hero-ship-illustration {
-      position: absolute;
-      right: -20%; top: 50%;
-      transform: translateY(-58%);
-      width: 108%;
-      z-index: 1;
-      pointer-events: none;
-    }
-    .hero-ship-illustration img {
-      width: 100%; height: auto;
-      display: block;
-      opacity: 0.2;
-      mix-blend-mode: multiply;
-    }
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(30,77,140,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30,77,140,0.06) 1px, transparent 1px);
+  background-size: 80px 80px;
+  z-index: 0;
+}
 
-    .hero-content {
-      position: relative; z-index: 4; max-width: 700px;
-    }
-    .hero-eyebrow {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 12px; letter-spacing: 5px;
-      color: var(--accent2); text-transform: uppercase;
-      margin-bottom: 20px;
-      display: flex; align-items: center; gap: 14px;
-    }
-    .hero-eyebrow::before {
-      content: ''; display: inline-block;
-      width: 32px; height: 1px; background: var(--accent2);
-    }
-    .hero-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(52px, 7vw, 96px);
-      line-height: 0.9; letter-spacing: 2px;
-      color: var(--navy); margin-bottom: 16px;
-    }
-    .hero-title .accent { color: var(--accent); }
-    .hero-title .amber  { color: var(--accent2); }
-    .hero-sub {
-      font-size: 16px; line-height: 1.75;
-      color: var(--text2); max-width: 460px;
-      margin-bottom: 22px; font-weight: 400;
-    }
-    .hero-buttons { display: flex; gap: 16px; align-items: center; }
+.hero-glow {
+  position: absolute; top: -10%; right: -5%;
+  width: 70%; height: 100%;
+  background: radial-gradient(ellipse 70% 80% at 70% 40%, rgba(30,77,140,0.08) 0%, transparent 70%);
+  z-index: 0;
+}
 
-    .btn-primary {
-      background: var(--accent); color: var(--white);
-      padding: 16px 36px;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 13px; font-weight: 700;
-      letter-spacing: 3px; text-transform: uppercase;
-      text-decoration: none;
-      transition: background 0.3s, transform 0.2s;
-      display: inline-block;
-    }
-    .btn-primary:hover { background: #163d70; transform: translateY(-1px); }
+.hero-waterline {
+  position: absolute; left: 0; right: 0;
+  bottom: 100px; height: 3px;
+  z-index: 2; overflow: hidden; background: none;
+}
+.hero-waterline svg {
+  position: absolute; bottom: 0; left: -200px;
+  width: calc(100% + 400px); height: 10px;
+  animation: wavemove 4s linear infinite;
+}
 
-    .btn-ghost {
-      color: var(--navy); padding: 16px 36px;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 13px; font-weight: 600;
-      letter-spacing: 3px; text-transform: uppercase;
-      text-decoration: none;
-      border: 1px solid rgba(26,37,53,0.25);
-      transition: border-color 0.3s, color 0.3s;
-      display: inline-block;
-    }
-    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+/* ─── СЛАЙДЕР (фон Hero) ─── */
+.hero-slider {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+.slide {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+}
+.slide.active {
+  opacity: 1;
+}
+.slide img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
-    .scroll-indicator {
-      position: absolute; bottom: 36px; right: 60px;
-      z-index: 10; display: flex; align-items: center; gap: 12px;
-      color: var(--silver); font-size: 11px;
-      letter-spacing: 3px; text-transform: uppercase;
-    }
-    .scroll-line {
-      width: 40px; height: 1px;
-      background: var(--light); position: relative; overflow: hidden;
-    }
-    .scroll-line::after {
-      content: ''; position: absolute; left: -100%; top: 0;
-      width: 100%; height: 100%;
-      background: var(--accent2);
-      animation: scrollAnim 2s infinite;
-    }
-    @keyframes scrollAnim { 0% { left: -100%; } 100% { left: 100%; } }
+/* На десктопе параллакс применяется к слайдеру целиком */
+@media (min-width: 901px) {
+  .hero-slider {
+    transform: translateY(0);
+    will-change: transform;
+  }
+}
+
+/* Мобильная версия: слайдер становится фоном с прозрачностью */
+@media (max-width: 900px) {
+  .hero-slider {
+    opacity: 0.2;            /* прозрачность, чтобы не мешал тексту */
+  }
+  .slide img {
+    object-position: 30% center; /* при необходимости сместить фокус */
+  }
+  /* убираем параллакс на мобильных */
+  .hero-slider {
+    transform: none !important;
+  }
+}
+
+.hero-content {
+  position: relative; z-index: 4; max-width: 700px;
+}
+.hero-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; letter-spacing: 5px;
+  color: var(--accent2); text-transform: uppercase;
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 14px;
+}
+.hero-eyebrow::before {
+  content: ''; display: inline-block;
+  width: 32px; height: 1px; background: var(--accent2);
+}
+.hero-sub {
+  font-size: 16px; line-height: 1.75;
+  color: var(--text2); max-width: 460px;
+  margin-bottom: 22px; font-weight: 400;
+}
+.hero-buttons { display: flex; gap: 16px; align-items: center; }
 
     /* ─── STATS BAR ─── */
     .stats-bar {
@@ -513,9 +498,6 @@
         opacity: 0.12;
       }
 
-      .scroll-indicator { right: 20px; bottom: 20px; }
-      .hero-waterline { bottom: 100px; }
-
       .stats-bar { flex-direction: column; }
       .stat-item { width: 100%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); padding: 16px 20px; flex-direction: row; align-items: center; gap: 16px; flex-wrap: wrap; }
       .stat-item:last-child { border-bottom: none; }
@@ -588,7 +570,7 @@
   </ul>
 </nav>
 
-<!-- ─── HERO ─── -->
+<!-- ─── HERO (со слайдером) ─── -->
 <section class="hero">
   <div class="hero-grid"></div>
   <div class="hero-glow"></div>
@@ -599,8 +581,17 @@
     </svg>
   </div>
 
-  <div class="hero-ship-illustration">
-    <img src="ship-illustration.png" alt="Судно" />
+  <!-- Слайдер изображений (фон Hero) -->
+  <div class="hero-slider" id="heroSlider">
+    <div class="slide active">
+      <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=2070&auto=format&fit=crop" alt="Яхта в море">
+    </div>
+    <div class="slide">
+      <img src="https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?q=80&w=2070&auto=format&fit=crop" alt="Катер">
+    </div>
+    <div class="slide">
+      <img src="https://images.unsplash.com/photo-1605281317010-fe5ffe798166?q=80&w=2044&auto=format&fit=crop" alt="Судно в порту">
+    </div>
   </div>
 
   <div class="hero-content">
@@ -613,13 +604,8 @@
       <a href="#services" class="btn-ghost">Наши услуги</a>
     </div>
   </div>
-
-  <div class="scroll-indicator">
-    <div class="scroll-line"></div>
-    Прокрутить
-  </div>
 </section>
-
+  
 <!-- ─── STATS ─── -->
 <div class="stats-bar">
   <div class="stat-item">
@@ -893,17 +879,65 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal, .reveal-section').forEach(el => observer.observe(el));
 
-  // ─── PARALLAX ───
-  const ship = document.querySelector('.hero-ship-illustration');
-  const grid = document.querySelector('.hero-grid');
-  // Только на десктопе — на мобиле корабль статичный
+  // ─── СЛАЙДЕР HERO ───
+  const slides = document.querySelectorAll('.hero-slider .slide');
+  let currentSlide = 0;
+  let slideInterval;
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === index);
+    });
+  }
+
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+  }
+
+  // Запускаем автоматическую смену каждые 5 секунд
+  if (slides.length > 1) {
+    slideInterval = setInterval(nextSlide, 5000);
+  }
+
+  // ─── ПАРАЛЛАКС (только десктоп) ───
+  const slider = document.querySelector('.hero-slider');
+  const heroSection = document.querySelector('.hero');
   const isMobile = () => window.innerWidth <= 900;
+
+  function updateParallax() {
+    if (!slider || !heroSection) return;
+    if (isMobile()) {
+      slider.style.transform = 'translateY(0)';
+      return;
+    }
+    
+    const scrollY = window.scrollY;
+    const heroRect = heroSection.getBoundingClientRect();
+    const heroBottom = heroRect.bottom;
+    const heroHeight = heroRect.height;
+    
+    // Максимальное смещение: чтобы слайдер ушёл вниз за пределы видимости
+    const maxOffset = heroHeight * 0.5; // половина высоты Hero
+    
+    // Прогресс прокрутки внутри Hero (0 = верх Hero виден, 1 = низ Hero у верхнего края окна)
+    let progress = Math.max(0, Math.min(1, -heroRect.top / (heroHeight - window.innerHeight)));
+    
+    // Двигаем слайдер вниз (translateY положительное)
+    const offset = progress * maxOffset;
+    slider.style.transform = `translateY(${offset}px)`;
+  }
+
   window.addEventListener('scroll', () => {
-    if (isMobile()) return;
-    const y = window.scrollY;
-    if (ship) ship.style.transform = `translateY(calc(-58% + ${y * 0.22}px))`;
-    if (grid) grid.style.transform = `translateY(${y * 0.08}px)`;
+    updateParallax();
   }, { passive: true });
+
+  window.addEventListener('resize', () => {
+    updateParallax();
+  });
+
+  // Вызов при загрузке
+  updateParallax();
 
   // ─── FORM SUBMIT ───
   function handleSubmit(e) {
