@@ -1,0 +1,1809 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Судоремонт — Профессиональный ремонт судов</title>
+  <meta name="description" content="Профессиональный судоремонт в Санкт-Петербурге и по всему миру. Механика, электрика, корпусные работы, поставка запчастей. Гарантия до 2 лет. Аварийный выезд 24/7.">
+  <meta name="keywords" content="судоремонт, ремонт судов, ремонт катеров, ремонт яхт, судовая механика, электрика судов, корпусные работы, Санкт-Петербург">
+  <meta property="og:title" content="Судоремонт — Профессиональный ремонт судов">
+  <meta property="og:description" content="Профессиональный судоремонт в Санкт-Петербурге и по всему миру. Механика, электрика, корпусные работы. Гарантия до 2 лет. Аварийный выезд 24/7.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://remont-katerov.ru/">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://remont-katerov.ru/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Судоремонт — remont-katerov.ru",
+    "url": "https://remont-katerov.ru",
+    "telephone": "+79217727177",
+    "email": "pilipenko@mmgmt.ru",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "пр. Крузенштерна, 18",
+      "addressLocality": "Санкт-Петербург",
+      "addressCountry": "RU"
+    },
+    "description": "Профессиональный судоремонт в Санкт-Петербурге и по всему миру. Механика, электрика, корпусные работы, поставка запчастей. Гарантия до 2 лет.",
+    "openingHours": "Mo-Su 00:00-24:00",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Судоремонтные услуги",
+      "itemListElement": [
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Диагностика судов"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Ремонт судовых двигателей"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Судовая электрика"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Корпусные работы"}}
+      ]
+    }
+  }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:       #f5f3ef;
+      --bg2:      #edeae4;
+      --surface:  #ffffff;
+      --navy:     #1a2535;
+      --steel:    #2c3e55;
+      --mid:      #5a6a7e;
+      --silver:   #8a9ab5;
+      --light:    #c4cdd8;
+      --accent:   #1e4d8c;
+      --accent2:  #f06a00;
+      --rust:     #b84a1a;
+      --white:    #ffffff;
+      --text:     #1a2535;
+      --text2:    #3d4f63; /* было #4a5568 — улучшен контраст на бежевом */
+    }
+
+    body.modal-open { overflow: hidden; padding-right: var(--scrollbar-w, 0px); }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ─── NOISE TEXTURE ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── NAV CONTACTS DROPDOWN ─── */
+    .nav-contacts-li { position: relative; }
+    .nav-contacts-drop {
+      position: absolute; top: calc(100% + 8px); right: 0;
+      background: var(--surface);
+      border: 1px solid rgba(26,37,53,0.1);
+      box-shadow: 0 16px 48px rgba(26,37,53,0.14);
+      min-width: 240px; z-index: 200;
+      opacity: 0; pointer-events: none;
+      transform: translateY(-6px);
+      transition: opacity 0.22s ease, transform 0.22s ease;
+    }
+    .nav-contacts-li:hover .nav-contacts-drop,
+    .nav-contacts-drop.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .ncd-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 11px 18px;
+      font-size: 12px; color: var(--text2); text-decoration: none;
+      border-bottom: 1px solid rgba(26,37,53,0.06);
+      transition: background 0.2s, color 0.2s;
+      letter-spacing: 0.3px;
+    }
+    .ncd-item:last-of-type { border-bottom: none; }
+    .ncd-item:hover { background: rgba(30,77,140,0.04); color: var(--accent); }
+    .ncd-item svg { flex-shrink: 0; stroke: var(--accent2); }
+    .ncd-socials {
+      display: flex; gap: 0;
+      border-top: 1px solid rgba(26,37,53,0.07);
+      padding: 10px 14px; gap: 8px;
+    }
+    .ncd-social {
+      width: 34px; height: 34px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 2px; text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .ncd-social:hover { opacity: 0.8; transform: scale(1.1); }
+    .ncd-social.tg { color: #2AABEE; }
+    .ncd-social.wa { color: #25D366; }
+
+    /* Телефон + иконки в правой части навбара */
+    .nav-right-block {
+      display: flex; align-items: center; gap: 10px;
+      margin-left: 4px; flex-shrink: 0;
+    }
+    .nav-phone {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px; font-weight: 600; letter-spacing: 1px;
+      color: var(--navy); text-decoration: none;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+    .nav-phone:hover { color: var(--accent); }
+    .nav-social-icon {
+      width: 30px; height: 30px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(26,37,53,0.12);
+      border-radius: 2px; text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .nav-social-icon:hover { transform: scale(1.1); }
+    .nav-social-icon.tg { color: #2AABEE; border-color: rgba(42,171,238,0.3); }
+    .nav-social-icon.wa { color: #25D366; border-color: rgba(37,211,102,0.3); }
+    .nav-cta-btn {
+      background: var(--accent); color: var(--white) !important;
+      padding: 9px 20px; margin-left: 8px; border-radius: 3px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 600 !important; letter-spacing: 1.5px;
+      text-transform: uppercase; text-decoration: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .nav-cta-btn:hover {
+      background: #163d70; transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(30,77,140,0.28);
+    }
+    .nav-cta-li { list-style: none; }
+
+    @media (max-width: 860px) {
+      .nav-right-block { display: none; }
+      .nav-contacts-drop { position: static; box-shadow: none; border: none;
+        opacity: 1; pointer-events: all; transform: none;
+        background: rgba(30,77,140,0.04); margin: 4px 0; }
+      .nav-contacts-li:hover .nav-contacts-drop { transform: none; }
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 48px;
+      height: 72px;
+      background: rgba(245,243,239,0.95);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(26,37,53,0.08);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 24px rgba(26,37,53,0.08); }
+
+    .logo {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .logo-icon { width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .logo-icon img { width: 56px; height: 56px; object-fit: contain; mix-blend-mode: multiply; }
+    .logo-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 3px; color: var(--navy); line-height: 1; }
+    .logo-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; letter-spacing: 4px; color: var(--mid); text-transform: uppercase; margin-top: 2px; }
+
+    .nav-links { display: flex; gap: 0; list-style: none; align-items: center; }
+    .nav-links li a {
+      display: block; color: var(--mid); text-decoration: none;
+      font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
+      font-weight: 500; padding: 8px 14px; border-radius: 4px;
+      transition: color 0.2s, background 0.2s; white-space: nowrap;
+    }
+    .nav-links li a:hover { color: var(--accent); background: rgba(30,77,140,0.07); }
+    .nav-links .nav-cta-li a {
+      background: var(--accent); color: var(--white) !important;
+      padding: 9px 20px; margin-left: 8px; border-radius: 3px;
+      font-weight: 600 !important; letter-spacing: 1.5px;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .nav-links .nav-cta-li a:hover {
+      background: #163d70 !important; color: var(--white) !important;
+      transform: translateY(-1px); box-shadow: 0 4px 14px rgba(30,77,140,0.28);
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      min-height: calc(100vh - 72px - 120px); /* 100vh минус nav минус stats-bar */
+      padding-top: 72px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(30,77,140,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30,77,140,0.05) 1px, transparent 1px);
+      background-size: 80px 80px;
+      z-index: 0; pointer-events: none;
+    }
+    .hero-glow {
+      position: absolute; top: -10%; right: -5%;
+      width: 60%; height: 120%;
+      background:
+        radial-gradient(ellipse 70% 80% at 70% 40%, rgba(30,77,140,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 85% 70%, rgba(13,45,94,0.05) 0%, transparent 60%);
+      z-index: 0; pointer-events: none;
+    }
+
+    .hero-left {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      text-align: left;
+      padding: 40px 60px 56px 60px;
+      width: 100%;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(240,106,0,0.12); border: 1px solid rgba(240,106,0,0.35);
+      color: var(--accent2); font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      padding: 5px 12px; margin-bottom: 18px; border-radius: 2px;
+      animation: fadeUp 0.8s 0.35s both;
+    }
+    .hero-eyebrow { justify-content: flex-start; }
+    .hero-sub { max-width: 560px; }
+    .hero-buttons { justify-content: flex-start; }
+
+    .hero-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; letter-spacing: 5px;
+      color: var(--accent2); text-transform: uppercase;
+      margin-bottom: 18px;
+      display: flex; align-items: center; gap: 14px;
+      animation: fadeUp 0.8s 0.2s both;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: inline-block;
+      width: 32px; height: 1px; background: var(--accent2);
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(24px, calc((100vw - 120px) / 16.5), 58px);
+      line-height: 1;
+      letter-spacing: 2px;
+      color: var(--navy);
+      margin-bottom: 20px;
+      animation: fadeUp 0.8s 0.3s both;
+    }
+    .hero-title em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 15px; line-height: 1.8;
+      color: var(--text2); max-width: 520px;
+      margin-bottom: 28px; font-weight: 400;
+      animation: fadeUp 0.8s 0.45s both;
+    }
+
+    .hero-buttons {
+      display: flex; gap: 14px; align-items: center;
+      animation: fadeUp 0.8s 0.6s both;
+    }
+
+    .hero-waterline {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      height: 40px; z-index: 3; overflow: hidden; pointer-events: none;
+    }
+    .hero-waterline svg {
+      position: absolute; bottom: 0; left: -200px;
+      width: calc(100% + 400px); height: 14px;
+      animation: wavemove 5s linear infinite;
+    }
+    @keyframes wavemove { 0% { transform: translateX(0); } 100% { transform: translateX(200px); } }
+
+    /* ─── HERO DECORATION ─── */
+    .hero-deco {
+      position: absolute;
+      right: -2%; top: 50%;
+      transform: translateY(-50%);
+      width: 62%;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.18;
+      mix-blend-mode: multiply;
+      will-change: transform;
+    }
+    .hero-deco img {
+      width: 100%; height: auto;
+      display: block;
+    }
+    @media (max-width: 860px) {
+      .hero-deco { width: 95%; right: -5%; opacity: 0.1; }
+    }
+    @media (max-width: 600px) {
+      .hero-deco { display: none; }
+    }
+    .btn-primary {
+      background: var(--accent); color: var(--white);
+      padding: 16px 36px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+      display: inline-block; border: none; cursor: pointer;
+    }
+    .btn-primary:hover { background: #163d70; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(30,77,140,0.3); }
+
+    .btn-ghost {
+      color: var(--navy); padding: 16px 36px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid rgba(26,37,53,0.25);
+      transition: border-color 0.3s, color 0.3s, background 0.3s;
+      display: inline-block; background: transparent;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); background: rgba(30,77,140,0.04); }
+
+    /* ─── STATS BAR ─── */
+    .stats-bar {
+      background: var(--navy); display: flex;
+      position: relative; z-index: 10; overflow: hidden;
+    }
+    .stats-bar::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px; pointer-events: none;
+    }
+    .stat-item {
+      flex: 1; padding: 28px 40px;
+      border-right: 1px solid rgba(255,255,255,0.07);
+      display: flex; flex-direction: column; gap: 4px;
+      position: relative; transition: background 0.35s;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-item::after {
+      content: ''; position: absolute;
+      bottom: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent2), #ffaa55);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .stat-item:hover { background: rgba(255,255,255,0.04); }
+    .stat-item:hover::after { transform: scaleX(1); }
+    .stat-icon { width: 28px; height: 28px; opacity: 0.35; margin-bottom: 8px; transition: opacity 0.3s; }
+    .stat-item:hover .stat-icon { opacity: 0.7; }
+    .stat-icon svg { width: 100%; height: 100%; stroke: var(--silver); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .stat-number { font-family: 'Bebas Neue', sans-serif; font-size: 56px; color: var(--white); line-height: 1; transition: color 0.3s; }
+    .stat-item:hover .stat-number { color: var(--accent2); }
+    .stat-number span { color: rgba(255,255,255,0.5); font-size: 36px; }
+    .stat-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.6); line-height: 1.5; }
+
+    /* ─── SECTION TAGS ─── */
+    .section-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; letter-spacing: 5px;
+      text-transform: uppercase; color: var(--accent2);
+      margin-bottom: 16px; display: flex; align-items: center; gap: 12px;
+    }
+    .section-tag::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--accent2); }
+    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(42px, 6vw, 76px); line-height: 0.95; letter-spacing: 1px; color: var(--navy); margin-bottom: 20px; }
+
+    /* ─── SERVICES ─── */
+    .services { padding: 32px 60px 40px; background: var(--bg); position: relative; }
+    .services-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px; }
+    .services-header-left { max-width: 500px; }
+    .services-header .section-tag { margin-bottom: 8px; }
+    .services-header .section-title { margin-bottom: 0; }
+    .services-header .section-desc { font-size: 13px; line-height: 1.6; color: var(--text2); font-weight: 400; max-width: 280px; }
+    .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .service-card {
+      position: relative; background: var(--surface);
+      border: 1px solid rgba(26,37,53,0.08);
+      padding: 16px 18px 14px; cursor: pointer;
+      transition: box-shadow 0.35s, transform 0.35s, border-color 0.35s;
+      overflow: hidden;
+    }
+    .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), #3a7bd5); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+    .service-card:hover { box-shadow: 0 8px 28px rgba(26,37,53,0.10); transform: translateY(-3px); border-color: rgba(30,77,140,0.18); }
+    .service-card:hover::before { transform: scaleX(1); }
+    .card-icon-wrap { width: 36px; height: 36px; background: rgba(30,77,140,0.07); display: flex; align-items: center; justify-content: center; margin-bottom: 10px; transition: background 0.3s; }
+    .service-card:hover .card-icon-wrap { background: rgba(30,77,140,0.14); }
+    .card-icon-wrap svg { width: 18px; height: 18px; stroke: var(--accent); }
+    .service-number { font-family: 'Bebas Neue', sans-serif; font-size: 10px; letter-spacing: 3px; color: var(--silver); margin-bottom: 3px; }
+    .service-title { font-family: 'Bebas Neue', sans-serif; font-size: 17px; letter-spacing: 1px; color: var(--navy); margin-bottom: 6px; line-height: 1.1; }
+    .service-desc { font-size: 13px; line-height: 1.6; color: var(--text2); }
+    .service-arrow { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin-top: 10px; text-decoration: none; font-weight: 600; opacity: 0; transform: translateY(4px); transition: opacity 0.3s, transform 0.3s; }
+    .service-card:hover .service-arrow { opacity: 1; transform: translateY(0); }
+    .service-arrow svg { transition: transform 0.3s; }
+    .service-arrow:hover svg { transform: translateX(3px); }
+
+    /* ─── ABOUT STRIP ─── */
+    .about-strip { display: grid; grid-template-columns: 1fr 1fr; min-height: 480px; }
+    .about-visual { position: relative; background: var(--navy); overflow: hidden; min-height: 420px; }
+    .about-visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    /* Overlay на фото */
+    .about-visual::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(26,37,53,0.35) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .about-text { background: var(--surface); padding: 60px 56px; display: flex; flex-direction: column; justify-content: center; border-left: 1px solid rgba(26,37,53,0.06); overflow: hidden; min-width: 0; }
+    .about-text p { font-size: 15px; line-height: 1.9; color: var(--text2); margin-bottom: 20px; }
+    .about-text p strong { color: var(--navy); font-weight: 600; }
+    .about-geo { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+    .geo-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); border: 1px solid rgba(30,77,140,0.2); padding: 5px 14px; display: flex; align-items: center; gap: 6px; transition: border-color 0.3s, color 0.3s, background 0.3s; }
+    .geo-tag:hover { border-color: var(--accent2); color: var(--accent2); background: rgba(240,106,0,0.04); cursor: default; }
+    .geo-tag::before { content: '◎'; font-size: 9px; opacity: 0.6; }
+    .about-location { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--mid); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+    .about-location::before { content: ''; width: 16px; height: 1px; background: var(--accent2); display: inline-block; }
+
+    /* ─── TYPEWRITER ─── */
+    .typewriter-wrap { margin-bottom: 20px; overflow: hidden; }
+    .typewriter {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(18px, 2.5vw, 32px);
+      letter-spacing: 4px;
+      color: var(--navy);
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      display: inline-block;
+    }
+    .typewriter-cursor {
+      display: inline-block;
+      width: 2px; height: 1.1em;
+      background: var(--accent2);
+      vertical-align: middle;
+      margin-left: 2px;
+      animation: blink 0.75s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* ─── SECTION TITLE: одна строка, fluid ─── */
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(24px, calc((100vw - 120px) / 14), 68px);
+      line-height: 1;
+      letter-spacing: 2px;
+      color: var(--navy);
+      white-space: nowrap;
+      margin-bottom: 20px;
+    }
+    .section-title em { font-style: normal; color: var(--accent); }
+    .section-desc { font-size: 15px; line-height: 1.8; color: var(--text2); font-weight: 400; max-width: 340px; }
+
+    /* ─── WAVY FOOTER TEXT ─── */
+    .wavy-text { display: inline-flex; letter-spacing: 4px; }
+    .wavy-text span {
+      display: inline-block;
+      animation: wave 2s ease-in-out infinite;
+    }
+    .wavy-text span:nth-child(1)  { animation-delay: 0.00s; }
+    .wavy-text span:nth-child(2)  { animation-delay: 0.10s; }
+    .wavy-text span:nth-child(3)  { animation-delay: 0.20s; }
+    .wavy-text span:nth-child(4)  { animation-delay: 0.30s; }
+    .wavy-text span:nth-child(5)  { animation-delay: 0.40s; }
+    .wavy-text span:nth-child(6)  { animation-delay: 0.50s; }
+    .wavy-text span:nth-child(7)  { animation-delay: 0.60s; }
+    .wavy-text span:nth-child(8)  { animation-delay: 0.70s; }
+    .wavy-text span:nth-child(9)  { animation-delay: 0.80s; }
+    .wavy-text span:nth-child(10) { animation-delay: 0.90s; }
+    @keyframes wave {
+      0%, 100% { transform: translateY(0); }
+      40%       { transform: translateY(-7px); }
+      60%       { transform: translateY(-3px); }
+    }
+
+    /* ─── PROCESS ─── */
+    .process { padding: 80px 60px; background: var(--bg2); position: relative; }
+    .process-header { margin-bottom: 56px; max-width: 600px; }
+    .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+    .process-steps::before { content: ''; position: absolute; top: 27px; left: 28px; right: 28px; height: 1px; background: linear-gradient(90deg, var(--accent), rgba(30,77,140,0.3), rgba(30,77,140,0.08)); z-index: 0; }
+    .process-step { padding: 0 36px 0 0; position: relative; z-index: 1; }
+    .step-num { width: 56px; height: 56px; border: 1.5px solid var(--accent); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--accent); margin-bottom: 20px; background: var(--bg2); position: relative; z-index: 1; transition: background 0.3s, color 0.3s; }
+    .process-step:hover .step-num { background: var(--accent); color: var(--white); }
+    .step-title { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--navy); margin-bottom: 12px; }
+    .step-desc { font-size: 14px; line-height: 1.8; color: var(--text2); }
+
+    /* ─── CTA BANNER ─── */
+    .cta-banner { position: relative; padding: 80px 60px; overflow: hidden; background: var(--accent); display: flex; justify-content: space-between; align-items: center; gap: 60px; }
+    .cta-banner::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px); background-size: 60px 60px; }
+    .cta-banner::after { content: ''; position: absolute; top: -100px; right: -60px; width: 500px; height: 500px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.07); }
+    /* Дополнительный декор — второй круг */
+    .cta-banner .cta-deco {
+      position: absolute; bottom: -80px; right: 160px;
+      width: 300px; height: 300px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.04);
+      pointer-events: none;
+    }
+    .cta-text { position: relative; z-index: 1; }
+    .cta-text h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(44px, 5.5vw, 80px); line-height: 0.93; color: var(--white); margin-bottom: 20px; }
+    .cta-text h2 span { color: var(--accent2); }
+    .cta-text p { font-size: 15px; color: rgba(255,255,255,0.65); max-width: 380px; line-height: 1.75; }
+    .cta-form { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 10px; min-width: 360px; }
+    .cta-form input { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); color: var(--white); padding: 14px 20px; font-family: 'Barlow', sans-serif; font-size: 14px; outline: none; transition: border-color 0.3s, background 0.3s; border-radius: 0; }
+    .cta-form input::placeholder { color: rgba(255,255,255,0.4); }
+    .cta-form input:focus { border-color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.15); }
+    .cta-form .btn-send { background: var(--accent2); color: var(--white); padding: 16px 24px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; border: none; cursor: pointer; transition: background 0.3s, transform 0.2s; margin-top: 4px; }
+    .cta-form .btn-send:hover { background: #d45a00; transform: translateY(-1px); }
+    .cta-consent {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 12px; color: rgba(255,255,255,0.55); line-height: 1.5; cursor: pointer;
+    }
+    .cta-consent input[type="checkbox"] { margin-top: 2px; flex-shrink: 0; accent-color: var(--accent2); }
+    .cta-consent-link {
+      background: none; border: none; padding: 0; cursor: pointer;
+      color: rgba(255,255,255,0.75); text-decoration: underline; text-underline-offset: 2px;
+      font-size: inherit; font-family: inherit; transition: color 0.2s;
+    }
+    .cta-consent-link:hover { color: var(--white); }
+
+    /* ─── FAQ ─── */
+    .faq { padding: 80px 60px; background: var(--bg); }
+    .faq-inner { display: grid; grid-template-columns: 1fr 1.6fr; gap: 80px; align-items: start; }
+    .faq-left { position: sticky; top: 100px; }
+    .faq-left p { font-size: 15px; line-height: 1.85; color: var(--text2); margin-top: 16px; max-width: 300px; }
+    .faq-cta-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 28px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--accent); text-decoration: none; font-weight: 600;
+      transition: color 0.25s;
+    }
+    .faq-cta-link:hover { color: var(--accent2); }
+    .faq-cta-link svg { transition: transform 0.3s; }
+    .faq-cta-link:hover svg { transform: translateX(4px); }
+
+    .faq-list { display: flex; flex-direction: column; }
+    .faq-item {
+      border-top: 1px solid rgba(26,37,53,0.1);
+      overflow: hidden;
+    }
+    .faq-item:last-child { border-bottom: 1px solid rgba(26,37,53,0.1); }
+
+    .faq-question {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 22px 0;
+      cursor: pointer;
+      gap: 20px;
+      user-select: none;
+    }
+    .faq-question span {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 17px; font-weight: 600;
+      letter-spacing: 0.5px;
+      color: var(--navy);
+      line-height: 1.3;
+      transition: color 0.25s;
+    }
+    .faq-item.open .faq-question span { color: var(--accent); }
+
+    .faq-icon {
+      width: 28px; height: 28px; flex-shrink: 0;
+      border: 1px solid rgba(26,37,53,0.15);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.25s, border-color 0.25s, transform 0.35s;
+    }
+    .faq-item.open .faq-icon {
+      background: var(--accent);
+      border-color: var(--accent);
+      transform: rotate(45deg);
+    }
+    .faq-icon svg { width: 12px; height: 12px; stroke: var(--navy); stroke-width: 2; transition: stroke 0.25s; }
+    .faq-item.open .faq-icon svg { stroke: var(--white); }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(.4,0,.2,1), padding 0.3s;
+    }
+    .faq-answer p {
+      font-size: 14px; line-height: 1.85; color: var(--text2);
+      padding-bottom: 22px; padding-right: 48px;
+    }
+
+    @media (max-width: 860px) {
+      .faq { padding: 48px 20px; }
+      .faq-inner { grid-template-columns: 1fr; gap: 32px; }
+      .faq-left { position: static; }
+      .faq-answer p { padding-right: 0; }
+    }
+
+    /* ─── FOOTER ─── */
+    footer { background: var(--navy); padding: 64px 60px 24px; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 50px; margin-bottom: 50px; padding-bottom: 50px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .footer-brand p { font-size: 13px; color: rgba(255,255,255,0.38); line-height: 1.85; max-width: 280px; margin-top: 16px; }
+    .footer-logo-name { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 4px; color: var(--white); line-height: 1; }
+    .footer-logo-name .wavy-text { color: var(--white); }
+    .footer-logo-name .wavy-text span {
+      color: var(--white);
+      display: inline-block;
+      animation: wave 2s ease-in-out infinite;
+    }
+    .footer-logo-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; letter-spacing: 5px; color: rgba(255,255,255,0.3); text-transform: uppercase; margin-top: 3px; }
+    .footer-col h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: rgba(240,106,0,0.75); margin-bottom: 22px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a { color: rgba(255,255,255,0.42); text-decoration: none; font-size: 13px; transition: color 0.25s; display: inline-block; }
+    .footer-col a:hover { color: var(--white); transform: translateX(3px); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: rgba(255,255,255,0.22); }
+
+    /* ─── MODALS ─── */
+    .footer-modal-btn {
+      background: none; border: none;
+      color: rgba(255,255,255,0.35);
+      font-family: 'Barlow', sans-serif;
+      font-size: 12px; cursor: pointer;
+      padding: 0; transition: color 0.25s;
+      text-decoration: underline; text-underline-offset: 3px;
+    }
+    .footer-modal-btn:hover { color: rgba(255,255,255,0.7); }
+
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(10,18,32,0.72);
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-overlay.open {
+      opacity: 1; pointer-events: all;
+    }
+    .modal-box {
+      background: var(--surface);
+      width: 100%; max-width: 720px;
+      max-height: 85vh;
+      display: flex; flex-direction: column;
+      box-shadow: 0 32px 80px rgba(10,18,32,0.35);
+      transform: translateY(20px);
+      transition: transform 0.35s cubic-bezier(.4,0,.2,1);
+    }
+    .modal-overlay.open .modal-box { transform: translateY(0); }
+    .modal-box--narrow { max-width: 480px; }
+
+    .modal-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 32px 36px 24px;
+      border-bottom: 1px solid rgba(26,37,53,0.08);
+      flex-shrink: 0;
+      gap: 20px;
+    }
+    .modal-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 10px;
+    }
+    .modal-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(20px, 3vw, 28px);
+      letter-spacing: 1px; color: var(--navy); line-height: 1.15;
+      margin: 0;
+    }
+    .modal-sub {
+      font-size: 11px; color: var(--mid); margin-top: 6px;
+      font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1px;
+    }
+    .modal-close {
+      width: 36px; height: 36px; flex-shrink: 0;
+      border: 1px solid rgba(26,37,53,0.12);
+      background: none; cursor: pointer; color: var(--mid);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .modal-close:hover { background: var(--navy); color: var(--white); border-color: var(--navy); }
+
+    .modal-body {
+      padding: 28px 36px 36px;
+      overflow-y: auto;
+      flex: 1;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(26,37,53,0.15) transparent;
+    }
+    .modal-body p {
+      font-size: 13px; line-height: 1.85; color: var(--text2);
+      margin-bottom: 14px;
+    }
+    .modal-body p strong { color: var(--navy); font-weight: 600; }
+    .modal-section-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--accent); margin: 24px 0 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(30,77,140,0.12);
+    }
+    .modal-section-title:first-child { margin-top: 0; }
+    .modal-lead {
+      font-size: 15px !important; color: var(--navy) !important;
+      font-weight: 400 !important; line-height: 1.75 !important;
+      margin-bottom: 20px !important;
+    }
+    .modal-email-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--accent); color: var(--white);
+      padding: 14px 28px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px; font-weight: 600; letter-spacing: 2px;
+      text-decoration: none; text-transform: lowercase;
+      margin-top: 8px;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .modal-email-btn:hover { background: #163d70; transform: translateY(-1px); }
+
+    @media (max-width: 600px) {
+      .modal-header { padding: 24px 20px 18px; }
+      .modal-body { padding: 20px 20px 28px; }
+    }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s cubic-bezier(.4,0,.2,1), transform 0.65s cubic-bezier(.4,0,.2,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-section { opacity: 0; transition: opacity 0.8s ease; }
+    .reveal-section.visible { opacity: 1; }
+    .service-card:nth-child(1) { transition-delay: 0.04s; }
+    .service-card:nth-child(2) { transition-delay: 0.10s; }
+    .service-card:nth-child(3) { transition-delay: 0.16s; }
+    .service-card:nth-child(4) { transition-delay: 0.22s; }
+    .service-card:nth-child(5) { transition-delay: 0.28s; }
+    .service-card:nth-child(6) { transition-delay: 0.34s; }
+    .service-card:nth-child(7) { transition-delay: 0.40s; }
+    .service-card:nth-child(8) { transition-delay: 0.46s; }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ─── WORKS GALLERY ─── */
+    .works { padding: 80px 60px; background: var(--navy); position: relative; overflow: hidden; }
+    .works::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+    .works-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 48px;
+    }
+    .works-header .section-tag { color: var(--accent2); }
+    .works-header .section-tag::before { background: var(--accent2); }
+    .works-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(28px, calc((100vw - 120px) / 12), 80px);
+      line-height: 1; letter-spacing: 2px;
+      color: var(--white); white-space: nowrap;
+      margin-bottom: 0;
+    }
+    .works-title em { font-style: normal; color: var(--accent2); }
+    .works-link {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+      color: rgba(255,255,255,0.45); text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
+      transition: color 0.25s; white-space: nowrap; flex-shrink: 0;
+    }
+    .works-link:hover { color: var(--accent2); }
+    .works-link svg { transition: transform 0.3s; }
+    .works-link:hover svg { transform: translateX(4px); }
+
+    /* Горизонтальный скролл-трек */
+    .works-track-wrap {
+      overflow: hidden;
+      position: relative;
+      cursor: grab;
+      user-select: none;
+    }
+    .works-track-wrap:active { cursor: grabbing; }
+    .works-track {
+      display: flex;
+      gap: 20px;
+      transition: transform 0.05s linear;
+    }
+
+    .work-card {
+      flex: 0 0 380px;
+      position: relative;
+      overflow: hidden;
+      background: var(--steel);
+      aspect-ratio: 4/3;
+    }
+    .work-card img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform 0.6s cubic-bezier(.4,0,.2,1);
+      filter: brightness(0.75) saturate(0.8);
+    }
+    .work-card:hover img {
+      transform: scale(1.06);
+      filter: brightness(0.6) saturate(0.9);
+    }
+    /* Верхний badge — тип работ */
+    .work-badge {
+      position: absolute; top: 16px; left: 16px; z-index: 2;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--white);
+      background: var(--accent2);
+      padding: 4px 10px;
+    }
+    /* Нижняя подпись */
+    .work-info {
+      position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
+      padding: 40px 20px 20px;
+      background: linear-gradient(to top, rgba(10,18,32,0.92) 0%, transparent 100%);
+      transform: translateY(8px);
+      transition: transform 0.4s ease;
+    }
+    .work-card:hover .work-info { transform: translateY(0); }
+    .work-vessel {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px; letter-spacing: 2px;
+      color: var(--white); line-height: 1;
+      margin-bottom: 4px;
+    }
+    .work-meta {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+    /* Стрелки навигации */
+    .works-nav {
+      display: flex; gap: 8px; margin-top: 32px; justify-content: flex-end;
+      align-items: center;
+    }
+    /* Drag hint */
+    .works-drag-hint {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-right: auto;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .works-drag-hint svg { opacity: 0.5; }
+    /* Scroll dots */
+    .works-dots {
+      display: flex; gap: 6px; align-items: center; margin-right: 12px;
+    }
+    .works-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      transition: background 0.3s, transform 0.3s;
+      cursor: pointer;
+    }
+    .works-dot.active { background: var(--accent2); transform: scale(1.3); }
+    .works-btn {
+      width: 44px; height: 44px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: transparent;
+      color: rgba(255,255,255,0.5);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: border-color 0.25s, color 0.25s, background 0.25s;
+    }
+    .works-btn:hover { border-color: var(--accent2); color: var(--accent2); background: rgba(240,106,0,0.08); }
+    .works-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; }
+
+    @media (max-width: 860px) {
+      .works { padding: 48px 20px; }
+      .works-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .work-card { flex: 0 0 280px; }
+    }
+
+    /* ─── DIVIDER ─── */
+    .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(30,77,140,0.15), transparent); margin: 0 60px; }
+
+    /* ─── SCROLL OFFSETS ─── */
+    #services, #about, #process, #faq, #contact { scroll-margin-top: 72px; }
+
+    /* ─── BURGER ─── */
+    .nav-burger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; padding: 10px;
+      z-index: 200; flex-shrink: 0; cursor: pointer;
+    }
+    .nav-burger span { display: block; width: 24px; height: 2px; background: var(--navy); transition: transform 0.3s, opacity 0.3s; transform-origin: center; }
+    .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ─── RESPONSIVE ─── */
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 600px) {
+      nav { padding: 0 20px; height: 64px; }
+      .nav-burger { display: flex; }
+      .nav-links {
+        position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(245,243,239,0.98); backdrop-filter: blur(16px);
+        flex-direction: column; justify-content: center; align-items: center;
+        gap: 8px; z-index: 150; opacity: 0; pointer-events: none;
+        transition: opacity 0.3s;
+      }
+      .nav-links.open { opacity: 1; pointer-events: all; }
+      .nav-links li a { font-size: 18px; letter-spacing: 3px; padding: 12px 28px; }
+      .nav-links .nav-cta-li a { margin-left: 0; padding: 14px 40px !important; margin-top: 8px; }
+
+      .logo-icon { width: 48px; height: 48px; }
+      .logo-icon img { width: 48px; height: 48px; }
+      .logo-name { font-size: 16px; letter-spacing: 2px; }
+      .logo-sub { display: none; }
+
+      .hero {
+        padding-top: 64px;
+        min-height: auto;
+      }
+      .hero-left {
+        padding: 32px 20px 40px;
+        min-height: calc(100svh - 64px - 200px);
+        justify-content: center;
+      }
+      .hero-title { font-size: clamp(22px, 6.5vw, 38px); }
+      .hero-title { font-size: clamp(48px, 13vw, 72px); }
+      .hero-sub { font-size: 15px; max-width: 100%; }
+      .hero-buttons { flex-direction: column; align-items: stretch; gap: 10px; padding: 0 16px; }
+      .btn-primary, .btn-ghost { text-align: center; width: 100%; }
+
+      .stats-bar { flex-direction: column; }
+      .stat-item { width: 100%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); padding: 16px 20px; flex-direction: row; align-items: center; gap: 16px; flex-wrap: wrap; }
+      .stat-item:last-child { border-bottom: none; }
+      .stat-number { font-size: 44px; }
+      .stat-icon { margin-bottom: 0; flex-shrink: 0; }
+      .stat-label { flex: 1; min-width: 100px; }
+
+      .services { padding: 32px 16px; }
+      .services-header { flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 16px; }
+      .services-header .section-desc { max-width: 100%; }
+      .services-grid { grid-template-columns: 1fr; gap: 10px; }
+      .service-desc { font-size: 12px; }
+
+      .about-strip { grid-template-columns: 1fr; }
+      .about-visual { min-height: 240px; }
+      .about-text { padding: 32px 20px; }
+      .about-text p { font-size: 14px; }
+
+      .process { padding: 48px 16px; }
+      .process-steps { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .process-steps::before { display: none; }
+      .process-step { padding: 0; }
+
+      .cta-banner { flex-direction: column; padding: 48px 20px; gap: 28px; align-items: flex-start; }
+      .cta-text h2 { font-size: clamp(40px, 12vw, 60px); }
+      .cta-form { min-width: unset; width: 100%; }
+
+      footer { padding: 40px 20px 20px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 28px; padding-bottom: 28px; }
+      .footer-brand { grid-column: 1 / -1; }
+      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+
+      .divider { margin: 0 16px; }
+      #services, #about, #process, #contact { scroll-margin-top: 64px; }
+    }
+
+    @media (max-width: 400px) {
+      .process-steps { grid-template-columns: 1fr; gap: 24px; }
+      .footer-top { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 860px) {
+      nav { padding: 0 20px; height: 64px; }
+      .nav-burger { display: flex; }
+      .nav-links {
+        position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(245,243,239,0.98); backdrop-filter: blur(16px);
+        flex-direction: column; justify-content: center; align-items: center;
+        gap: 8px; z-index: 150; opacity: 0; pointer-events: none;
+        transition: opacity 0.3s;
+      }
+      .nav-links.open { opacity: 1; pointer-events: all; }
+      .nav-links li a { font-size: 18px; letter-spacing: 3px; padding: 12px 28px; }
+      .nav-links .nav-cta-li a { margin-left: 0; padding: 14px 40px !important; margin-top: 8px; }
+      .logo-sub { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav id="mainNav">
+  <a href="#" class="logo">
+    <div class="logo-icon">
+      <img src="logo.jpg" alt="remont-katerov.ru">
+    </div>
+    <div style="display:flex;flex-direction:column;">
+      <div class="logo-name">REMONT-KATEROV.RU</div>
+      <div class="logo-sub">Профессиональный судоремонт</div>
+    </div>
+  </a>
+
+  <button class="nav-burger" id="burger" aria-label="Меню">
+    <span></span><span></span><span></span>
+  </button>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#services">Услуги</a></li>
+    <li><a href="works.html">Наши работы</a></li>
+    <li><a href="engines.html">Каталог</a></li>
+    <li><a href="knowledge.html">База знаний</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <div class="nav-right-block">
+    <a href="tel:+79217727177" class="nav-phone">+7 (921) 77-27-177</a>
+    <a href="#contact" class="nav-cta-btn">Заявка</a>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero" id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+
+  <!-- Левая колонка: текст -->
+  <!-- Декоративный SVG-рисунок в фоне Hero -->
+  <div class="hero-deco">
+    <img src="ship-illustration.png" alt="Парусное судно">
+  </div>
+
+  <div class="hero-left">
+    <div class="hero-eyebrow">Профессиональный судоремонт</div>
+    <div class="hero-badge">⚡ Аварийный ремонт 24/7</div>
+    <h1 class="hero-title">РЕМОНТ <em>СУДОВ</em><br>ЛЮБОГО КЛАССА</h1>
+    <p class="hero-sub">
+      Устраним поломку в любом порту мира. Гарантия до 2 лет. Аварийный выезд по СПб — 2 часа.
+    </p>
+    <div class="hero-buttons">
+      <a href="#contact" class="btn-primary">Оставить заявку</a>
+      <a href="#services" class="btn-ghost">Наши услуги</a>
+    </div>
+  </div>
+
+  <div class="hero-waterline">
+    <svg viewBox="0 0 1200 14" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,7 C100,2 200,12 300,7 C400,2 500,12 600,7 C700,2 800,12 900,7 C1000,2 1100,12 1200,7"
+            stroke="rgba(240,106,0,0.5)" stroke-width="1.5" fill="none"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ─── STATS ─── -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-icon"><svg viewBox="0 0 26 26"><path d="M13 3 L20 7 L20 14 C20 18 16.5 21.5 13 23 C9.5 21.5 6 18 6 14 L6 7 Z"/><polyline points="10,13 12.5,15.5 17,11"/></svg></div>
+    <div class="stat-number" data-target="24" data-suffix=" мес">0</div>
+    <div class="stat-label">Гарантия на выполненные работы</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-icon"><svg viewBox="0 0 26 26"><path d="M3 18 L8 10 L18 10 L23 18 Q13 22 3 18Z"/><line x1="13" y1="10" x2="13" y2="18" stroke-dasharray="2 2"/></svg></div>
+    <div class="stat-number" data-target="50" data-suffix="+">0</div>
+    <div class="stat-label">Судов успешно отремонтировано</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-icon"><svg viewBox="0 0 26 26"><rect x="4" y="4" width="8" height="8"/><rect x="14" y="4" width="8" height="8"/><rect x="4" y="14" width="8" height="8"/><rect x="14" y="14" width="8" height="8"/></svg></div>
+    <div class="stat-number" data-target="8" data-suffix="">0</div>
+    <div class="stat-label">Направлений работ</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-icon"><svg viewBox="0 0 26 26"><circle cx="13" cy="13" r="9"/><polyline points="13,7 13,13 17,16"/></svg></div>
+    <div class="stat-number" data-target="2" data-suffix="ч">0</div>
+    <div class="stat-label">Ответ инженера после заявки</div>
+  </div>
+</div>
+
+<!-- ─── SERVICES ─── -->
+<section class="services" id="services">
+  <div class="services-header">
+    <div class="services-header-left">
+      <div class="section-tag">Направления</div>
+      <h2 class="section-title">НАШИ <em>ВОЗМОЖНОСТИ</em></h2>
+      <p class="section-desc">Полный спектр судоремонтных услуг от диагностики до ввода в эксплуатацию</p>
+    </div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="card-icon-wrap"><svg viewBox="0 0 26 26" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="16" height="10" rx="1"/><circle cx="13" cy="13" r="3"/><line x1="9" y1="13" x2="10.5" y2="13"/><line x1="15.5" y1="13" x2="17" y2="13"/></svg></div>
+      <div class="service-number">01</div>
+      <div class="service-title"><a href="service-diagnostika.html" style="color:inherit;text-decoration:none;">ДИАГНОСТИКА</a></div>
+      <div class="service-desc">Выезд на судно, дефектация, инструментальная диагностика всех систем, составление ведомости дефектов.</div>
+      <a href="service-diagnostika.html" class="service-arrow">Подробнее <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M9 1L13 5L9 9M1 5H13" stroke="currentColor" stroke-width="1.5"/></svg></a>
+    </div>
+    <div class="service-card">
+      <div class="card-icon-wrap"><svg viewBox="0 0 26 26" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="13" r="10"/><circle cx="13" cy="13" r="5"/><circle cx="13" cy="13" r="1.5" fill="currentColor" stroke="none"/><line x1="13" y1="3" x2="13" y2="7"/><line x1="13" y1="19" x2="13" y2="23"/><line x1="3" y1="13" x2="7" y2="13"/><line x1="19" y1="13" x2="23" y2="13"/></svg></div>
+      <div class="service-number">02</div>
+      <div class="service-title"><a href="service-mechanika.html" style="color:inherit;text-decoration:none;">МЕХАНИКА</a></div>
+      <div class="service-desc">Ремонт двигателей, редукторов, валовых линий, водомётов и вспомогательного оборудования.</div>
+      <a href="service-mechanika.html" class="service-arrow">Подробнее <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M9 1L13 5L9 9M1 5H13" stroke="currentColor" stroke-width="1.5"/></svg></a>
+    </div>
+    <div class="service-card">
+      <div class="card-icon-wrap"><svg viewBox="0 0 26 26" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3L8 14H13L12 23L18 12H13L14 3Z"/></svg></div>
+      <div class="service-number">03</div>
+      <div class="service-title"><a href="service-elektrika.html" style="color:inherit;text-decoration:none;">ЭЛЕКТРИКА</a></div>
+      <div class="service-desc">Диагностика и ремонт электросистем, генераторов, распределительных щитов, навигационного оборудования.</div>
+      <a href="service-elektrika.html" class="service-arrow">Подробнее <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M9 1L13 5L9 9M1 5H13" stroke="currentColor" stroke-width="1.5"/></svg></a>
+    </div>
+    <div class="service-card">
+      <div class="card-icon-wrap"><svg viewBox="0 0 26 26" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17 L8 9 L18 9 L23 17 Q13 21 3 17Z"/><line x1="8" y1="9" x2="8" y2="17" stroke-dasharray="3 2"/><line x1="13" y1="9" x2="13" y2="19" stroke-dasharray="3 2"/><line x1="18" y1="9" x2="18" y2="17" stroke-dasharray="3 2"/></svg></div>
+      <div class="service-number">04</div>
+      <div class="service-title"><a href="service-korpus.html" style="color:inherit;text-decoration:none;">КОРПУСНЫЕ РАБОТЫ</a></div>
+      <div class="service-desc">Восстановление конструкций, антикоррозионная защита, правка деформаций, замена листов обшивки.</div>
+      <a href="service-korpus.html" class="service-arrow">Подробнее <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M9 1L13 5L9 9M1 5H13" stroke="currentColor" stroke-width="1.5"/></svg></a>
+    </div>
+    <div class="service-card">
+      <div class="card-icon-wrap"><svg viewBox="0 0 26 26" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="12" width="12" height="10" rx="1"/><rect x="14" y="8" width="8" height="14" rx="1"/><path d="M4 12 L10 6 L22 6"/></svg></div>
+      <div class="service-number">05</div>
+      <div class="service-title"><a href="service-interer.html" style="color:inherit;text-decoration:none;">ИНТЕРЬЕР</a></div>
+      <div class="service-desc">Обшивка салонов, ремонт мебели, отделка кают и палуб, декоративная отделка интерьеров.</div>
+      <a href="service-interer.html" class="service-arrow">Подробнее <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M9 1L13 5L9 9M1 5H13" stroke="currentColor" stroke-width="1.5"/></svg></a>
+    </div>
+    <div class="service-card">
+      <div class="card-icon-wrap"><svg viewBox="0 0 26 26" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="16" height="16"/><line x1="5" y1="11" x2="21" y2="11"/><line x1="5" y1="15" x2="21" y2="15"/><line x1="11" y1="5" x2="11" y2="21"/></svg></div>
+      <div class="service-number">06</div>
+      <div class="service-title"><a href="service-proektirovanie.html" style="color:inherit;text-decoration:none;">ПРОЕКТИРОВАНИЕ</a></div>
+      <div class="service-desc">Техническая документация, проектирование модернизаций, 3D-моделирование узлов и систем.</div>
+      <a href="service-proektirovanie.html" class="service-arrow">Подробнее <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M9 1L13 5L9 9M1 5H13" stroke="currentColor" stroke-width="1.5"/></svg></a>
+    </div>
+    <div class="service-card">
+      <div class="card-icon-wrap"><svg viewBox="0 0 26 26" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5 L20 10 L20 18 L13 22 L6 18 L6 10 Z"/><circle cx="13" cy="14" r="3.5"/></svg></div>
+      <div class="service-number">07</div>
+      <div class="service-title"><a href="service-upravlenie.html" style="color:inherit;text-decoration:none;">УПРАВЛЕНИЕ</a></div>
+      <div class="service-desc">Управление проектами, координация подрядчиков, контроль качества, надзор классификационных обществ.</div>
+      <a href="service-upravlenie.html" class="service-arrow">Подробнее <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M9 1L13 5L9 9M1 5H13" stroke="currentColor" stroke-width="1.5"/></svg></a>
+    </div>
+    <div class="service-card">
+      <div class="card-icon-wrap"><svg viewBox="0 0 26 26" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="15" width="11" height="8" rx="1"/><rect x="11" y="10" width="9" height="6" rx="1"/><path d="M11 15 L16 15"/><circle cx="20" cy="8" r="2.5"/><line x1="20" y1="5" x2="20" y2="10.5"/></svg></div>
+      <div class="service-number">08</div>
+      <div class="service-title"><a href="service-zapchasti.html" style="color:inherit;text-decoration:none;">ОБОРУДОВАНИЕ И ПОСТАВКИ</a></div>
+      <div class="service-desc">Поставка оригинальных и аналоговых запчастей и агрегатов для всех типов судов по всему миру.</div>
+      <a href="service-zapchasti.html" class="service-arrow">Подробнее <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M9 1L13 5L9 9M1 5H13" stroke="currentColor" stroke-width="1.5"/></svg></a>
+    </div>
+  </div></section>
+
+<div class="divider"></div>
+
+<!-- ─── WORKS GALLERY ─── -->
+<section class="works" id="works">
+  <div class="works-header">
+    <div>
+      <div class="section-tag">Портфолио</div>
+      <div class="works-title">НАШИ <em>РАБОТЫ</em></div>
+    </div>
+    <a href="works.html" class="works-link">
+      Все проекты
+      <svg width="14" height="10" viewBox="0 0 14 10"><path d="M9 1L13 5L9 9M1 5H13" stroke="currentColor" stroke-width="1.5"/></svg>
+    </a>
+  </div>
+
+  <div class="works-track-wrap" id="worksWrap">
+    <div class="works-track" id="worksTrack">
+
+      <div class="work-card">
+        <img src="hero-photo.png" alt="Моторная яхта">
+        <div class="work-badge">Механика</div>
+        <div class="work-info">
+          <div class="work-vessel">МОТОРНАЯ ЯХТА 42 ФТ</div>
+          <div class="work-meta">Замена двигателя · Испания, Пальма</div>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <img src="Моторная яхта.png" alt="Катер">
+        <div class="work-badge">Электрика</div>
+        <div class="work-info">
+          <div class="work-vessel">ПРОГУЛОЧНЫЙ КАТЕР</div>
+          <div class="work-meta">Полная переводка электрики · СПб</div>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <img src="Сухогруз.png" alt="Сухогруз">
+        <div class="work-badge">Корпус</div>
+        <div class="work-info">
+          <div class="work-vessel">СУХОГРУЗ 85 М</div>
+          <div class="work-meta">Антикоррозионная защита · Турция</div>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <img src="ship-illustration.png" alt="Яхта">
+        <div class="work-badge">Интерьер</div>
+        <div class="work-info">
+          <div class="work-vessel">ПАРУСНАЯ ЯХТА 56 ФТ</div>
+          <div class="work-meta">Отделка салона · Дубай</div>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <img src="hero-photo.png" alt="Судно">
+        <div class="work-badge">Диагностика</div>
+        <div class="work-info">
+          <div class="work-vessel">ПАТРУЛЬНЫЙ КАТЕР</div>
+          <div class="work-meta">Комплексная диагностика · Камбоджа</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="works-nav">
+    <div class="works-drag-hint">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 9l4-4 4 4M8 15l4 4 4-4" stroke-linecap="round"/></svg>
+      Тяните мышью или нажимайте стрелки
+    </div>
+    <div class="works-dots" id="worksDots"></div>
+    <button class="works-btn" id="worksPrev" aria-label="Назад">
+      <svg viewBox="0 0 16 10"><path d="M5 1L1 5L5 9M1 5H15"/></svg>
+    </button>
+    <button class="works-btn" id="worksNext" aria-label="Вперёд">
+      <svg viewBox="0 0 16 10"><path d="M11 1L15 5L11 9M1 5H15"/></svg>
+    </button>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── ABOUT ─── -->
+<div class="about-strip" id="about">
+  <div class="about-visual">
+    <img src="hero-photo.png" alt="Ремонт катеров">
+  </div>
+  <div class="about-text">
+    <div class="section-tag">О компании</div>
+    <div class="typewriter-wrap">
+      <div class="typewriter" id="aboutTypewriter"></div><span class="typewriter-cursor" id="twCursor"></span>
+    </div>
+    <div class="about-location">Санкт-Петербург · Порт «Морской Фасад»</div>
+    <p><strong>«remont-katerov.ru»</strong> — компания основана в 2024 году командой профессионалов с большим практическим опытом работы с коммерческими и прогулочными судами.</p>
+    <p>Мы базируемся в Санкт-Петербурге, в порту «Морской Фасад». Наши выездные бригады работают по всему миру — там, где находится ваше судно.</p>
+    <div class="about-geo">
+      <div class="geo-tag">Испания</div>
+      <div class="geo-tag">Италия</div>
+      <div class="geo-tag">Турция</div>
+      <div class="geo-tag">Дубай</div>
+      <div class="geo-tag">Камбоджа</div>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <a href="works.html" class="btn-primary">Наши работы</a>
+      <a href="engines.html" class="btn-ghost">Каталог двигателей</a>
+    </div>
+  </div>
+</div>
+
+<!-- ─── PROCESS ─── -->
+<section class="process" id="process">
+  <div class="process-header">
+    <div class="section-tag">Как мы работаем</div>
+    <h2 class="section-title">ПРОЦЕСС <em>РЕМОНТА</em></h2>
+  </div>
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-num">01</div>
+      <div class="step-title">Диагностика</div>
+      <div class="step-desc">Выезд на судно, дефектация оборудования, составление ведомости дефектов и предварительной сметы.</div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">02</div>
+      <div class="step-title">Планирование</div>
+      <div class="step-desc">Разработка технического задания, согласование сроков, формирование рабочей бригады и поставки запчастей.</div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">03</div>
+      <div class="step-title">Выполнение</div>
+      <div class="step-desc">Ремонтные работы с промежуточным контролем качества и документированием всех этапов.</div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">04</div>
+      <div class="step-title">Сдача</div>
+      <div class="step-desc">Испытания, акт выполненных работ, передача документации, гарантийное сопровождение.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FAQ ─── -->
+<section class="faq" id="faq">
+  <div class="faq-inner">
+
+    <div class="faq-left">
+      <div class="section-tag">Вопросы и ответы</div>
+      <h2 class="section-title">ЧАСТЫЕ <em>ВОПРОСЫ</em></h2>
+      <p>Отвечаем на самые распространённые вопросы о нашей работе. Не нашли ответ — напишите нам.</p>
+      <a href="#contact" class="faq-cta-link">
+        Задать вопрос
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M9 1L13 5L9 9M1 5H13" stroke="currentColor" stroke-width="1.5"/></svg>
+      </a>
+    </div>
+
+    <div class="faq-list">
+
+      <div class="faq-item open">
+        <div class="faq-question">
+          <span>Нужно ли загонять судно в сухой док?</span>
+          <div class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
+        </div>
+        <div class="faq-answer">
+          <p>Большинство работ — ремонт двигателей, электрики, интерьера, диагностика — выполняется на плаву без докования. Сухой док требуется только для работ с подводной частью корпуса: замена листов обшивки ниже ватерлинии, обработка днища, замена гребных валов. Мы сами оцениваем необходимость после первичного осмотра.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Какие сроки ремонта?</span>
+          <div class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
+        </div>
+        <div class="faq-answer">
+          <p>Диагностика и мелкий ремонт — от 1 дня. Средний объём работ (замена двигателя, переводка электрики) — 5–14 дней. Комплексный ремонт крупного судна — от 1 месяца. Точные сроки фиксируем в договоре после дефектации. При наличии всех запчастей на складе сроки сокращаются вдвое.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Работаете ли с судами под иностранным флагом?</span>
+          <div class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
+        </div>
+        <div class="faq-answer">
+          <p>Да, работаем с судами под любым флагом. Наши специалисты имеют опыт с требованиями Lloyd's, DNV, Bureau Veritas и Российского регистра. Документация оформляется в соответствии с требованиями классификационного общества судна. Выездные бригады работают в любом порту мира.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Даёте ли гарантию на выполненные работы?</span>
+          <div class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
+        </div>
+        <div class="faq-answer">
+          <p>Даём письменную гарантию на все виды работ — от 6 до 24 месяцев в зависимости от типа работ и использованных комплектующих. На установленные агрегаты действует гарантия производителя. В гарантийный период выезжаем бесплатно.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Как происходит оплата?</span>
+          <div class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
+        </div>
+        <div class="faq-answer">
+          <p>Работаем по договору. Стандартная схема: 30–50% аванс после согласования сметы, остаток — по факту подписания акта выполненных работ. Для постоянных клиентов — постоплата. Принимаем оплату в рублях, евро и долларах, в том числе от иностранных юридических лиц.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Можете поставить запчасти, которых нет в России?</span>
+          <div class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
+        </div>
+        <div class="faq-answer">
+          <p>Да. Поставляем оригинальные и аналоговые запчасти для всех марок судового оборудования через наших партнёров в Европе, Азии и ОАЭ. Срок поставки — от 3 до 21 дня в зависимости от позиции. Можем поставить под ваш заказ в любой порт мира.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Работаете ли в аварийном режиме?</span>
+          <div class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
+        </div>
+        <div class="faq-answer">
+          <p>Да. При аварийной ситуации выезд бригады в течение 2–12 часов в зависимости от локации. Для Санкт-Петербурга и Ленинградской области — до 2 часов. Для других регионов и зарубежья — бронируем ближайший рейс. Звоните напрямую: <a href="tel:+79217727177" style="color:var(--accent);">+7 (921) 77-27-177</a></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ─── -->
+<section class="cta-banner" id="contact">
+  <div class="cta-deco"></div>
+  <div class="cta-text">
+    <h2>ГОТОВЫ<br>ПОМОЧЬ <span>ВАШЕМУ</span><br>СУДНУ</h2>
+    <p>Оставьте заявку — наш инженер свяжется с вами в течение 2 часов для первичной консультации.</p>
+  </div>
+  <div class="cta-form">
+    <input type="tel"  id="f-phone"    placeholder="Телефон для связи *" />
+    <input type="text" id="f-work"     placeholder="Кратко опишите проблему (необязательно)" />
+    <label class="cta-consent">
+      <input type="checkbox" id="f-consent" required />
+      <span>Согласен(а) на <button type="button" onclick="openModal('privacy')" class="cta-consent-link">обработку персональных данных</button></span>
+    </label>
+    <button class="btn-send" onclick="handleSubmit(event)">Отправить заявку →</button>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo-name">
+        <span class="wavy-text" id="wavyFooter"></span>
+      </div>
+      <div class="footer-logo-sub">remont-katerov.ru</div>
+      <p>Комплексный судоремонт для морского и речного флота. Работаем по всему миру.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Направления</h4>
+      <ul>
+        <li><a href="service-diagnostika.html">Диагностика</a></li>
+        <li><a href="service-mechanika.html">Механика</a></li>
+        <li><a href="service-elektrika.html">Электрика</a></li>
+        <li><a href="service-korpus.html">Корпусные работы</a></li>
+        <li><a href="service-interer.html">Интерьер</a></li>
+        <li><a href="service-proektirovanie.html">Проектирование</a></li>
+        <li><a href="service-upravlenie.html">Управление проектом</a></li>
+        <li><a href="service-zapchasti.html">Оборудование и поставки</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Компания</h4>
+      <ul>
+        <li><a href="#">О нас</a></li>
+        <li><a href="#">Лицензии</a></li>
+        <li><a href="#">Партнёры</a></li>
+        <li><a href="#" onclick="openModal('career'); return false;">Вакансии</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Контакты</h4>
+      <ul>
+        <li><a href="tel:+79217727177">+7 (921) 77-27-177</a></li>
+        <li><a href="/cdn-cgi/l/email-protection#f6869f9a9f8693989d99b69b9b919b82d88483"><span class="__cf_email__" data-cfemail="3040595c5940555e5b5f705d5d575d441e4245">[email&#160;protected]</span></a></li>
+        <li><a href="#">г. Санкт-Петербург,<br>пр. Крузенштерна, 18</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024–2025 Судоремонт. Все права защищены.</span>
+    <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;justify-content:center;">
+      <button onclick="openModal('privacy')" class="footer-modal-btn">Политика конфиденциальности</button>
+      <span>Лицензия Российского морского регистра судоходства</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── MODALS ─── -->
+
+<!-- Политика конфиденциальности -->
+<div class="modal-overlay" id="modal-privacy" onclick="closeModalOutside(event, 'privacy')">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <div class="modal-tag">Документ</div>
+        <h3 class="modal-title">Положение о конфиденциальной информации<br>(коммерческой тайне)</h3>
+        <div class="modal-sub">ООО «Маньяна Менеджмент» · Утверждено 26.02.2024</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('privacy')" aria-label="Закрыть">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2L14 14M14 2L2 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-section-title">1. Общие положения</div>
+      <p>Настоящее Положение устанавливает нормы о сведениях, составляющих коммерческую тайну, режиме коммерческой тайны и условиях её защиты, а также меры ответственности за нарушение установленных требований.</p>
+      <p>Положение разработано в соответствии с ГК РФ, Федеральным законом от 29.07.2004 № 98-ФЗ «О коммерческой тайне», ТК РФ и иными нормативными актами РФ.</p>
+      <p><strong>Коммерческая тайна</strong> — режим конфиденциальности информации, позволяющий её обладателю увеличить доходы, избежать неоправданных расходов, сохранить положение на рынке или получить иную коммерческую выгоду.</p>
+
+      <div class="modal-section-title">2. Права Общества</div>
+      <p>Общество как обладатель коммерческой тайны вправе: устанавливать, изменять и отменять режим коммерческой тайны; разрешать или запрещать доступ к конфиденциальной информации; требовать от контрагентов соблюдения обязанностей по охране конфиденциальности; защищать свои права в случае разглашения или незаконного использования информации.</p>
+
+      <div class="modal-section-title">3. Охрана конфиденциальности</div>
+      <p>Меры по охране конфиденциальности включают: ведение перечня информации, составляющей коммерческую тайну; ограничение доступа и контроль за его соблюдением; нанесение на носители грифа «Коммерческая тайна», «Конфиденциально» или «Для служебного пользования».</p>
+      <p>Работник обязан: соблюдать режим коммерческой тайны; не разглашать конфиденциальные сведения в течение 3 лет после прекращения трудового договора (если иное не предусмотрено соглашением); возместить Обществу ущерб при виновном разглашении.</p>
+
+      <div class="modal-section-title">4. Перечень сведений, составляющих коммерческую тайну</div>
+      <p>К коммерческой тайне Общества относятся: данные бухгалтерского учёта и отчётности; условия заключённых сделок и договоров; сведения о банковских счетах; секреты производства (ноу-хау); сведения о поставщиках, клиентах и партнёрах; размеры заработной платы; планы инвестиций, закупок и продаж; маркетинговые стратегии и результаты исследований; иные сведения по решению генерального директора.</p>
+
+      <div class="modal-section-title">5. Сведения, не составляющие коммерческую тайну</div>
+      <p>Режим коммерческой тайны не может быть установлен в отношении: сведений из учредительных документов и государственных реестров; данных о численности работников и системе оплаты труда; информации о нарушениях законодательства; перечня лиц, имеющих право действовать без доверенности; иных сведений, раскрытие которых предписано законодательством РФ.</p>
+
+      <div class="modal-section-title">6. Ответственность</div>
+      <p>Нарушение Положения влечёт дисциплинарную, гражданско-правовую, административную или уголовную ответственность в соответствии с законодательством Российской Федерации.</p>
+
+    </div>
+  </div>
+</div>
+
+<!-- Карьера -->
+<div class="modal-overlay" id="modal-career" onclick="closeModalOutside(event, 'career')">
+  <div class="modal-box modal-box--narrow">
+    <div class="modal-header">
+      <div>
+        <div class="modal-tag">Карьера</div>
+        <h3 class="modal-title">Работа в ООО «Маньяна Менеджмент»</h3>
+      </div>
+      <button class="modal-close" onclick="closeModal('career')" aria-label="Закрыть">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2L14 14M14 2L2 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-lead">Мы ценим в своих работниках стремление к достижению результата, готовность работать в команде и брать на себя ответственность.</p>
+      <p>Чтобы начать свою карьеру в ООО «Маньяна Менеджмент», пришлите ваше резюме на электронную почту:</p>
+      <a href="/cdn-cgi/l/email-protection#f891969e97b895959f958cd68a8d" class="modal-email-btn">
+        <svg width="18" height="14" viewBox="0 0 18 14" fill="none"><rect x="1" y="1" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M1 3L9 8L17 3" stroke="currentColor" stroke-width="1.5"/></svg>
+        <span class="__cf_email__" data-cfemail="5c35323a331c31313b3128722e29">[email&#160;protected]</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+document.addEventListener('DOMContentLoaded', () => {
+  // ─── MODALS ───
+  function openModal(id) {
+    const sw = window.innerWidth - document.documentElement.clientWidth;
+    document.documentElement.style.setProperty('--scrollbar-w', sw + 'px');
+    document.getElementById('modal-' + id).classList.add('open');
+    document.body.classList.add('modal-open');
+  }
+  function closeModal(id) {
+    document.getElementById('modal-' + id).classList.remove('open');
+    document.body.classList.remove('modal-open');
+    document.documentElement.style.setProperty('--scrollbar-w', '0px');
+  }
+  function closeModalOutside(e, id) {
+    if (e.target === document.getElementById('modal-' + id)) closeModal(id);
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      ['privacy', 'career'].forEach(id => closeModal(id));
+    }
+  });
+
+  // ─── COUNTER ANIMATION ───
+  const counters = document.querySelectorAll('.stat-number[data-target]');
+  function animateCounter(el) {
+    const target = +el.dataset.target;
+    const suffix = el.dataset.suffix || '';
+    const duration = 1600;
+    const step = target / (duration / 16);
+    let current = 0;
+    const timer = setInterval(() => {
+      current = Math.min(current + step, target);
+      el.textContent = Math.floor(current) + suffix;
+      if (current >= target) { el.textContent = target + suffix; clearInterval(timer); }
+    }, 16);
+  }
+  const counterObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      animateCounter(entry.target);
+      counterObs.unobserve(entry.target);
+    });
+  }, { threshold: 0.1, rootMargin: '200px 0px 0px 0px' });
+  counters.forEach(el => counterObs.observe(el));
+
+  // ─── NAV SHADOW ───
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // ─── BURGER MENU ───
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+    document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      burger.classList.remove('open');
+      navLinks.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // ─── SCROLL REVEAL ───
+  document.querySelectorAll('.service-card').forEach(el => el.classList.add('reveal'));
+  document.querySelectorAll('.services, .works, .about-strip, .process, .faq, .cta-banner')
+    .forEach(el => el.classList.add('reveal-section'));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal, .reveal-section').forEach(el => observer.observe(el));
+
+  // ─── WORKS GALLERY ───
+  const track = document.getElementById('worksTrack');
+  const wrap  = document.getElementById('worksWrap');
+  const CARD_W = () => wrap.querySelector('.work-card')?.offsetWidth + 20 || 400;
+
+  // Build pagination dots
+  const dotsContainer = document.getElementById('worksDots');
+  if (wrap && dotsContainer) {
+    const cards = wrap.querySelectorAll('.work-card');
+    cards.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'works-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Карточка ' + (i + 1));
+      dot.addEventListener('click', () => {
+        wrap.scrollTo({ left: i * CARD_W(), behavior: 'smooth' });
+      });
+      dotsContainer.appendChild(dot);
+    });
+    function updateDots() {
+      const idx = Math.round(wrap.scrollLeft / CARD_W());
+      dotsContainer.querySelectorAll('.works-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === idx);
+      });
+    }
+    wrap.addEventListener('scroll', updateDots, { passive: true });
+  }
+
+  // Стрелки
+  document.getElementById('worksNext')?.addEventListener('click', () => {
+    wrap.scrollBy({ left: CARD_W() * 2, behavior: 'smooth' });
+  });
+  document.getElementById('worksPrev')?.addEventListener('click', () => {
+    wrap.scrollBy({ left: -CARD_W() * 2, behavior: 'smooth' });
+  });
+
+  // Превращаем track-wrap в scrollable
+  if (wrap) {
+    wrap.style.overflowX = 'auto';
+    wrap.style.scrollBehavior = 'smooth';
+    wrap.style.scrollbarWidth = 'none'; // Firefox
+    wrap.style.msOverflowStyle = 'none'; // IE
+    // Chrome/Safari
+    const style = document.createElement('style');
+    style.textContent = '#worksWrap::-webkit-scrollbar { display: none; }';
+    document.head.appendChild(style);
+
+    // Drag-scroll using pointer events (avoids trackpad conflicts)
+    let isDown = false, startX, scrollLeft;
+    let hasDragged = false;
+
+    wrap.addEventListener('pointerdown', e => {
+      // Only primary button (left click), not trackpad scroll
+      if (e.pointerType === 'touch') return;
+      isDown = true; hasDragged = false;
+      wrap.setPointerCapture(e.pointerId);
+      wrap.style.cursor = 'grabbing';
+      startX = e.clientX;
+      scrollLeft = wrap.scrollLeft;
+    });
+    wrap.addEventListener('pointermove', e => {
+      if (!isDown || e.pointerType === 'touch') return;
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > 5) hasDragged = true;
+      wrap.scrollLeft = scrollLeft - dx;
+    });
+    wrap.addEventListener('pointerup', e => {
+      if (e.pointerType === 'touch') return;
+      isDown = false;
+      wrap.style.cursor = 'grab';
+    });
+    wrap.addEventListener('pointercancel', () => { isDown = false; wrap.style.cursor = 'grab'; });
+  }
+
+  // ─── FAQ ACCORDION ───
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const q = item.querySelector('.faq-question');
+    const a = item.querySelector('.faq-answer');
+
+    // Инициализация — открытый элемент
+    if (item.classList.contains('open')) {
+      a.style.maxHeight = a.scrollHeight + 'px';
+    }
+
+    q.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+
+      // Закрываем все
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-answer').style.maxHeight = '0';
+      });
+
+      // Открываем кликнутый (если был закрыт)
+      if (!isOpen) {
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // ─── WAVY FOOTER ───
+  const wavyEl = document.getElementById('wavyFooter');
+  if (wavyEl) {
+    'СУДОРЕМОНТ'.split('').forEach(ch => {
+      const s = document.createElement('span');
+      s.textContent = ch === ' ' ? '\u00A0' : ch;
+      wavyEl.appendChild(s);
+    });
+  }
+
+  // contacts dropdown removed
+
+  // ─── HERO IMAGE PARALLAX ───
+  const heroDeco = document.querySelector('.hero-deco');
+  const heroSection = document.querySelector('.hero');
+  let rafParallax = null;
+  function updateHeroParallax() {
+    if (!heroDeco || !heroSection || window.innerWidth <= 600) return;
+    const heroRect = heroSection.getBoundingClientRect();
+    const heroH = heroSection.offsetHeight;
+    const scrolled = Math.max(0, -heroRect.top);
+    const progress = Math.min(scrolled / heroH, 1);
+    const offset = progress * heroH * 0.42;
+    heroDeco.style.transform = `translateY(calc(-50% + ${offset}px))`;
+    rafParallax = null;
+  }
+  window.addEventListener('scroll', () => {
+    if (!rafParallax) rafParallax = requestAnimationFrame(updateHeroParallax);
+  }, { passive: true });
+  updateHeroParallax();
+
+  // ─── TYPEWRITER BIDIRECTIONAL ───
+  const twEl = document.getElementById('aboutTypewriter');
+  const TEXT = 'НЕВОЗМОЖНОГО МАЛО'; // 17 символов — курсор после О
+  const TYPE_SPEED  = 80;   // мс на букву при печати
+  const DEL_SPEED   = 45;   // мс на букву при стирании
+  const PAUSE_FULL  = 2200; // пауза когда текст напечатан
+  const PAUSE_EMPTY = 600;  // пауза когда текст стёрт
+
+  let twIndex = 0, twTimer = null, twStarted = false;
+
+  function twTick() {
+    if (!twEl) return;
+    twIndex++;
+    twEl.textContent = TEXT.slice(0, twIndex);
+    if (twIndex < TEXT.length) {
+      twTimer = setTimeout(twTick, TYPE_SPEED);
+    }
+    // when done: cursor keeps blinking — no deletion
+  }
+
+  if (twEl) {
+    // Запускаем когда блок попадает в видимость
+    const twObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !twStarted) {
+          twStarted = true;
+          twTimer = setTimeout(twTick, 400);
+        }
+      });
+    }, { threshold: 0.4 });
+    twObs.observe(twEl);
+  }
+
+  // ─── FORM SUBMIT ───
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target;
+    const consent = document.getElementById('f-consent');
+    if (consent && !consent.checked) {
+      consent.focus();
+      consent.closest('.cta-consent').style.outline = '2px solid rgba(255,100,100,0.7)';
+      setTimeout(() => { consent.closest('.cta-consent').style.outline = ''; }, 2000);
+      return;
+    }
+    const phone = document.getElementById('f-phone')?.value || '';
+    const work  = document.getElementById('f-work')?.value || '';
+    const subject = encodeURIComponent('Новая заявка с сайта remont-katerov.ru');
+    const body    = encodeURIComponent(
+      `Телефон: ${phone}\nПроблема: ${work}`
+    );
+    window.location.href = `mailto:pilipenko@mmgmt.ru?subject=${subject}&body=${body}`;
+    btn.textContent = 'Заявк�
