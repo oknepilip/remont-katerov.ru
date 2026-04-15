@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ДИАГНОСТИКА — remont-katerov.ru</title>
+  <!-- Preconnect для ускорения загрузки шрифтов -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:       #f5f3ef;
+      --bg2:      #edeae4;
+      --surface:  #ffffff;
+      --navy:     #1a2535;
+      --steel:    #2c3e55;
+      --mid:      #5a6a7e;
+      --silver:   #8a9ab5;
+      --light:    #c4cdd8;
+      --accent:   #1e4d8c;
+      --accent2:  #f06a00;
+      --rust:     #b84a1a;
+      --white:    #ffffff;
+      --text:     #1a2535;
+      --text2:    #3d4f63; /* улучшен контраст на бежевом */
+    }
+
+    body.modal-open { overflow: hidden; padding-right: var(--scrollbar-w, 0px); }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ─── NOISE ─── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 48px; height: 72px;
+      background: rgba(245,243,239,0.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(26,37,53,0.08);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 24px rgba(26,37,53,0.08); }
+
+    .logo { display: flex; flex-direction: row; align-items: center; gap: 12px; text-decoration: none; flex-shrink: 0; }
+    .logo-icon { width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .logo-icon img { width: 52px; height: 52px; object-fit: contain; mix-blend-mode: multiply; }
+    .logo-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 3px; color: var(--navy); line-height: 1; }
+    .logo-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; letter-spacing: 4px; color: var(--mid); text-transform: uppercase; margin-top: 2px; }
+
+    .nav-links { display: flex; gap: 0; list-style: none; align-items: center; }
+    .nav-links li a {
+      display: block; color: var(--mid); text-decoration: none;
+      font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
+      font-weight: 500; padding: 8px 14px; border-radius: 4px;
+      transition: color 0.2s, background 0.2s; white-space: nowrap;
+    }
+    .nav-links li a:hover { color: var(--accent); background: rgba(30,77,140,0.07); }
+
+    /* [9] Активный пункт навигации */
+    .nav-links li a.nav-active {
+      color: var(--accent);
+      background: rgba(30,77,140,0.08);
+      font-weight: 600;
+    }
+
+    .nav-links .nav-cta-li a {
+      background: var(--accent); color: var(--white) !important;
+      padding: 9px 20px; margin-left: 8px; border-radius: 3px;
+      font-weight: 600 !important; letter-spacing: 1.5px;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .nav-links .nav-cta-li a:hover {
+      background: #163d70 !important; transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(30,77,140,0.28);
+    }
+
+    /* Телефон + кнопка в правой части навбара */
+    .nav-right-block {
+      display: flex; align-items: center; gap: 10px;
+      margin-left: 4px; flex-shrink: 0;
+    }
+    .nav-phone {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px; font-weight: 600; letter-spacing: 1px;
+      color: var(--navy); text-decoration: none;
+      white-space: nowrap; transition: color 0.2s;
+    }
+    .nav-phone:hover { color: var(--accent); }
+    .nav-cta-btn {
+      background: var(--accent); color: var(--white) !important;
+      padding: 9px 20px; margin-left: 8px; border-radius: 3px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 600 !important; letter-spacing: 1.5px;
+      text-transform: uppercase; text-decoration: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .nav-cta-btn:hover {
+      background: #163d70; transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(30,77,140,0.28);
+    }
+    .nav-cta-li { list-style: none; }
+    @media (max-width: 860px) {
+      .nav-right-block { display: none; }
+    }
+
+    /* ─── BURGER (mobile) ─── */
+    .nav-burger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 10px; z-index: 200; flex-shrink: 0; }
+    .nav-burger span { display: block; width: 24px; height: 2px; background: var(--navy); transition: transform 0.3s, opacity 0.3s; transform-origin: center; }
+    .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ─── HERO ─── */
+    .service-hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 0 60px 70px;
+      overflow: hidden; background: var(--bg);
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(30,77,140,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30,77,140,0.06) 1px, transparent 1px);
+      background-size: 80px 80px; z-index: 0;
+    }
+    .hero-glow-inner {
+      position: absolute; top: -10%; right: -5%;
+      width: 70%; height: 100%;
+      background: radial-gradient(ellipse 70% 80% at 70% 40%, rgba(30,77,140,0.08) 0%, transparent 70%);
+      z-index: 0;
+    }
+    .hero-waterline {
+      position: absolute; left: 0; right: 0;
+      bottom: 140px; height: 3px;
+      z-index: 2; overflow: hidden; background: none;
+    }
+    .hero-waterline svg {
+      position: absolute; bottom: 0; left: -200px;
+      width: calc(100% + 400px); height: 10px;
+      animation: wavemove 4s linear infinite;
+    }
+    @keyframes wavemove { 0% { transform: translateX(0); } 100% { transform: translateX(200px); } }
+
+    .hero-ship-illustration {
+      position: absolute; right: -20%; top: 50%;
+      transform: translateY(-58%);
+      width: 108%; z-index: 1; pointer-events: none;
+    }
+    .hero-ship-illustration img {
+      width: 100%; height: auto; display: block;
+      opacity: 0.2; mix-blend-mode: multiply;
+    }
+    .hero-content { position: relative; z-index: 4; max-width: 700px; }
+
+    .service-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; letter-spacing: 5px;
+      color: var(--accent2); text-transform: uppercase;
+      margin-bottom: 16px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .service-eyebrow::before {
+      content: ''; display: inline-block;
+      width: 32px; height: 1px; background: var(--accent2);
+    }
+
+    /* [1] Крупный H1 с названием услуги */
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(64px, 9vw, 120px);
+      line-height: 0.88; letter-spacing: 2px;
+      color: var(--navy); margin-bottom: 20px;
+    }
+    .hero-title .accent { color: var(--accent); }
+
+    .hero-sub {
+      font-size: 16px; line-height: 1.75;
+      color: var(--text2); max-width: 480px;
+      margin-bottom: 28px; font-weight: 400;
+    }
+    .hero-buttons { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+    .hero-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--mid); border: 1px solid rgba(26,37,53,0.18); padding: 5px 12px;
+    }
+    .scroll-indicator {
+      position: absolute; bottom: 36px; right: 60px;
+      z-index: 10; display: flex; align-items: center; gap: 12px;
+      color: var(--silver); font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    }
+    .scroll-line {
+      width: 40px; height: 1px;
+      background: var(--light); position: relative; overflow: hidden;
+    }
+    .scroll-line::after {
+      content: ''; position: absolute; left: -100%; top: 0;
+      width: 100%; height: 100%; background: var(--accent2);
+      animation: scrollAnim 2s infinite;
+    }
+    @keyframes scrollAnim { 0% { left: -100%; } 100% { left: 100%; } }
+
+    /* ─── SECTION SHARED ─── */
+    .section-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; letter-spacing: 5px; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 16px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .section-tag::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--accent2); }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 5vw, 60px);
+      line-height: 0.95; letter-spacing: 1px;
+      color: var(--navy); margin-bottom: 20px;
+    }
+
+    /* ─── OVERVIEW ─── [2] убрали дублирующий список, оставили описание + sidebar ─── */
+    .overview {
+      padding: 70px 60px;
+      display: grid; grid-template-columns: 1fr 340px;
+      gap: 60px; align-items: start;
+      position: relative; z-index: 1;
+    }
+    .overview-desc {
+      font-size: 15px; line-height: 1.85; color: var(--text2);
+      margin-bottom: 28px; max-width: 580px;
+    }
+
+    /* Сетка преимуществ вместо дублирующего списка */
+    .benefits-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+      margin-top: 8px;
+    }
+    .benefit-item {
+      background: var(--surface);
+      border: 1px solid rgba(26,37,53,0.08);
+      padding: 18px 20px;
+      display: flex; gap: 14px; align-items: flex-start;
+      transition: box-shadow 0.25s, border-color 0.25s;
+    }
+    .benefit-item:hover { box-shadow: 0 4px 16px rgba(26,37,53,0.07); border-color: rgba(30,77,140,0.14); }
+    .benefit-icon {
+      width: 36px; height: 36px; flex-shrink: 0;
+      background: rgba(30,77,140,0.07);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .benefit-icon svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .benefit-title { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--navy); margin-bottom: 4px; }
+    .benefit-desc { font-size: 12px; line-height: 1.6; color: var(--text2); }
+
+    /* ─── SIDEBAR CTA ─── */
+    .sidebar-cta {
+      position: sticky; top: 88px;
+      background: var(--navy); padding: 36px;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .sidebar-cta-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--accent2);
+    }
+    .sidebar-cta h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 30px; color: var(--white); letter-spacing: 1px; line-height: 1;
+    }
+    .sidebar-cta p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.7; }
+
+    /* [5] Встроенная мини-форма в sidebar вместо ссылки на главную */
+    .sidebar-form { display: flex; flex-direction: column; gap: 8px; }
+    .sidebar-form input {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--white); padding: 11px 14px;
+      font-family: 'Barlow', sans-serif; font-size: 13px;
+      outline: none; transition: border-color 0.2s, background 0.2s;
+    }
+    .sidebar-form input::placeholder { color: rgba(255,255,255,0.35); }
+    .sidebar-form input:focus { border-color: rgba(255,255,255,0.45); background: rgba(255,255,255,0.12); }
+
+    .sidebar-divider { height: 1px; background: rgba(255,255,255,0.08); }
+    .sidebar-contact { display: flex; flex-direction: column; gap: 8px; }
+    .sidebar-contact a {
+      color: rgba(255,255,255,0.55); text-decoration: none;
+      font-size: 13px; letter-spacing: 0.5px; transition: color 0.2s;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .sidebar-contact a:hover { color: var(--white); }
+    .sidebar-contact svg { opacity: 0.4; flex-shrink: 0; }
+
+    .btn-primary {
+      background: var(--accent); color: var(--white);
+      padding: 14px 28px; font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      text-decoration: none; display: inline-block;
+      transition: background 0.3s, transform 0.2s;
+      border: none; cursor: pointer; width: 100%; text-align: center;
+    }
+    .btn-primary:hover { background: #163d70; transform: translateY(-1px); }
+
+    .btn-ghost {
+      color: var(--navy); padding: 14px 28px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+      text-decoration: none; display: inline-block;
+      border: 1px solid rgba(26,37,53,0.25);
+      transition: border-color 0.3s, color 0.3s;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    .btn-ghost-white {
+      color: rgba(255,255,255,0.65); padding: 13px 28px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+      text-decoration: none; display: inline-block;
+      border: 1px solid rgba(255,255,255,0.18);
+      transition: border-color 0.3s, color 0.3s;
+      width: 100%; text-align: center; box-sizing: border-box;
+    }
+    .btn-ghost-white:hover { border-color: rgba(255,255,255,0.55); color: var(--white); }
+
+    /* ─── DIVIDER ─── */
+    .divider { height: 1px; background: rgba(26,37,53,0.08); margin: 0 60px; }
+
+    /* ─── TABLE SECTION ─── */
+    .table-section { padding: 70px 60px; }
+    .table-section .section-title { margin-bottom: 32px; }
+
+    .diag-table-wrap { overflow-x: auto; border: 1px solid rgba(26,37,53,0.1); }
+    .diag-table { width: 100%; border-collapse: collapse; font-family: 'Barlow', sans-serif; background: var(--surface); }
+    .diag-table thead tr { background: var(--navy); }
+    .diag-table thead th {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      padding: 14px 20px; text-align: left; font-weight: 600;
+      border-bottom: 2px solid var(--accent2);
+    }
+    .diag-table thead th:first-child { color: rgba(255,255,255,0.8); width: 50%; }
+    .diag-table tbody tr { border-bottom: 1px solid rgba(26,37,53,0.06); transition: background 0.2s; }
+    .diag-table tbody tr:nth-child(odd) { background: var(--surface); }
+    .diag-table tbody tr:nth-child(even) { background: var(--bg); }
+    .diag-table tbody tr:hover { background: rgba(30,77,140,0.04); }
+    .diag-table tbody tr.row-accent { border-left: 3px solid var(--accent2); }
+    .diag-table tbody tr.row-accent td:first-child { font-weight: 500; color: var(--navy); }
+    .diag-table tbody td { padding: 13px 20px; font-size: 13px; color: var(--text2); line-height: 1.5; vertical-align: top; }
+    .diag-table tbody td:first-child { color: var(--text); font-weight: 400; font-size: 13px; }
+
+    /* [4] Колонки «Выезд» и «Документ» убраны из вёрстки — остались Вид / Метод / Срок */
+
+    .method-tag {
+      display: inline-block; font-family: 'Barlow Condensed', sans-serif;
+      font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+      padding: 3px 8px; margin: 2px 2px 2px 0;
+    }
+    .tag-blue { background: rgba(30,77,140,0.1); color: var(--accent); }
+    .tag-orange { background: rgba(240,106,0,0.1); color: var(--accent2); }
+    .tag-dark { background: rgba(26,37,53,0.08); color: var(--mid); }
+
+    .row-num { font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 2px; color: var(--accent2); display: block; margin-bottom: 2px; }
+
+    .table-group-header td {
+      background: rgba(30,77,140,0.06) !important;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--accent) !important; padding: 9px 20px !important;
+      font-weight: 700; border-left: 3px solid var(--accent);
+    }
+
+    /* ─── PROCESS STRIP ─── */
+    .process-strip {
+      background: var(--bg2); padding: 50px 60px;
+      position: relative; overflow: hidden;
+    }
+    .process-strip .section-tag { color: var(--accent2); }
+    .process-strip .section-tag::before { background: var(--accent2); }
+
+    .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 30px; position: relative; }
+    .process-steps::before {
+      content: ''; position: absolute; top: 27px; left: 28px; right: 28px; height: 1px;
+      background: linear-gradient(90deg, var(--accent), rgba(30,77,140,0.3), rgba(30,77,140,0.08));
+      z-index: 0;
+    }
+    .process-step { padding: 0 36px 0 0; position: relative; z-index: 1; }
+    .process-step:last-child { padding-right: 0; }
+    .step-num {
+      width: 56px; height: 56px; border: 1.5px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--accent);
+      margin-bottom: 14px; background: var(--bg2); position: relative; z-index: 1;
+    }
+    .step-title { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--navy); margin-bottom: 8px; }
+    .step-desc { font-size: 13px; line-height: 1.75; color: var(--text2); }
+
+    /* [7] Метка времени в шаге */
+    .step-time {
+      display: inline-block; margin-top: 8px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--accent2); border: 1px solid rgba(240,106,0,0.25); padding: 3px 8px;
+    }
+
+    /* ─── EQUIPMENT SECTION ─── */
+    .equipment-section { padding: 70px 60px; background: var(--bg); }
+    .equipment-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
+    .equipment-card {
+      background: var(--surface); border: 1px solid rgba(26,37,53,0.08);
+      padding: 24px 26px; transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .equipment-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.4s;
+    }
+    .equipment-card:hover { box-shadow: 0 8px 32px rgba(26,37,53,0.09); transform: translateY(-2px); border-color: rgba(30,77,140,0.14); }
+    .equipment-card:hover::before { transform: scaleX(1); }
+    .equip-icon { width: 44px; height: 44px; background: rgba(30,77,140,0.07); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+    .equip-icon svg { width: 22px; height: 22px; stroke: var(--accent); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .equip-name { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1px; color: var(--navy); margin-bottom: 6px; }
+    .equip-desc { font-size: 12px; line-height: 1.7; color: var(--text2); }
+    .equip-specs { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+    .equip-spec {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--accent); background: rgba(30,77,140,0.07); padding: 3px 8px;
+    }
+
+    /* ─── CTA BANNER перед футером ─── [3] ─── */
+    .cta-banner {
+      position: relative; padding: 64px 60px;
+      overflow: hidden; background: var(--accent);
+      display: flex; justify-content: space-between; align-items: center; gap: 40px;
+    }
+    .cta-banner::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .cta-banner::after {
+      content: ''; position: absolute; top: -100px; right: -60px;
+      width: 500px; height: 500px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .cta-text { position: relative; z-index: 1; }
+    .cta-text h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 5vw, 68px); line-height: 0.95;
+      color: var(--white); margin-bottom: 14px;
+    }
+    .cta-text h2 span { color: var(--accent2); }
+    .cta-text p { font-size: 15px; color: rgba(255,255,255,0.65); max-width: 380px; line-height: 1.7; }
+    .cta-form {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; gap: 10px; min-width: 340px;
+    }
+    .cta-form input {
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+      color: var(--white); padding: 14px 20px;
+      font-family: 'Barlow', sans-serif; font-size: 14px; outline: none;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .cta-form input::placeholder { color: rgba(255,255,255,0.45); }
+    .cta-form input:focus { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.15); }
+    .cta-form .btn-send {
+      background: var(--accent2); color: var(--white); padding: 15px 24px;
+      font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase; border: none; cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .cta-form .btn-send:hover { background: #d45a00; transform: translateY(-1px); }
+
+    /* ─── FOOTER ─── */
+    footer { background: var(--navy); padding: 60px 60px 20px; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 50px; margin-bottom: 0; padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .footer-brand p { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.8; max-width: 280px; margin-top: 16px; }
+    .footer-logo-name { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 4px; color: var(--white); }
+    .footer-logo-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; letter-spacing: 5px; color: rgba(255,255,255,0.35); text-transform: uppercase; margin-top: 3px; }
+    .footer-col h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent2); margin-bottom: 20px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 10px; }
+    .footer-col a { color: rgba(255,255,255,0.45); text-decoration: none; font-size: 13px; transition: color 0.3s; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: rgba(255,255,255,0.25); padding-top: 4px; }
+
+    /* ─── REVEAL ─── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+    .reveal-d3 { transition-delay: 0.3s; }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 860px) {
+      nav { padding: 0 20px; height: 64px; }
+      .nav-links {
+        display: none; flex-direction: column;
+        position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(245,243,239,0.98); backdrop-filter: blur(16px);
+        justify-content: center; align-items: center;
+        gap: 8px; z-index: 150;
+        opacity: 0; pointer-events: none; transition: opacity 0.3s;
+      }
+      .nav-links.open { display: flex; opacity: 1; pointer-events: all; }
+      .nav-links li a { font-size: 18px; letter-spacing: 3px; padding: 12px 28px; }
+      .nav-links .nav-cta-li a { margin-left: 0; padding: 14px 40px !important; margin-top: 8px; }
+      .nav-burger { display: flex; }
+
+      .service-hero { padding: 0 20px 60px; min-height: 100svh; justify-content: flex-end; }
+      .hero-content { max-width: 100%; }
+      .hero-title { font-size: clamp(52px, 13vw, 82px); }
+      .hero-sub { font-size: 15px; max-width: 100%; }
+      .hero-buttons { flex-direction: column; align-items: stretch; gap: 12px; }
+      .btn-primary, .btn-ghost { text-align: center; width: 100%; }
+      .hero-ship-illustration { right: -30%; top: 10%; transform: none; width: 120%; }
+      .hero-ship-illustration img { opacity: 0.12; }
+      .scroll-indicator { right: 20px; bottom: 20px; }
+      .hero-waterline { bottom: 100px; }
+
+      .overview { padding: 40px 24px; grid-template-columns: 1fr; gap: 32px; }
+      .benefits-grid { grid-template-columns: 1fr; }
+      .sidebar-cta { position: static; }
+
+      .divider { margin: 0 24px; }
+
+      .table-section { padding: 40px 24px; }
+      /* [4] На мобиле таблица уже 3-колоночная (Вид / Метод / Срок) — ничего не скрываем */
+
+      .process-strip { padding: 40px 24px; }
+      .process-steps { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .process-steps::before { display: none; }
+      .process-step { padding: 0; }
+
+      .equipment-section { padding: 40px 24px; }
+      .equipment-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+
+      .cta-banner { flex-direction: column; padding: 40px 24px; gap: 28px; align-items: flex-start; }
+      .cta-form { min-width: unset; width: 100%; }
+
+      footer { padding: 40px 20px 20px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 28px; padding-bottom: 28px; }
+      .footer-brand { grid-column: 1 / -1; }
+      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+    }
+
+    @media (max-width: 540px) {
+      .overview { padding: 32px 16px; }
+      .table-section { padding: 32px 16px; }
+      .process-strip { padding: 32px 16px; }
+      .process-steps { grid-template-columns: 1fr; gap: 24px; }
+      .equipment-section { padding: 32px 16px; }
+      .equipment-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .cta-banner { padding: 32px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav id="mainNav">
+  <a href="index.html" class="logo">
+    <div class="logo-icon"><img src="logo.jpg" alt="remont-katerov.ru"></div>
+    <div style="display:flex;flex-direction:column;">
+      <div class="logo-name">REMONT-KATEROV.RU</div>
+      <div class="logo-sub">Профессиональный судоремонт</div>
+    </div>
+  </a>
+  <button class="nav-burger" id="burger" aria-label="Меню">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html#services" class="nav-active">Услуги</a></li>
+    <li><a href="works.html">Наши работы</a></li>
+    <li><a href="engines.html">Каталог</a></li>
+    <li><a href="knowledge.html">База знаний</a></li>
+    <li><a href="index.html#faq">FAQ</a></li>
+  </ul>
+  <div class="nav-right-block">
+    <a href="tel:+79217727177" class="nav-phone">+7 (921) 77-27-177</a>
+    <a href="#contact" class="nav-cta-btn">Заявка</a>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<div class="service-hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow-inner"></div>
+  <div class="hero-waterline">
+    <svg viewBox="0 0 1200 10" preserveAspectRatio="none">
+      <path d="M0,5 C100,0 200,10 300,5 C400,0 500,10 600,5 C700,0 800,10 900,5 C1000,0 1100,10 1200,5"
+            stroke="rgba(240,106,0,0.55)" stroke-width="1.5" fill="none"/>
+    </svg>
+  </div>
+  <div class="hero-ship-illustration">
+    <img src="ship-illustration.png" alt="Судно" />
+  </div>
+  <div class="hero-content">
+    <!-- [1] Крупный H1 с названием услуги вынесен отдельно -->
+    <div class="service-eyebrow">remont-katerov.ru · Услуги</div>
+    <h1 class="hero-title">ДИАГНОСТИКА</h1>
+    <p class="hero-sub">Комплексное техническое обследование судовых систем с применением современного оборудования — от двигателей и электрики до корпуса и интерьера</p>
+    <div class="hero-buttons">
+      <a href="#contact" class="btn-primary">Оставить заявку</a>
+      <a href="#table" class="btn-ghost">Виды диагностики</a>
+    </div>
+    <div class="hero-tags">
+      <div class="hero-tag">Ультразвуковой контроль</div>
+      <div class="hero-tag">Вибродиагностика</div>
+      <div class="hero-tag">Эндоскопия</div>
+      <div class="hero-tag">НК и дефектоскопия</div>
+      <div class="hero-tag">Компьютерная диагностика</div>
+      <div class="hero-tag">Выезд на судно</div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    Прокрутить
+  </div>
+</div>
+
+<!-- ─── OVERVIEW ─── [2] Дублирующий список заменён на блок преимуществ ─── -->
+<section class="overview">
+  <div class="overview-left reveal">
+    <div class="section-tag">О направлении</div>
+    <h2 class="section-title">ЗАЧЕМ<br>ДИАГНОСТИКА</h2>
+    <p class="overview-desc">
+      Диагностика — обязательный первый шаг перед любым ремонтом. Мы точно определяем объём и причины неисправностей, исключая непредвиденные расходы и простой судна. Работаем на борту без демонтажа оборудования.
+    </p>
+    <div class="benefits-grid">
+      <div class="benefit-item">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <div class="benefit-title">Точный диагноз</div>
+          <div class="benefit-desc">Выявляем скрытые дефекты без разборки агрегатов — УЗК, эндоскопия, вибрация</div>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <div class="benefit-title">Быстро</div>
+          <div class="benefit-desc">Базовое обследование — 1 день. Отчёт с ведомостью дефектов и сметой — в течение 24 ч</div>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div>
+          <div class="benefit-title">Документация</div>
+          <div class="benefit-desc">Дефектная ведомость, протоколы НК, фотоотчёт — готовы к предъявлению страховой или регистру</div>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <div>
+          <div class="benefit-title">Выезд по всему миру</div>
+          <div class="benefit-desc">Бригада прибывает туда, где стоит судно — Европа, Турция, ОАЭ, Юго-Восточная Азия</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- [5] Sidebar: форма прямо на странице, якорь внутри страницы -->
+  <div class="reveal reveal-d1">
+    <div class="sidebar-cta">
+      <div class="sidebar-cta-tag">Заявка на диагностику</div>
+      <h3>ЗАКАЗАТЬ ВЫЕЗД</h3>
+      <p>Опишите судно и симптомы — инженер свяжется в течение 2 часов.</p>
+      <div class="sidebar-form">
+        <input type="text"  id="sb-ship"  placeholder="Судно / компания" />
+        <input type="tel"   id="sb-phone" placeholder="Телефон" />
+        <input type="text"  id="sb-desc"  placeholder="Что беспокоит?" />
+        <button class="btn-primary" onclick="sidebarSubmit(event)">Отправить заявку →</button>
+      </div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-contact">
+        <a href="tel:+79217727177">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          +7 (921) 77-27-177
+        </a>
+        <a href="mailto:pilipenko@mmgmt.ru">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          pilipenko@mmgmt.ru
+        </a>
+      </div>
+      <a href="tel:+79217727177" class="btn-ghost-white">Позвонить сейчас</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── TABLE ─── [4] Убраны колонки «Выезд» и «Документ», [8] тег переименован -->
+<section class="table-section" id="table">
+  <div class="section-tag">Методы и сроки</div>
+  <h2 class="section-title">ВИДЫ ДИАГНОСТИКИ</h2>
+
+  <div class="diag-table-wrap">
+    <table class="diag-table">
+      <thead>
+        <tr>
+          <th>Вид диагностики</th>
+          <th>Метод</th>
+          <th>Срок</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- ── МЕХАНИКА ── -->
+        <tr class="table-group-header"><td colspan="3">Механика</td></tr>
+        <tr class="row-accent">
+          <td><span class="row-num">01</span>Диагностика главного двигателя</td>
+          <td><span class="method-tag tag-blue">Визуальный</span><span class="method-tag tag-orange">Компрессия</span><span class="method-tag tag-dark">OBD/CAN</span></td>
+          <td>3–6 ч</td>
+        </tr>
+        <tr>
+          <td><span class="row-num">02</span>Проверка компрессии / мокрой компрессии</td>
+          <td><span class="method-tag tag-orange">Инструм.</span></td>
+          <td>1–2 ч</td>
+        </tr>
+        <tr>
+          <td><span class="row-num">03</span>Вибродиагностика агрегатов</td>
+          <td><span class="method-tag tag-blue">Виброанализ</span></td>
+          <td>2–4 ч</td>
+        </tr>
+        <tr>
+          <td><span class="row-num">04</span>Анализ масла и охлаждающих жидкостей</td>
+          <td><span class="method-tag tag-dark">Экспресс-анализ</span></td>
+          <td>1–2 ч</td>
+        </tr>
+        <tr>
+          <td><span class="row-num">05</span>Дефектация редуктора и трансмиссии</td>
+          <td><span class="method-tag tag-blue">Визуальный</span><span class="method-tag tag-dark">Замеры</span></td>
+          <td>2–3 ч</td>
+        </tr>
+        <tr>
+          <td><span class="row-num">06</span>Контроль дейдвудного устройства</td>
+          <td><span class="method-tag tag-blue">Визуальный</span><span class="method-tag tag-dark">Замеры</span></td>
+          <td>1–2 ч</td>
+        </tr>
+        <tr>
+          <td><span class="row-num">07</span>Эндоскопия труднодоступных узлов</td>
+          <td><span class="method-tag tag-orange">Эндоскоп</span></td>
+          <td>1–3 ч</td>
+        </tr>
+
+        <!-- ── ЭЛЕКТРИКА ── -->
+        <tr class="table-group-header"><td colspan="3">Электрика и навигация</td></tr>
+        <tr>
+          <td><span class="row-num">08</span>Диагностика электросистем и распредщитов</td>
+          <td><span class="method-tag tag-blue">Визуальный</span><span class="method-tag tag-dark">Мультиметр</span></td>
+          <td>2–4 ч</td>
+        </tr>
+        <tr>
+          <td><span class="row-num">09</span>Тепловизионный контроль электрооборудования</td>
+          <td><span class="method-tag tag-orange">Тепловизор</span></td>
+          <td>1–2 ч</td>
+        </tr>
+        <tr>
+          <td><span class="row-num">10</span>Диагностика генераторов и АКБ</td>
+          <td><span class="method-tag tag-blue">Нагрузочный тест</span><span class="method-tag tag-dark">Осциллограф</span></td>
+          <td>2–3 ч</td>
+        </tr>
+        <tr>
+          <td><span class="row-num">11</span>Компьютерная диагностика (OBD / CAN-bus)</td>
+          <td><span class="method-tag tag-orange">Сканер</span></td>
+          <td>1–2 ч</td>
+        </tr>
+
+        <!-- ── КОРПУС ── -->
+        <tr class="table-group-header"><td colspan="3">Корпус и конструкции</td></tr>
+        <tr>
+          <td><span class="row-num">12</span>Ультразвуковой контроль сварных швов и металла</td>
+          <td><span class="method-tag tag-orange">УЗК</span></td>
+          <td>полдня–1 день</td>
+        </tr>
+        <tr>
+          <td><span class="row-num">13</span>Капиллярный контроль (ПВК)</td>
+          <td><span class="method-tag tag-blue">ПВК</span></td>
+          <td>2–4 ч</td>
+        </tr>
+        <tr>
+          <td><span class="row-num">14</span>Обследование корпуса и набора</td>
+          <td><span class="method-tag tag-blue">Визуальный</span><span class="method-tag tag-orange">УЗК</span></td>
+          <td>1–2 дня</td>
+        </tr>
+
+        <!-- ── ИНТЕРЬЕР ── -->
+        <tr class="table-group-header"><td colspan="3">Интерьер</td></tr>
+        <tr>
+          <td><span class="row-num">15</span>Обследование отделки и обшивки салонов</td>
+          <td><span class="method-tag tag-blue">Визуальный</span><span class="method-tag tag-dark">Влагомер</span></td>
+          <td>2–4 ч</td>
+        </tr>
+        <tr>
+          <td><span class="row-num">16</span>Дефектация мебели и палубного покрытия</td>
+          <td><span class="method-tag tag-blue">Визуальный</span><span class="method-tag tag-dark">Инструм.</span></td>
+          <td>1–3 ч</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── PROCESS ─── [7] Конкретные шаги со сроками ─── -->
+<section class="process-strip">
+  <div class="section-tag">Как проходит</div>
+  <h2 class="section-title">ПРОЦЕСС ДИАГНОСТИКИ</h2>
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-num">01</div>
+      <div class="step-title">Заявка и согласование</div>
+      <div class="step-desc">Вы описываете симптомы, тип судна и его местонахождение. Мы формируем программу обследования и называем точный состав бригады под вашу задачу.</div>
+      <span class="step-time">1–2 часа</span>
+    </div>
+    <div class="process-step">
+      <div class="step-num">02</div>
+      <div class="step-title">Выезд на борт</div>
+      <div class="step-desc">Инженер-диагност прибывает с полным комплектом оборудования: УЗ-толщиномеры, видеоэндоскоп, виброанализатор, тепловизор, сканер OBD/CAN.</div>
+      <span class="step-time">По договорённости</span>
+    </div>
+    <div class="process-step">
+      <div class="step-num">03</div>
+      <div class="step-title">Обследование систем</div>
+      <div class="step-desc">Последовательная инструментальная дефектация согласно программе. Все замеры документируются в режиме реального времени — фото, протоколы, видео.</div>
+      <span class="step-time">Полдня — 2 дня</span>
+    </div>
+    <div class="process-step">
+      <div class="step-num">04</div>
+      <div class="step-title">Отчёт и смета</div>
+      <div class="step-desc">Передаём дефектную ведомость с ранжированием дефектов по критичности, протоколы НК, фотоотчёт и предварительную смету на ремонт.</div>
+      <span class="step-time">До 24 ч после выезда</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EQUIPMENT ─── [6] Карточки заполнены полностью ─── -->
+<section class="equipment-section">
+  <div class="section-tag">Арсенал</div>
+  <h2 class="section-title">ОБОРУДОВАНИЕ</h2>
+  <div class="equipment-grid">
+
+    <div class="equipment-card reveal">
+      <div class="equip-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <div class="equip-name">УЗ-толщиномеры и дефектоскопы</div>
+      <div class="equip-desc">Ультразвуковое измерение остаточной толщины обшивки и выявление расслоений металла без вскрытия. Точность — до 0,1 мм.</div>
+      <div class="equip-specs">
+        <span class="equip-spec">Olympus 38DL Plus</span>
+        <span class="equip-spec">USM Go+</span>
+      </div>
+    </div>
+
+    <div class="equipment-card reveal reveal-d1">
+      <div class="equip-icon">
+        <svg viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+      </div>
+      <div class="equip-name">Видеоэндоскоп</div>
+      <div class="equip-desc">Гибкий зонд с HD-камерой и LED-подсветкой для обследования цилиндров, клапанов, трубопроводов и труднодоступных полостей без разборки.</div>
+      <div class="equip-specs">
+        <span class="equip-spec">Зонд 6 мм</span>
+        <span class="equip-spec">Длина 3–10 м</span>
+        <span class="equip-spec">HD 720p</span>
+      </div>
+    </div>
+
+    <div class="equipment-card reveal reveal-d2">
+      <div class="equip-icon">
+        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <div class="equip-name">Виброанализатор</div>
+      <div class="equip-desc">Многоканальный сборщик данных вибрации с FFT-анализом для выявления дисбаланса, расцентровки, износа подшипников и зубьев редуктора.</div>
+      <div class="equip-specs">
+        <span class="equip-spec">4 канала</span>
+        <span class="equip-spec">FFT-анализ</span>
+        <span class="equip-spec">Диагностика in-situ</span>
+      </div>
+    </div>
+
+    <div class="equipment-card reveal">
+      <div class="equip-icon">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <div class="equip-name">Тепловизор</div>
+      <div class="equip-desc">Инфракрасная съёмка для поиска перегрева в электрических соединениях, неплотностей в изоляции, скрытой коррозии под покрытием.</div>
+      <div class="equip-specs">
+        <span class="equip-spec">Flir E8 Pro</span>
+        <span class="equip-spec">Разр. 320×240</span>
+        <span class="equip-spec">−20 до +550°C</span>
+      </div>
+    </div>
+
+    <div class="equipment-card reveal reveal-d1">
+      <div class="equip-icon">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </div>
+      <div class="equip-name">Нутромеры и микрометры</div>
+      <div class="equip-desc">Прецизионный ручной инструмент для замера диаметральных зазоров, овальности шеек, износа цилиндров и посадочных поверхностей.</div>
+      <div class="equip-specs">
+        <span class="equip-spec">Точность 0,001 мм</span>
+        <span class="equip-spec">Диапазон 6–600 мм</span>
+      </div>
+    </div>
+
+    <div class="equipment-card reveal reveal-d2">
+      <div class="equip-icon">
+        <svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2v-4M9 21H5a2 2 0 01-2-2v-4m0 0h18"/></svg>
+      </div>
+      <div class="equip-name">Сканер OBD / CAN-bus</div>
+      <div class="equip-desc">Считывание кодов ошибок, параметров работы двигателя в реальном времени, логирование данных для анализа нестабильных симптомов.</div>
+      <div class="equip-specs">
+        <span class="equip-spec">Volvo Penta VODIA</span>
+        <span class="equip-spec">Yanmar Diagmaster</span>
+        <span class="equip-spec">MAN Cats III</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── CTA BANNER перед футером ─── [3] ─── -->
+<section class="cta-banner" id="contact">
+  <div class="cta-text">
+    <h2>ГОТОВЫ<br>К <span>ВЫЕЗДУ</span><br>НА БОРТ</h2>
+    <p>Оставьте заявку — инженер свяжется в течение 2 часов. Выезжаем по всему миру туда, где стоит ваше судно.</p>
+  </div>
+  <div class="cta-form">
+    <input type="text" id="f-ship"     placeholder="Название судна / компании" />
+    <input type="tel"  id="f-phone"    placeholder="Телефон для связи" />
+    <input type="text" id="f-work"     placeholder="Что нужно диагностировать?" />
+    <input type="text" id="f-location" placeholder="Местонахождение судна" />
+    <button class="btn-send" onclick="handleSubmit(event)">Отправить заявку →</button>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo-name">СУДОРЕМОНТ</div>
+      <div class="footer-logo-sub">remont-katerov.ru</div>
+      <p>Комплексный судоремонт для морского и речного флота. Работаем по всему миру.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Направления</h4>
+      <ul>
+        <li><a href="service-diagnostika.html">Диагностика</a></li>
+        <li><a href="service-mechanika.html">Механика</a></li>
+        <li><a href="service-elektrika.html">Электрика</a></li>
+        <li><a href="service-korpus.html">Корпусные работы</a></li>
+        <li><a href="service-interer.html">Интерьер</a></li>
+        <li><a href="service-proektirovanie.html">Проектирование</a></li>
+        <li><a href="service-upravlenie.html">Управление проектом</a></li>
+        <li><a href="service-zapchasti.html">Оборудование и поставки</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Компания</h4>
+      <ul>
+        <li><a href="index.html#about">О нас</a></li>
+        <li><a href="#">Лицензии</a></li>
+        <li><a href="#">Партнёры</a></li>
+        <li><a href="#">Вакансии</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Контакты</h4>
+      <ul>
+        <li><a href="tel:+79217727177">+7 (921) 77-27-177</a></li>
+        <li><a href="mailto:pilipenko@mmgmt.ru">pilipenko@mmgmt.ru</a></li>
+        <li><a href="#">г. Санкт-Петербург,<br>пр. Крузенштерна, 18</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024–2025 Судоремонт. Все права защищены.</span>
+    <span>Лицензия Российского морского регистра судоходства</span>
+  </div>
+</footer>
+
+<script>
+  // ─── NAV SCROLL ───
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // ─── BURGER ───
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+    document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      burger.classList.remove('open');
+      navLinks.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // ─── SCROLL REVEAL ───
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ─── SIDEBAR FORM ─── [5]
+  function sidebarSubmit(e) {
+    e.preventDefault();
+    const btn = e.target;
+    const ship  = document.getElementById('sb-ship')?.value || '';
+    const phone = document.getElementById('sb-phone')?.value || '';
+    const desc  = document.getElementById('sb-desc')?.value || '';
+    const subject = encodeURIComponent('Заявка на диагностику — remont-katerov.ru');
+    const body    = encodeURIComponent(`Судно: ${ship}\nТелефон: ${phone}\nОписание: ${desc}`);
+    window.location.href = `mailto:pilipenko@mmgmt.ru?subject=${subject}&body=${body}`;
+    btn.textContent = 'Отправлено ✓';
+    btn.style.background = '#2a7a2a';
+    setTimeout(() => { btn.textContent = 'Отправить заявку →'; btn.style.background = ''; }, 3000);
+  }
+
+  // ─── MAIN CTA FORM ───
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target;
+    const ship = document.getElementById('f-ship')?.value || '';
+    const phone = document.getElementById('f-phone')?.value || '';
+    const work  = document.getElementById('f-work')?.value || '';
+    const loc   = document.getElementById('f-location')?.value || '';
+    const subject = encodeURIComponent('Новая заявка с сайта remont-katerov.ru');
+    const body    = encodeURIComponent(`Судно / компания: ${ship}\nТелефон: ${phone}\nТип работ: ${work}\nМестонахождение судна: ${loc}`);
+    window.location.href = `mailto:pilipenko@mmgmt.ru?subject=${subject}&body=${body}`;
+    btn.textContent = 'Заявка отправлена ✓';
+    btn.style.background = '#2a7a2a';
+    setTimeout(() => { btn.textContent = 'Отправить заявку →'; btn.style.background = ''; }, 3000);
+  }
+</script>
+</body>
+</html>
