@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ремонт интерьера судна и яхты — remont-katerov.ru</title>
+  <meta name="description" content="Ремонт и обновление интерьеров судов: обшивка салонов и кают, мебель, отделка переборок, тиковые палубы, иллюминаторы, камбуз. Санкт-Петербург и мировые порты.">
+  <meta name="keywords" content="ремонт интерьера яхты, обшивка салона катера, тиковая палуба судно, ремонт мебели яхты, отделка каюты, ремонт камбуза судно, интерьер судна Санкт-Петербург">
+  <meta property="og:title" content="Ремонт интерьера судна и яхты — remont-katerov.ru">
+  <meta property="og:description" content="Полный комплекс работ по ремонту и обновлению интерьеров судна. Морские материалы. Выезд в любой порт мира.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://remont-katerov.ru/service-interer.html">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://remont-katerov.ru/service-interer.html">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Ремонт интерьера судна",
+    "provider": { "@type": "Organization", "name": "Судоремонт — remont-katerov.ru", "url": "https://remont-katerov.ru" },
+    "description": "Полный комплекс работ по ремонту и обновлению интерьеров судна: обшивка салонов и кают, ремонт мебели, отделка переборок, тиковые палубы, иллюминаторы, камбузы.",
+    "areaServed": "Worldwide",
+    "url": "https://remont-katerov.ru/service-interer.html"
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #f5f3ef;
+      --bg2:     #edeae4;
+      --surface: #ffffff;
+      --navy:    #1a2535;
+      --steel:   #2c3e55;
+      --mid:     #5a6a7e;
+      --silver:  #8a9ab5;
+      --light:   #c4cdd8;
+      --accent:  #1e4d8c;
+      --accent2: #d45a00;
+      --white:   #ffffff;
+      --text:    #1a2535;
+      --text2:   #3d4f63;
+    }
+
+    body.modal-open { overflow: hidden; padding-right: var(--scrollbar-w, 0px); }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Barlow', sans-serif; font-weight: 300; overflow-x: hidden; }
+
+    /* ─── NOISE ─── */
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 48px; height: 72px;
+      background: rgba(245,243,239,0.95);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(26,37,53,0.08);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 24px rgba(26,37,53,0.08); }
+
+    .logo { display: flex; flex-direction: row; align-items: center; gap: 12px; text-decoration: none; flex-shrink: 0; }
+    .logo-icon { width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .logo-icon img { width: 52px; height: 52px; object-fit: contain; mix-blend-mode: multiply; }
+    .logo-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 3px; color: var(--navy); line-height: 1; }
+    .logo-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; letter-spacing: 4px; color: var(--mid); text-transform: uppercase; margin-top: 2px; }
+
+    .nav-links { display: flex; gap: 0; list-style: none; align-items: center; }
+    .nav-links li a {
+      display: block; color: var(--mid); text-decoration: none;
+      font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
+      font-weight: 500; padding: 8px 14px; border-radius: 4px;
+      transition: color 0.2s, background 0.2s; white-space: nowrap;
+    }
+    .nav-links li a:hover { color: var(--accent); background: rgba(30,77,140,0.07); }
+    .nav-links li a.nav-active { color: var(--accent); background: rgba(30,77,140,0.08); font-weight: 600; }
+    .nav-links .nav-cta-li a {
+      background: var(--accent); color: var(--white) !important;
+      padding: 9px 20px; margin-left: 8px; border-radius: 3px;
+      font-weight: 600 !important; letter-spacing: 1.5px;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .nav-links .nav-cta-li a:hover { background: #163d70 !important; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(30,77,140,0.28); }
+
+    .nav-right-block { display: flex; align-items: center; gap: 10px; margin-left: 4px; flex-shrink: 0; }
+    .nav-phone { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 1px; color: var(--navy); text-decoration: none; white-space: nowrap; transition: color 0.2s; }
+    .nav-phone:hover { color: var(--accent); }
+    .nav-cta-btn {
+      background: var(--accent); color: var(--white) !important;
+      padding: 9px 20px; margin-left: 8px; border-radius: 3px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 600 !important; letter-spacing: 1.5px;
+      text-transform: uppercase; text-decoration: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s; white-space: nowrap; flex-shrink: 0;
+    }
+    .nav-cta-btn:hover { background: #163d70; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(30,77,140,0.28); }
+
+    /* ─── BURGER ─── */
+    .nav-burger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 10px; z-index: 200; flex-shrink: 0; }
+    .nav-burger span { display: block; width: 24px; height: 2px; background: var(--navy); transition: transform 0.3s, opacity 0.3s; transform-origin: center; }
+    .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ─── HERO ─── */
+    .service-hero {
+      position: relative; min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 72px 60px 70px; overflow: hidden; background: var(--bg);
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(30,77,140,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(30,77,140,0.06) 1px, transparent 1px);
+      background-size: 80px 80px; z-index: 0;
+    }
+    .hero-glow-inner {
+      position: absolute; top: -10%; right: -5%; width: 70%; height: 100%;
+      background: radial-gradient(ellipse 70% 80% at 70% 40%, rgba(30,77,140,0.08) 0%, transparent 70%);
+      z-index: 0;
+    }
+    .hero-waterline {
+      position: absolute; left: 0; right: 0; bottom: 140px; height: 3px;
+      z-index: 2; overflow: hidden;
+    }
+    .hero-waterline svg {
+      position: absolute; bottom: 0; left: -200px;
+      width: calc(100% + 400px); height: 10px;
+      animation: wavemove 4s linear infinite;
+    }
+    @keyframes wavemove { 0% { transform: translateX(0); } 100% { transform: translateX(200px); } }
+
+    .hero-deco {
+      position: absolute;
+      right: -2%; top: 50%;
+      transform: translateY(-50%);
+      width: 62%;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.18;
+      mix-blend-mode: multiply;
+      will-change: transform;
+    }
+    .hero-deco img { width: 100%; height: auto; display: block; }
+    @media (max-width: 860px) { .hero-deco { width: 95%; right: -5%; opacity: 0.1; } }
+    @media (max-width: 600px) { .hero-deco { display: none; } }
+    .hero-content { position: relative; z-index: 5; max-width: 700px; }
+
+    .service-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; letter-spacing: 5px; color: var(--accent2);
+      text-transform: uppercase; margin-bottom: 16px;
+      display: flex; align-items: center; gap: 14px;
+      animation: fadeUp 0.8s 0.2s both;
+    }
+    .service-eyebrow::before { content: ''; display: inline-block; width: 32px; height: 1px; background: var(--accent2); }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(64px, 9vw, 120px);
+      line-height: 0.88; letter-spacing: 2px; color: var(--navy); margin-bottom: 20px;
+      animation: fadeUp 0.8s 0.3s both;
+    }
+    .hero-title .accent { color: var(--accent); }
+    .hero-sub {
+      font-size: 16px; line-height: 1.75; color: var(--text2);
+      max-width: 480px; margin-bottom: 28px; font-weight: 400;
+      animation: fadeUp 0.8s 0.45s both;
+    }
+    .hero-buttons { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; animation: fadeUp 0.8s 0.55s both; }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; animation: fadeUp 0.8s 0.65s both; }
+    .hero-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--mid); border: 1px solid rgba(26,37,53,0.18); padding: 5px 12px;
+    }
+
+    .scroll-indicator {
+      position: absolute; bottom: 36px; right: 60px; z-index: 10;
+      display: flex; align-items: center; gap: 12px;
+      color: var(--silver); font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      font-family: 'Barlow Condensed', sans-serif;
+    }
+    .scroll-line { width: 40px; height: 1px; background: var(--light); position: relative; overflow: hidden; }
+    .scroll-line::after {
+      content: ''; position: absolute; left: -100%; top: 0;
+      width: 100%; height: 100%; background: var(--accent2);
+      animation: scrollAnim 2s infinite;
+    }
+    @keyframes scrollAnim { 0% { left: -100%; } 100% { left: 100%; } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ─── SHARED ─── */
+    .section-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; letter-spacing: 5px; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 16px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .section-tag::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--accent2); }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 5vw, 60px);
+      line-height: 0.95; letter-spacing: 1px; color: var(--navy); margin-bottom: 20px;
+    }
+    .divider { height: 1px; background: rgba(26,37,53,0.08); margin: 0 60px; }
+
+    /* ─── BUTTONS ─── */
+    .btn-primary {
+      background: var(--accent); color: var(--white);
+      padding: 14px 28px; font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      text-decoration: none; display: inline-block;
+      transition: background 0.3s, transform 0.2s; border: none; cursor: pointer; text-align: center;
+    }
+    .btn-primary:hover { background: #163d70; transform: translateY(-1px); }
+    .btn-ghost {
+      color: var(--navy); padding: 14px 28px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+      text-decoration: none; display: inline-block;
+      border: 1px solid rgba(26,37,53,0.25);
+      transition: border-color 0.3s, color 0.3s;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-ghost-white {
+      color: rgba(255,255,255,0.65); padding: 13px 28px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+      text-decoration: none; display: inline-block;
+      border: 1px solid rgba(255,255,255,0.18);
+      transition: border-color 0.3s, color 0.3s; width: 100%; text-align: center; box-sizing: border-box;
+    }
+    .btn-ghost-white:hover { border-color: rgba(255,255,255,0.55); color: var(--white); }
+
+    /* ─── OVERVIEW ─── */
+    .overview {
+      padding: 70px 60px;
+      display: grid; grid-template-columns: 1fr 340px;
+      gap: 60px; align-items: start; position: relative; z-index: 1;
+    }
+    .overview-desc { font-size: 15px; line-height: 1.85; color: var(--text2); margin-bottom: 28px; max-width: 580px; }
+    .benefits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px; }
+    .benefit-item {
+      background: var(--surface); border: 1px solid rgba(26,37,53,0.08);
+      padding: 18px 20px; display: flex; gap: 14px; align-items: flex-start;
+      transition: box-shadow 0.25s, border-color 0.25s;
+    }
+    .benefit-item:hover { box-shadow: 0 4px 16px rgba(26,37,53,0.07); border-color: rgba(30,77,140,0.14); }
+    .benefit-icon { width: 36px; height: 36px; flex-shrink: 0; background: rgba(30,77,140,0.07); display: flex; align-items: center; justify-content: center; }
+    .benefit-icon svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .benefit-title { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--navy); margin-bottom: 4px; }
+    .benefit-desc { font-size: 12px; line-height: 1.6; color: var(--text2); }
+
+    /* ─── SIDEBAR ─── */
+    .sidebar-cta { position: sticky; top: 88px; background: var(--navy); padding: 36px; display: flex; flex-direction: column; gap: 16px; }
+    .sidebar-cta-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent2); }
+    .sidebar-cta h3 { font-family: 'Bebas Neue', sans-serif; font-size: 30px; color: var(--white); letter-spacing: 1px; line-height: 1; }
+    .sidebar-cta p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.7; }
+    .sidebar-form { display: flex; flex-direction: column; gap: 8px; }
+    .sidebar-form input {
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+      color: var(--white); padding: 11px 14px;
+      font-family: 'Barlow', sans-serif; font-size: 13px;
+      outline: none; transition: border-color 0.2s, background 0.2s;
+    }
+    .sidebar-form input::placeholder { color: rgba(255,255,255,0.35); }
+    .sidebar-form input:focus { border-color: rgba(255,255,255,0.45); background: rgba(255,255,255,0.12); }
+    .sidebar-divider { height: 1px; background: rgba(255,255,255,0.08); }
+    .sidebar-contact { display: flex; flex-direction: column; gap: 8px; }
+    .sidebar-contact a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 13px; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 8px; }
+    .sidebar-contact a:hover { color: var(--white); }
+    .sidebar-contact svg { opacity: 0.4; flex-shrink: 0; }
+
+    /* ─── TABLE ─── */
+    .table-section { padding: 70px 60px; }
+    .table-section .section-title { margin-bottom: 32px; }
+    .diag-table-wrap { overflow-x: auto; border: 1px solid rgba(26,37,53,0.1); }
+    .diag-table { width: 100%; border-collapse: collapse; font-family: 'Barlow', sans-serif; background: var(--surface); }
+    .diag-table thead tr { background: var(--navy); }
+    .diag-table thead th {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 3px;
+      text-transform: uppercase; color: rgba(255,255,255,0.55);
+      padding: 14px 20px; text-align: left; font-weight: 600;
+      border-bottom: 2px solid var(--accent2);
+    }
+    .diag-table thead th:first-child { color: rgba(255,255,255,0.8); width: 50%; }
+    .diag-table tbody tr { border-bottom: 1px solid rgba(26,37,53,0.06); transition: background 0.2s; }
+    .diag-table tbody tr:nth-child(odd) { background: var(--surface); }
+    .diag-table tbody tr:nth-child(even) { background: var(--bg); }
+    .diag-table tbody tr:hover { background: rgba(30,77,140,0.04); }
+    .diag-table tbody tr.row-accent { border-left: 3px solid var(--accent2); }
+    .diag-table tbody tr.row-accent td:first-child { font-weight: 500; color: var(--navy); }
+    .diag-table tbody td { padding: 13px 20px; font-size: 13px; color: var(--text2); line-height: 1.5; vertical-align: top; }
+    .diag-table tbody td:first-child { color: var(--text); font-weight: 400; font-size: 13px; }
+    .method-tag { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; padding: 3px 8px; margin: 2px 2px 2px 0; }
+    .tag-blue { background: rgba(30,77,140,0.1); color: var(--accent); }
+    .tag-orange { background: rgba(212,90,0,0.1); color: var(--accent2); }
+    .tag-dark { background: rgba(26,37,53,0.08); color: var(--mid); }
+    .row-num { font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 2px; color: var(--accent2); display: block; margin-bottom: 2px; }
+    .table-group-header td {
+      background: rgba(30,77,140,0.06) !important;
+      font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--accent) !important;
+      padding: 9px 20px !important; font-weight: 700; border-left: 3px solid var(--accent);
+    }
+
+    /* ─── PROCESS ─── */
+    .process-strip { background: var(--bg2); padding: 50px 60px; position: relative; overflow: hidden; }
+    .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 30px; position: relative; }
+    .process-steps::before {
+      content: ''; position: absolute; top: 27px; left: 28px; right: 28px; height: 1px;
+      background: linear-gradient(90deg, var(--accent), rgba(30,77,140,0.3), rgba(30,77,140,0.08)); z-index: 0;
+    }
+    .process-step { padding: 0 36px 0 0; position: relative; z-index: 1; }
+    .process-step:last-child { padding-right: 0; }
+    .step-num {
+      width: 56px; height: 56px; border: 1.5px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--accent);
+      margin-bottom: 14px; background: var(--bg2); position: relative; z-index: 1;
+      transition: background 0.3s, color 0.3s;
+    }
+    .process-step:hover .step-num { background: var(--accent); color: var(--white); }
+    .step-title { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--navy); margin-bottom: 8px; }
+    .step-desc { font-size: 13px; line-height: 1.75; color: var(--text2); }
+    .step-time { display: inline-block; margin-top: 8px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent2); border: 1px solid rgba(212,90,0,0.25); padding: 3px 8px; }
+
+    /* ─── EQUIPMENT ─── */
+    .equipment-section { padding: 70px 60px; background: var(--bg); }
+    .equipment-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
+    .equipment-card {
+      background: var(--surface); border: 1px solid rgba(26,37,53,0.08);
+      padding: 24px 26px; transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .equipment-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
+    .equipment-card:hover { box-shadow: 0 8px 32px rgba(26,37,53,0.09); transform: translateY(-2px); border-color: rgba(30,77,140,0.14); }
+    .equipment-card:hover::before { transform: scaleX(1); }
+    .equip-icon { width: 44px; height: 44px; background: rgba(30,77,140,0.07); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+    .equip-icon svg { width: 22px; height: 22px; stroke: var(--accent); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .equip-name { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1px; color: var(--navy); margin-bottom: 6px; }
+    .equip-desc { font-size: 12px; line-height: 1.7; color: var(--text2); }
+    .equip-specs { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+    .equip-spec { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); background: rgba(30,77,140,0.07); padding: 3px 8px; }
+
+    /* ─── CTA BANNER ─── */
+    .cta-banner {
+      position: relative; padding: 64px 60px; overflow: hidden; background: var(--accent);
+      display: flex; justify-content: space-between; align-items: center; gap: 40px;
+    }
+    .cta-banner::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px); background-size: 60px 60px; }
+    .cta-banner::after { content: ''; position: absolute; top: -100px; right: -60px; width: 500px; height: 500px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.06); }
+    .cta-text { position: relative; z-index: 1; }
+    .cta-text h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 5vw, 68px); line-height: 0.95; color: var(--white); margin-bottom: 14px; }
+    .cta-text h2 span { color: var(--accent2); }
+    .cta-text p { font-size: 15px; color: rgba(255,255,255,0.65); max-width: 380px; line-height: 1.7; }
+    .cta-form { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 10px; min-width: 340px; }
+    .cta-form input { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: var(--white); padding: 14px 20px; font-family: 'Barlow', sans-serif; font-size: 14px; outline: none; transition: border-color 0.3s, background 0.3s; }
+    .cta-form input::placeholder { color: rgba(255,255,255,0.45); }
+    .cta-form input:focus { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.15); }
+    .cta-form .btn-send { background: var(--accent2); color: var(--white); padding: 15px 24px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; border: none; cursor: pointer; transition: background 0.3s, transform 0.2s; }
+    .cta-form .btn-send:hover { background: #b34800; transform: translateY(-1px); }
+
+    /* ─── FOOTER ─── */
+    footer { background: var(--navy); padding: 60px 60px 20px; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 50px; padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .footer-brand p { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.8; max-width: 280px; margin-top: 16px; }
+    .footer-logo-name { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 4px; color: var(--white); }
+    .footer-logo-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; letter-spacing: 5px; color: rgba(255,255,255,0.35); text-transform: uppercase; margin-top: 3px; }
+    .footer-col h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: rgba(212,90,0,0.8); margin-bottom: 20px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 10px; }
+    .footer-col a { color: rgba(255,255,255,0.45); text-decoration: none; font-size: 13px; transition: color 0.3s; display: inline-block; }
+    .footer-col a:hover { color: var(--white); transform: translateX(3px); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: rgba(255,255,255,0.25); padding-top: 20px; }
+    .footer-modal-btn { background: none; border: none; color: rgba(255,255,255,0.35); font-family: 'Barlow', sans-serif; font-size: 12px; cursor: pointer; padding: 0; transition: color 0.25s; text-decoration: underline; text-underline-offset: 3px; }
+    .footer-modal-btn:hover { color: rgba(255,255,255,0.7); }
+
+    /* ─── WAVY TEXT ─── */
+    .wavy-text { display: inline-flex; letter-spacing: 4px; }
+    .wavy-text span { display: inline-block; animation: wave 2s ease-in-out infinite; }
+    .wavy-text span:nth-child(1)  { animation-delay: 0.00s; }
+    .wavy-text span:nth-child(2)  { animation-delay: 0.10s; }
+    .wavy-text span:nth-child(3)  { animation-delay: 0.20s; }
+    .wavy-text span:nth-child(4)  { animation-delay: 0.30s; }
+    .wavy-text span:nth-child(5)  { animation-delay: 0.40s; }
+    .wavy-text span:nth-child(6)  { animation-delay: 0.50s; }
+    .wavy-text span:nth-child(7)  { animation-delay: 0.60s; }
+    .wavy-text span:nth-child(8)  { animation-delay: 0.70s; }
+    .wavy-text span:nth-child(9)  { animation-delay: 0.80s; }
+    .wavy-text span:nth-child(10) { animation-delay: 0.90s; }
+    @keyframes wave { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-7px); } 60% { transform: translateY(-3px); } }
+
+    /* ─── MODALS ─── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(10,18,32,0.72); backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center; padding: 20px;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal-box {
+      background: var(--surface); width: 100%; max-width: 720px; max-height: 85vh;
+      display: flex; flex-direction: column; box-shadow: 0 32px 80px rgba(10,18,32,0.35);
+      transform: translateY(20px); transition: transform 0.35s cubic-bezier(.4,0,.2,1);
+    }
+    .modal-overlay.open .modal-box { transform: translateY(0); }
+    .modal-box--narrow { max-width: 480px; }
+    .modal-header { display: flex; justify-content: space-between; align-items: flex-start; padding: 32px 36px 24px; border-bottom: 1px solid rgba(26,37,53,0.08); flex-shrink: 0; gap: 20px; }
+    .modal-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent2); margin-bottom: 8px; }
+    .modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 1px; color: var(--navy); line-height: 1.1; }
+    .modal-sub { font-size: 12px; color: var(--mid); margin-top: 6px; letter-spacing: 0.5px; }
+    .modal-close { background: none; border: 1px solid rgba(26,37,53,0.12); width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; color: var(--mid); transition: border-color 0.2s, color 0.2s; }
+    .modal-close:hover { border-color: var(--navy); color: var(--navy); }
+    .modal-body { padding: 28px 36px 36px; overflow-y: auto; font-size: 13px; line-height: 1.85; color: var(--text2); }
+    .modal-body p { margin-bottom: 14px; }
+    .modal-body p strong { color: var(--navy); font-weight: 600; }
+    .modal-section-title { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin: 24px 0 10px; padding-bottom: 6px; border-bottom: 1px solid rgba(30,77,140,0.12); }
+    .modal-section-title:first-child { margin-top: 0; }
+    .modal-lead { font-size: 15px !important; color: var(--navy) !important; font-weight: 400 !important; line-height: 1.75 !important; margin-bottom: 20px !important; }
+    .modal-email-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: var(--white); padding: 14px 28px; font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 2px; text-decoration: none; text-transform: lowercase; margin-top: 8px; transition: background 0.25s, transform 0.2s; }
+    .modal-email-btn:hover { background: #163d70; transform: translateY(-1px); }
+
+    /* ─── REVEAL ─── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+    .reveal-d3 { transition-delay: 0.3s; }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 860px) {
+      nav { padding: 0 20px; height: 64px; }
+      .nav-right-block { display: none; }
+      .nav-links {
+        display: none; flex-direction: column;
+        position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(245,243,239,0.98); backdrop-filter: blur(16px);
+        justify-content: center; align-items: center;
+        gap: 8px; z-index: 150; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+      }
+      .nav-links.open { display: flex; opacity: 1; pointer-events: all; }
+      .nav-links li a { font-size: 18px; letter-spacing: 3px; padding: 12px 28px; }
+      .nav-links .nav-cta-li a { margin-left: 0; padding: 14px 40px !important; margin-top: 8px; }
+      .nav-burger { display: flex; }
+
+      .service-hero { padding: 0 20px 60px; min-height: 100svh; justify-content: flex-end; }
+      .hero-content { max-width: 100%; }
+      .hero-title { font-size: clamp(52px, 13vw, 82px); }
+      .hero-sub { font-size: 15px; max-width: 100%; }
+      .hero-buttons { flex-direction: column; align-items: stretch; gap: 12px; }
+      .btn-primary, .btn-ghost { text-align: center; width: 100%; }
+      .hero-ship-illustration { right: -30%; top: 10%; transform: none; width: 120%; }
+      .hero-ship-illustration img { opacity: 0.12; }
+      .scroll-indicator { right: 20px; bottom: 20px; }
+
+      .overview { padding: 40px 24px; grid-template-columns: 1fr; gap: 32px; }
+      .benefits-grid { grid-template-columns: 1fr; }
+      .sidebar-cta { position: static; }
+      .divider { margin: 0 24px; }
+      .table-section { padding: 40px 24px; }
+      .process-strip { padding: 40px 24px; }
+      .process-steps { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .process-steps::before { display: none; }
+      .process-step { padding: 0; }
+      .equipment-section { padding: 40px 24px; }
+      .equipment-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .cta-banner { flex-direction: column; padding: 40px 24px; gap: 28px; align-items: flex-start; }
+      .cta-form { min-width: unset; width: 100%; }
+      footer { padding: 40px 20px 20px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 28px; padding-bottom: 28px; }
+      .footer-brand { grid-column: 1 / -1; }
+      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+    }
+    @media (max-width: 540px) {
+      .overview { padding: 32px 16px; }
+      .table-section { padding: 32px 16px; }
+      .process-strip { padding: 32px 16px; }
+      .process-steps { grid-template-columns: 1fr; gap: 24px; }
+      .equipment-section { padding: 32px 16px; }
+      .equipment-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .cta-banner { padding: 32px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav id="mainNav">
+  <a href="index.html" class="logo">
+    <div class="logo-icon"><img src="logo.jpg" alt="remont-katerov.ru"></div>
+    <div style="display:flex;flex-direction:column;">
+      <div class="logo-name">REMONT-KATEROV.RU</div>
+      <div class="logo-sub">Профессиональный судоремонт</div>
+    </div>
+  </a>
+  <button class="nav-burger" id="burger" aria-label="Меню">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html#services" class="nav-active">Услуги</a></li>
+    <li><a href="works.html">Наши работы</a></li>
+    <li><a href="engines.html">Каталог</a></li>
+    <li><a href="knowledge.html">База знаний</a></li>
+    <li><a href="index.html#faq">FAQ</a></li>
+  </ul>
+  <div class="nav-right-block">
+    <a href="tel:+79217727177" class="nav-phone">+7 (921) 77-27-177</a>
+    <a href="#contact" class="nav-cta-btn">Заявка</a>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<div class="service-hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow-inner"></div>
+  <div class="hero-waterline">
+    <svg viewBox="0 0 1200 10" preserveAspectRatio="none">
+      <path d="M0,5 C100,0 200,10 300,5 C400,0 500,10 600,5 C700,0 800,10 900,5 C1000,0 1100,10 1200,5"
+            stroke="rgba(212,90,0,0.55)" stroke-width="1.5" fill="none"/>
+    </svg>
+  </div>
+  <div class="hero-deco">
+    <img src="ship-illustration.png" alt="Диагностика судна — remont-katerov.ru" />
+  </div>
+  <div class="hero-content">
+    <div class="service-eyebrow">remont-katerov.ru · Услуги</div>
+    <h1 class="hero-title">ИН<span class="accent">ТЕРЬЕР</span></h1>
+    <p class="hero-sub">Полный комплекс работ по ремонту и обновлению интерьеров судна — обшивка салонов и кают, мебель, отделка переборок, тиковые палубы, иллюминаторы, камбузы и санузлы</p>
+    <div class="hero-buttons">
+      <a href="#contact" class="btn-primary">Оставить заявку</a>
+      <a href="#table" class="btn-ghost">Виды работ</a>
+    </div>
+    <div class="hero-tags">
+      <div class="hero-tag">Обшивка салонов</div>
+      <div class="hero-tag">Мебель</div>
+      <div class="hero-tag">Тиковые палубы</div>
+      <div class="hero-tag">Переборки и потолки</div>
+      <div class="hero-tag">Иллюминаторы</div>
+      <div class="hero-tag">Камбузы и санузлы</div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    Прокрутить
+  </div>
+</div>
+
+<!-- ─── OVERVIEW ─── -->
+<section class="overview">
+  <div class="overview-left reveal">
+    <div class="section-tag">О направлении</div>
+    <h2 class="section-title">ИНТЕРЬЕР —<br>ВАША ЖИЗНЬ НА БОРТУ</h2>
+    <p class="overview-desc">
+      Интерьер судна — это не просто эстетика, это комфорт и функциональность каждого дня на воде. Мы работаем исключительно с морскими материалами: устойчивыми к влаге, соли и вибрации. От точечного ремонта обивки до полного рефита салона под ключ.
+    </p>
+    <div class="benefits-grid">
+      <div class="benefit-item">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <div>
+          <div class="benefit-title">Морские материалы</div>
+          <div class="benefit-desc">Только ткани, пластики, дерево и фурнитура, сертифицированные для морского применения</div>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        </div>
+        <div>
+          <div class="benefit-title">Под ключ</div>
+          <div class="benefit-desc">Берём на себя весь цикл — от замеров и дизайна до монтажа и финальной уборки</div>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div>
+          <div class="benefit-title">Рефит любого масштаба</div>
+          <div class="benefit-desc">Точечный ремонт одной каюты или полный рефит салона — одинаково тщательный подход</div>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <div>
+          <div class="benefit-title">Мировой охват</div>
+          <div class="benefit-desc">Выездные бригады работают в любом порту — Европа, Турция, ОАЭ, Юго-Восточная Азия</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="reveal reveal-d1">
+    <div class="sidebar-cta">
+      <div class="sidebar-cta-tag">Заявка на интерьер</div>
+      <h3>ОБСУДИТЬ ПРОЕКТ</h3>
+      <p>Опишите, что хотите изменить — дизайнер свяжется в течение 2 часов.</p>
+      <div class="sidebar-form">
+        <input type="text" id="sb-ship"  placeholder="Тип судна / название" />
+        <input type="tel"  id="sb-phone" placeholder="Телефон" />
+        <input type="text" id="sb-desc"  placeholder="Что нужно сделать?" />
+        <button class="btn-primary" onclick="sidebarSubmit(event)">Отправить заявку →</button>
+      </div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-contact">
+        <a href="tel:+79217727177">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          +7 (921) 77-27-177
+        </a>
+        <a href="mailto:pilipenko@mmgmt.ru">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          pilipenko@mmgmt.ru
+        </a>
+      </div>
+      <a href="tel:+79217727177" class="btn-ghost-white">Позвонить сейчас</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── TABLE ─── -->
+<section class="table-section" id="table">
+  <div class="section-tag">Состав работ</div>
+  <h2 class="section-title">ВИДЫ РАБОТ</h2>
+  <div class="diag-table-wrap">
+    <table class="diag-table">
+      <thead>
+        <tr>
+          <th>Вид работ</th>
+          <th>Материал / метод</th>
+          <th>Срок</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="table-group-header"><td colspan="3">Обшивка и отделка</td></tr>
+        <tr class="row-accent">
+          <td><span class="row-num">01</span>Обшивка стен и переборок салона</td>
+          <td><span class="method-tag tag-orange">Ткань</span><span class="method-tag tag-blue">Виниловая кожа</span><span class="method-tag tag-dark">Шпон</span></td>
+          <td>3–10 дней</td>
+        </tr>
+        <tr>
+          <td><span class="row-num">02</span>Обшивка и утепление кают</td>
+          <td><span class="method-tag tag-blue">Морской велюр</span><span class="method-tag tag-dark">Утеплитель + ткань</span></td>
+          <td>2–7 дней</td>
+        </tr>
+        <tr>
+          <td><span class="row-num">03</span>Отделка потолков и подволоков</td>
+          <td><span class="method-tag tag-orange">Ламинат</span><span class="method-tag tag-blue">Ткань</span><span class="method-tag tag-dark">Покраска</span></td>
+          <td>2–5 дней</td>
+        </tr>
+        <tr>
+          <td><span class="row-num">04</span>Отделка рулевой рубки и мостика</td>
+          <td><span class="method-tag tag-blue">Виниловая кожа</span><span class="method-tag tag-dark">Карпет</span></td>
+          <td>2–5 дней</td>
+        </tr>
+
+        <tr class="table-group-header"><td colspan="3">Палубные покрытия</td></tr>
+        <tr class="row-accent">
+          <td><span class="row-num">05</span>Укладка тиковой палубы</td>
+          <td><span class="method-tag tag-orange">Тик Burma / Java</span><span class="method-tag tag-dark">Нарезка по шаблону</span></td>
+          <td>5–14 дней</td>
+        </tr>
+        <tr>
+          <td><span class="row-num">06</span>Ремонт и замена отдельных секций тика</td>
+          <td><span class="method-tag tag-blue">Локальный ремонт</span><span class="method-tag tag-orange">Подбор в тон</span></td>
+          <td>1–5 дней</td>
+        </tr>
+        <tr>
+          <td><span class="row-num">07</span>Укладка синтетического тика (Flexiteek, Permateek)</td>
+          <td><span class="method-tag tag-blue">Flexiteek</span><span class="method-tag tag-dark">Permateek</span></td>
+          <td>3–7 дней</td>
+        </tr>
+        <tr>
+          <td><span class="row-num">08</span>Нескользящее палубное покрытие (карпет, Тракмат)</td>
+          <td><span class="method-tag tag-orange">Тракмат</span><span class="method-tag tag-dark">Морской карпет</span></td>
+          <td>1–3 дня</td>
+        </tr>
+
+        <tr class="table-group-header"><td colspan="3">Мебель и мягкая мебель</td></tr>
+        <tr>
+          <td><span class="row-num">09</span>Ремонт и реставрация судовой мебели</td>
+          <td><span class="method-tag tag-blue">Шлифовка</span><span class="method-tag tag-dark">Покрытие</span><span class="method-tag tag-orange">Реставрация</span></td>
+          <td>2–7 дней</td>
+        </tr>
+        <tr>
+          <td><span class="row-num">10</span>Изготовление мебели под заказ (встроенная)</td>
+          <td><span class="method-tag tag-orange">Морская фанера</span><span class="method-tag tag-blue">Тик / ясень / дуб</span></td>
+          <td>7–21 день</td>
+        </tr>
+        <tr class="row-accent">
+          <td><span class="row-num">11</span>Перетяжка диванов, кресел, банок</td>
+          <td><span class="method-tag tag-blue">Морская кожа</span><span class="method-tag tag-orange">Sunbrella</span><span class="method-tag tag-dark">Виниловая кожа</span></td>
+          <td>2–7 дней</td>
+        </tr>
+        <tr>
+          <td><span class="row-num">12</span>Изготовление матрасов и подушек</td>
+          <td><span class="method-tag tag-dark">Пена HR</span><span class="method-tag tag-blue">Морской чехол</span></td>
+          <td>3–7 дней</td>
+        </tr>
+        <tr>
+          <td><span class="row-num">13</span>Тенты, чехлы, шторки, занавески</td>
+          <td><span class="method-tag tag-orange">Sunbrella</span><span class="method-tag tag-blue">Обивочные ткани</span></td>
+          <td>3–10 дней</td>
+        </tr>
+
+        <tr class="table-group-header"><td colspan="3">Иллюминаторы и остекление</td></tr>
+        <tr>
+          <td><span class="row-num">14</span>Замена стёкол иллюминаторов и рубки</td>
+          <td><span class="method-tag tag-blue">Триплекс</span><span class="method-tag tag-orange">Поликарбонат</span></td>
+          <td>1–3 дня</td>
+        </tr>
+        <tr>
+          <td><span class="row-num">15</span>Замена резиновых уплотнений иллюминаторов</td>
+          <td><span class="method-tag tag-dark">Морская резина</span></td>
+          <td>1–2 дня</td>
+        </tr>
+        <tr>
+          <td><span class="row-num">16</span>Ремонт и замена люков и вентиляционных решёток</td>
+          <td><span class="method-tag tag-blue">Lewmar</span><span class="method-tag tag-orange">Bomar</span><span class="method-tag tag-dark">Vetus</span></td>
+          <td>1–3 дня</td>
+        </tr>
+
+        <tr class="table-group-header"><td colspan="3">Камбузы и санузлы</td></tr>
+        <tr>
+          <td><span class="row-num">17</span>Ремонт и реновация камбуза</td>
+          <td><span class="method-tag tag-orange">Столешница</span><span class="method-tag tag-blue">Фартук</span><span class="method-tag tag-dark">Сантехника</span></td>
+          <td>3–10 дней</td>
+        </tr>
+        <tr>
+          <td><span class="row-num">18</span>Ремонт и реновация гальюна / душевой</td>
+          <td><span class="method-tag tag-blue">Плитка / ПВХ</span><span class="method-tag tag-orange">Сантехника</span></td>
+          <td>3–10 дней</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── PROCESS ─── -->
+<section class="process-strip">
+  <div class="section-tag">Как мы работаем</div>
+  <h2 class="section-title">ПРОЦЕСС РАБОТ</h2>
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-num">01</div>
+      <div class="step-title">Осмотр и замеры</div>
+      <div class="step-desc">Выезжаем на судно, фиксируем состояние всех поверхностей, снимаем замеры. Отмечаем повреждения, плесень, конденсат — всё, что нужно учесть при ремонте.</div>
+      <span class="step-time">Полдня</span>
+    </div>
+    <div class="process-step">
+      <div class="step-num">02</div>
+      <div class="step-title">Подбор материалов</div>
+      <div class="step-desc">Предлагаем варианты тканей, покрытий и материалов с образцами. Согласовываем цветовое решение, смету и сроки. Все материалы — морские, проверенные.</div>
+      <span class="step-time">1–3 дня</span>
+    </div>
+    <div class="process-step">
+      <div class="step-num">03</div>
+      <div class="step-title">Изготовление и монтаж</div>
+      <div class="step-desc">Демонтаж старого покрытия, подготовка поверхностей, монтаж нового. Мебель изготавливается в мастерской под точные размеры, затем устанавливается на судне.</div>
+      <span class="step-time">По договору</span>
+    </div>
+    <div class="process-step">
+      <div class="step-num">04</div>
+      <div class="step-title">Приёмка и уборка</div>
+      <div class="step-desc">Финальный осмотр совместно с заказчиком, устранение замечаний. Генеральная уборка после окончания работ. Передача судна в готовом к эксплуатации состоянии.</div>
+      <span class="step-time">1 день</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EQUIPMENT ─── -->
+<section class="equipment-section">
+  <div class="section-tag">Специализация</div>
+  <h2 class="section-title">МАТЕРИАЛЫ И СТИЛИ</h2>
+  <div class="equipment-grid">
+    <div class="equipment-card reveal">
+      <div class="equip-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div class="equip-name">Тиковые палубы</div>
+      <div class="equip-desc">Укладка натурального тика Burma и Java на эпоксидный клей с герметиком. Нарезаем панели по точным шаблонам. Ремонт и замена отдельных плашек без демонтажа всей палубы.</div>
+      <div class="equip-specs"><span class="equip-spec">Тик Burma</span><span class="equip-spec">Тик Java</span><span class="equip-spec">Flexiteek</span><span class="equip-spec">Permateek</span></div>
+    </div>
+    <div class="equipment-card reveal reveal-d1">
+      <div class="equip-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg></div>
+      <div class="equip-name">Обшивка и ткани</div>
+      <div class="equip-desc">Работаем с морскими тканями и винилами, устойчивыми к UV, соли и влаге. Sunbrella, Stamoid, Skai — для наружных и внутренних работ. Любые цвета из каталога.</div>
+      <div class="equip-specs"><span class="equip-spec">Sunbrella</span><span class="equip-spec">Stamoid</span><span class="equip-spec">Skai</span><span class="equip-spec">Морской велюр</span></div>
+    </div>
+    <div class="equipment-card reveal reveal-d2">
+      <div class="equip-icon"><svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+      <div class="equip-name">Встроенная мебель</div>
+      <div class="equip-desc">Проектируем и изготавливаем встроенную мебель из морской фанеры с шпоном тика, ясеня, ореха или дуба. Учитываем качку, вентиляцию и все особенности морской среды.</div>
+      <div class="equip-specs"><span class="equip-spec">Морская фанера</span><span class="equip-spec">Тик</span><span class="equip-spec">Ясень</span><span class="equip-spec">Дуб</span></div>
+    </div>
+    <div class="equipment-card reveal">
+      <div class="equip-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+      <div class="equip-name">Мягкая мебель</div>
+      <div class="equip-desc">Перетяжка диванов, банок, кресел и спинок морской кожей или тканью. Изготовление матрасов из пены HR нужной жёсткости в морских чехлах. Подушки, валики, бортики.</div>
+      <div class="equip-specs"><span class="equip-spec">Морская кожа</span><span class="equip-spec">Пена HR</span><span class="equip-spec">Чехлы с молнией</span></div>
+    </div>
+    <div class="equipment-card reveal reveal-d1">
+      <div class="equip-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div>
+      <div class="equip-name">Иллюминаторы и остекление</div>
+      <div class="equip-desc">Замена стёкол иллюминаторов (триплекс, поликарбонат), уплотнений и фурнитуры. Ремонт и замена люков Lewmar, Bomar, Vetus. Остекление рубок и кокпита.</div>
+      <div class="equip-specs"><span class="equip-spec">Lewmar</span><span class="equip-spec">Bomar</span><span class="equip-spec">Vetus</span><span class="equip-spec">Триплекс</span></div>
+    </div>
+    <div class="equipment-card reveal reveal-d2">
+      <div class="equip-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+      <div class="equip-name">Камбузы и санузлы</div>
+      <div class="equip-desc">Реновация камбузов и гальюнов под ключ: новые столешницы, фартуки, сантехника, плитка или влагостойкий ПВХ. Заменяем только то, что нужно — экономим ваш бюджет.</div>
+      <div class="equip-specs"><span class="equip-spec">Влагостойкий ПВХ</span><span class="equip-spec">Керамическая плитка</span><span class="equip-spec">Морская сантехника</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── CTA ─── -->
+<section class="cta-banner" id="contact">
+  <div class="cta-text">
+    <h2>СУДНО<br>КАК <span>С ВЕРФИ</span></h2>
+    <p>Оставьте заявку — наш специалист свяжется в течение 2 часов и обсудит ваш проект.</p>
+  </div>
+  <div class="cta-form">
+    <input type="text" id="f-ship"     placeholder="Тип судна / название" />
+    <input type="tel"  id="f-phone"    placeholder="Телефон для связи" />
+    <input type="text" id="f-work"     placeholder="Что нужно сделать?" />
+    <input type="text" id="f-location" placeholder="Местонахождение судна" />
+    <button class="btn-send" onclick="handleSubmit(event)">Отправить заявку →</button>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo-name">
+        <span class="wavy-text" id="wavyFooter"></span>
+      </div>
+      <div class="footer-logo-sub">remont-katerov.ru</div>
+      <p>Комплексный судоремонт для морского и речного флота. Работаем по всему миру.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Направления</h4>
+      <ul>
+        <li><a href="service-diagnostika.html">Диагностика</a></li>
+        <li><a href="service-mechanika.html">Механика</a></li>
+        <li><a href="service-elektrika.html">Электрика</a></li>
+        <li><a href="service-korpus.html">Корпусные работы</a></li>
+        <li><a href="service-interer.html">Интерьер</a></li>
+        <li><a href="service-proektirovanie.html">Проектирование</a></li>
+        <li><a href="service-upravlenie.html">Управление проектом</a></li>
+        <li><a href="service-zapchasti.html">Оборудование и поставки</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Компания</h4>
+      <ul>
+        <li><a href="index.html#about">О нас</a></li>
+        <li><a href="#">Лицензии</a></li>
+        <li><a href="#">Партнёры</a></li>
+        <li><a href="#" onclick="openModal('career'); return false;">Вакансии</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Контакты</h4>
+      <ul>
+        <li><a href="tel:+79217727177">+7 (921) 77-27-177</a></li>
+        <li><a href="mailto:pilipenko@mmgmt.ru">pilipenko@mmgmt.ru</a></li>
+        <li><a href="#">г. Санкт-Петербург,<br>пр. Крузенштерна, 18</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024–2025 Судоремонт. Все права защищены.</span>
+    <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;justify-content:center;">
+      <button onclick="openModal('privacy')" class="footer-modal-btn">Политика конфиденциальности</button>
+      <span>Лицензия Российского морского регистра судоходства</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── MODALS ─── -->
+<div class="modal-overlay" id="modal-privacy" onclick="closeModalOutside(event, 'privacy')">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <div class="modal-tag">Документ</div>
+        <h3 class="modal-title">Положение о конфиденциальной информации<br>(коммерческой тайне)</h3>
+        <div class="modal-sub">ООО «Маньяна Менеджмент» · Утверждено 26.02.2024</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('privacy')" aria-label="Закрыть">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2L14 14M14 2L2 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section-title">1. Общие положения</div>
+      <p>Настоящее Положение устанавливает нормы о сведениях, составляющих коммерческую тайну, режиме коммерческой тайны и условиях её защиты, а также меры ответственности за нарушение установленных требований.</p>
+      <p>Положение разработано в соответствии с ГК РФ, Федеральным законом от 29.07.2004 № 98-ФЗ «О коммерческой тайне», ТК РФ и иными нормативными актами РФ.</p>
+      <p><strong>Коммерческая тайна</strong> — режим конфиденциальности информации, позволяющий её обладателю увеличить доходы, избежать неоправданных расходов, сохранить положение на рынке или получить иную коммерческую выгоду.</p>
+      <div class="modal-section-title">2. Права Общества</div>
+      <p>Общество как обладатель коммерческой тайны вправе: устанавливать, изменять и отменять режим коммерческой тайны; разрешать или запрещать доступ к конфиденциальной информации; требовать от контрагентов соблюдения обязанностей по охране конфиденциальности; защищать свои права в случае разглашения или незаконного использования информации.</p>
+      <div class="modal-section-title">3. Охрана конфиденциальности</div>
+      <p>Меры по охране конфиденциальности включают: ведение перечня информации, составляющей коммерческую тайну; ограничение доступа и контроль за его соблюдением; нанесение на носители грифа «Коммерческая тайна», «Конфиденциально» или «Для служебного пользования».</p>
+      <p>Работник обязан: соблюдать режим коммерческой тайны; не разглашать конфиденциальные сведения в течение 3 лет после прекращения трудового договора; возместить Обществу ущерб при виновном разглашении.</p>
+      <div class="modal-section-title">4. Перечень сведений, составляющих коммерческую тайну</div>
+      <p>К коммерческой тайне Общества относятся: данные бухгалтерского учёта и отчётности; условия заключённых сделок и договоров; сведения о банковских счетах; секреты производства (ноу-хау); сведения о поставщиках, клиентах и партнёрах; размеры заработной платы; планы инвестиций, закупок и продаж; маркетинговые стратегии и результаты исследований.</p>
+      <div class="modal-section-title">5. Ответственность</div>
+      <p>Нарушение Положения влечёт дисциплинарную, гражданско-правовую, административную или уголовную ответственность в соответствии с законодательством Российской Федерации.</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-career" onclick="closeModalOutside(event, 'career')">
+  <div class="modal-box modal-box--narrow">
+    <div class="modal-header">
+      <div>
+        <div class="modal-tag">Карьера</div>
+        <h3 class="modal-title">Работа в ООО «Маньяна Менеджмент»</h3>
+      </div>
+      <button class="modal-close" onclick="closeModal('career')" aria-label="Закрыть">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2L14 14M14 2L2 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-lead">Мы ценим в своих работниках стремление к достижению результата, готовность работать в команде и брать на себя ответственность.</p>
+      <p>Чтобы начать свою карьеру в ООО «Маньяна Менеджмент», пришлите ваше резюме на электронную почту:</p>
+      <a href="mailto:pilipenko@mmgmt.ru" class="modal-email-btn">
+        <svg width="18" height="14" viewBox="0 0 18 14" fill="none"><rect x="1" y="1" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M1 3L9 8L17 3" stroke="currentColor" stroke-width="1.5"/></svg>
+        pilipenko@mmgmt.ru
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ─── MODALS (global) ───
+  function openModal(id) {
+    const sw = window.innerWidth - document.documentElement.clientWidth;
+    document.documentElement.style.setProperty('--scrollbar-w', sw + 'px');
+    document.getElementById('modal-' + id).classList.add('open');
+    document.body.classList.add('modal-open');
+  }
+  function closeModal(id) {
+    document.getElementById('modal-' + id).classList.remove('open');
+    document.body.classList.remove('modal-open');
+    document.documentElement.style.setProperty('--scrollbar-w', '0px');
+  }
+  function closeModalOutside(e, id) {
+    if (e.target === document.getElementById('modal-' + id)) closeModal(id);
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') ['privacy','career'].forEach(closeModal); });
+
+  // ─── SIDEBAR FORM ───
+  function sidebarSubmit(e) {
+    e.preventDefault();
+    const btn = e.target;
+    const ship  = document.getElementById('sb-ship')?.value || '';
+    const phone = document.getElementById('sb-phone')?.value || '';
+    const desc  = document.getElementById('sb-desc')?.value || '';
+    const subject = encodeURIComponent('Заявка на интерьерные работы — remont-katerov.ru');
+    const body    = encodeURIComponent(`Судно: ${ship}\nТелефон: ${phone}\nОписание: ${desc}`);
+    window.location.href = `mailto:pilipenko@mmgmt.ru?subject=${subject}&body=${body}`;
+    btn.textContent = 'Отправлено ✓'; btn.style.background = '#2a7a2a';
+    setTimeout(() => { btn.textContent = 'Отправить заявку →'; btn.style.background = ''; }, 3000);
+  }
+
+  // ─── CTA FORM ───
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target;
+    const ship = document.getElementById('f-ship')?.value || '';
+    const phone = document.getElementById('f-phone')?.value || '';
+    const work  = document.getElementById('f-work')?.value || '';
+    const loc   = document.getElementById('f-location')?.value || '';
+    const subject = encodeURIComponent('Новая заявка с сайта remont-katerov.ru');
+    const body    = encodeURIComponent(`Судно / компания: ${ship}\nТелефон: ${phone}\nТип работ: ${work}\nМестонахождение: ${loc}`);
+    window.location.href = `mailto:pilipenko@mmgmt.ru?subject=${subject}&body=${body}`;
+    btn.textContent = 'Заявка отправлена ✓'; btn.style.background = '#2a7a2a';
+    setTimeout(() => { btn.textContent = 'Отправить заявку →'; btn.style.background = ''; }, 3000);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // ─── NAV SCROLL ───
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); }, { passive: true });
+
+    // ─── BURGER ───
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('navLinks');
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('open');
+      navLinks.classList.toggle('open');
+      document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+    });
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        burger.classList.remove('open');
+        navLinks.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // ─── SCROLL REVEAL ───
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ─── HERO IMAGE PARALLAX ───
+    const heroDeco = document.querySelector('.hero-deco');
+    const heroSection = document.querySelector('.service-hero');
+    let rafParallax = null;
+    function updateHeroParallax() {
+      if (!heroDeco || !heroSection || window.innerWidth <= 600) return;
+      const heroRect = heroSection.getBoundingClientRect();
+      const heroH = heroSection.offsetHeight;
+      const scrolled = Math.max(0, -heroRect.top);
+      const progress = Math.min(scrolled / heroH, 1);
+      const offset = progress * heroH * 0.42;
+      heroDeco.style.transform = `translateY(calc(-50% + ${offset}px))`;
+      rafParallax = null;
+    }
+    window.addEventListener('scroll', () => {
+      if (!rafParallax) rafParallax = requestAnimationFrame(updateHeroParallax);
+    }, { passive: true });
+    updateHeroParallax();
+
+    // ─── WAVY FOOTER ───
+    const wavyEl = document.getElementById('wavyFooter');
+    if (wavyEl) {
+      'СУДОРЕМОНТ'.split('').forEach(ch => {
+        const s = document.createElement('span');
+        s.textContent = ch === ' ' ? '\u00A0' : ch;
+        wavyEl.appendChild(s);
+      });
+    }
+  });
+</script>
+</body>
+</html>
