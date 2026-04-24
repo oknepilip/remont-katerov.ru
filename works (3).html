@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Наши работы — remont-katerov.ru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#f5f3ef; --bg2:#edeae4; --surface:#ffffff;
+      --navy:#1a2535; --mid:#5a6a7e; --silver:#8a9ab5; --light:#c4cdd8;
+      --accent:#1e4d8c; --accent2:#f06a00; --white:#ffffff; --text:#1a2535; --text2:#3d4f63;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--bg); color:var(--text); font-family:'Barlow',sans-serif; font-weight:300; overflow-x:hidden; }
+    body.modal-open { overflow:hidden; padding-right:var(--scrollbar-w,0px); }
+    body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E"); pointer-events:none; z-index:0; }
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; justify-content:space-between; align-items:center; padding:0 60px; height:72px; background:rgba(245,243,239,0.95); backdrop-filter:blur(14px); border-bottom:1px solid rgba(26,37,53,0.08); transition:box-shadow 0.3s; }
+    nav.scrolled { box-shadow:0 2px 24px rgba(26,37,53,0.08); }
+    .logo { display:flex; flex-direction:row; align-items:center; gap:12px; text-decoration:none; flex-shrink:0; }
+    .logo-icon { width:56px; height:56px; display:flex; align-items:center; justify-content:center; }
+    .logo-icon img { width:56px; height:56px; object-fit:contain; mix-blend-mode:multiply; }
+    .logo-name { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:3px; color:var(--navy); line-height:1; }
+    .logo-sub { font-family:'Barlow Condensed',sans-serif; font-size:9px; letter-spacing:4px; color:var(--mid); text-transform:uppercase; margin-top:2px; }
+    .nav-links { display:flex; gap:0; list-style:none; align-items:center; }
+    .nav-links li a { display:block; color:var(--mid); text-decoration:none; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; font-weight:500; padding:8px 14px; border-radius:4px; transition:color 0.2s,background 0.2s; white-space:nowrap; }
+    .nav-links li a:hover, .nav-links li a.active { color:var(--accent); background:rgba(30,77,140,0.07); }
+    .nav-cta-li a { background:var(--accent)!important; color:var(--white)!important; padding:9px 20px!important; margin-left:8px; border-radius:3px; font-weight:600!important; }
+    .nav-right-block { display:flex; align-items:center; gap:10px; margin-left:4px; flex-shrink:0; }
+    .nav-phone { font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:600; letter-spacing:1px; color:var(--navy); text-decoration:none; white-space:nowrap; transition:color 0.2s; }
+    .nav-phone:hover { color:var(--accent); }
+    .nav-cta-btn { background:var(--accent); color:var(--white)!important; padding:9px 20px; margin-left:8px; border-radius:3px; font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:600!important; letter-spacing:1.5px; text-transform:uppercase; text-decoration:none; transition:background 0.2s,transform 0.15s,box-shadow 0.2s; white-space:nowrap; flex-shrink:0; }
+    .nav-cta-btn:hover { background:#163d70; transform:translateY(-1px); box-shadow:0 4px 14px rgba(30,77,140,0.28); }
+    .nav-burger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:10px; z-index:200; flex-shrink:0; }
+    .nav-burger span { display:block; width:24px; height:2px; background:var(--navy); transition:transform 0.3s,opacity 0.3s; transform-origin:center; }
+    .nav-burger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity:0; }
+    .nav-burger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+    .page-hero { padding:120px 60px 60px; background:var(--navy); position:relative; overflow:hidden; }
+    .page-hero::before { content:''; position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px); background-size:80px 80px; }
+    .page-eyebrow { font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:5px; color:var(--accent2); text-transform:uppercase; margin-bottom:16px; display:flex; align-items:center; gap:12px; position:relative; z-index:1; }
+    .page-eyebrow::before { content:''; display:inline-block; width:24px; height:1px; background:var(--accent2); }
+    .page-hero h1 { font-family:'Bebas Neue',sans-serif; font-size:clamp(48px,7vw,88px); color:var(--white); line-height:0.95; letter-spacing:2px; margin-bottom:20px; position:relative; z-index:1; }
+    .page-hero p { font-size:16px; line-height:1.8; color:rgba(255,255,255,0.6); max-width:600px; position:relative; z-index:1; }
+    .page-content { padding:60px; }
+    .section-tag { font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:5px; text-transform:uppercase; color:var(--accent2); margin-bottom:16px; display:flex; align-items:center; gap:12px; }
+    .section-tag::before { content:''; display:inline-block; width:24px; height:1px; background:var(--accent2); }
+    .section-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(36px,5vw,60px); line-height:0.95; letter-spacing:1px; color:var(--navy); margin-bottom:30px; }
+    .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:60px; }
+    .grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+    .card { background:var(--surface); border:1px solid rgba(26,37,53,0.08); padding:28px; transition:box-shadow 0.3s,transform 0.3s; }
+    .card:hover { box-shadow:0 8px 30px rgba(26,37,53,0.10); transform:translateY(-3px); }
+    .card-num { font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:3px; color:var(--accent2); margin-bottom:8px; }
+    .card-title { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:1px; color:var(--navy); margin-bottom:10px; }
+    .card-desc { font-size:13px; line-height:1.7; color:var(--text2); }
+    .card-tag { display:inline-block; font-family:'Barlow Condensed',sans-serif; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--accent); border:1px solid rgba(30,77,140,0.3); padding:4px 10px; margin-top:12px; }
+    .btn-primary { background:var(--accent); color:var(--white); padding:14px 32px; font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; letter-spacing:3px; text-transform:uppercase; text-decoration:none; display:inline-block; transition:background 0.3s; }
+    .btn-primary:hover { background:#163d70; }
+    .reveal { opacity:0; transform:translateY(24px); transition:opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    footer { background:var(--navy); padding:60px 60px 20px; }
+    .footer-bottom { display:flex; justify-content:space-between; align-items:center; font-size:12px; color:rgba(255,255,255,0.25); padding-top:20px; border-top:1px solid rgba(255,255,255,0.07); }
+
+    @media (max-width:860px) {
+      nav { padding:0 20px; height:64px; }
+      .nav-links { display:none; flex-direction:column; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(245,243,239,0.98); backdrop-filter:blur(16px); justify-content:center; align-items:center; gap:8px; z-index:150; opacity:0; pointer-events:none; transition:opacity 0.3s; }
+      .nav-links.open { display:flex; opacity:1; pointer-events:all; }
+      .nav-links li a { font-size:18px; letter-spacing:3px; padding:12px 28px; }
+      .nav-links .nav-cta-li a { margin-left:0; padding:14px 40px!important; margin-top:8px; }
+      .nav-right-block { display:none; }
+      .nav-burger { display:flex; }
+      .page-hero { padding:100px 20px 40px; }
+      .page-content { padding:30px 20px; }
+      .works-grid { grid-template-columns:1fr 1fr; }
+      footer { padding:40px 20px 20px; }
+      .footer-bottom { flex-direction:column; gap:8px; text-align:center; }
+    }
+    @media (max-width:500px) {
+      .works-grid { grid-template-columns:1fr; }
+    }
+
+    .works-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-bottom:60px; }
+    .work-item { background:var(--navy); aspect-ratio:4/3; position:relative; overflow:hidden; cursor:pointer; }
+    .work-item::before { content:''; position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px); background-size:40px 40px; }
+    .work-overlay { position:absolute; inset:0; background:linear-gradient(to top, rgba(26,37,53,0.9) 0%, transparent 60%); display:flex; flex-direction:column; justify-content:flex-end; padding:24px; opacity:0; transition:opacity 0.35s; }
+    .work-item:hover .work-overlay { opacity:1; }
+    .work-title { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--white); letter-spacing:1px; }
+    .work-sub { font-size:12px; color:rgba(255,255,255,0.55); letter-spacing:2px; text-transform:uppercase; margin-top:4px; }
+    .work-num { position:absolute; top:20px; left:20px; font-family:'Bebas Neue',sans-serif; font-size:48px; color:rgba(255,255,255,0.08); line-height:1; }
+    .work-tag { position:absolute; top:20px; right:20px; font-family:'Barlow Condensed',sans-serif; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--accent2); border:1px solid rgba(240,106,0,0.4); padding:4px 10px; }
+  </style>
+</head>
+<body>
+<nav id="mainNav">
+  <a href="index.html" class="logo">
+    <div class="logo-icon"><img src="logo.jpg" alt="remont-katerov.ru"></div>
+    <div style="display:flex;flex-direction:column;">
+      <div class="logo-name">REMONT-KATEROV.RU</div>
+      <div class="logo-sub">Профессиональный судоремонт</div>
+    </div>
+  </a>
+  <button class="nav-burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html#services">Услуги</a></li>
+    <li><a href="works.html" class="active">Наши работы</a></li>
+    <li><a href="engines.html">Каталог</a></li>
+    <li><a href="knowledge.html">База знаний</a></li>
+    <li><a href="index.html#faq">FAQ</a></li>
+  </ul>
+  <div class="nav-right-block">
+    <a href="tel:+79217727177" class="nav-phone">+7 (921) 77-27-177</a>
+    <a href="index.html#contact" class="nav-cta-btn">Заявка</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-eyebrow">Портфолио</div>
+  <h1>НАШИ<br>РАБОТЫ</h1>
+  <p>Выполненные проекты по ремонту и обслуживанию судов различных классов и типов</p>
+</div>
+
+<div class="page-content">
+  <div class="section-tag">Выполненные проекты</div>
+  <h2 class="section-title">РЕАЛИЗОВАННЫЕ<br>ПРОЕКТЫ</h2>
+
+  <div class="works-grid">
+    
+    <div class="work-item reveal" style="transition-delay:0.00s">
+      <div class="work-num">01</div>
+      <div class="work-tag">МЕХАНИКА</div>
+      <div class="work-overlay">
+        <div class="work-title">МТ Балтийский</div>
+        <div class="work-sub">Капитальный ремонт главных двигателей</div>
+      </div>
+    </div>
+    <div class="work-item reveal" style="transition-delay:0.07s">
+      <div class="work-num">02</div>
+      <div class="work-tag">ЭЛЕКТРИКА</div>
+      <div class="work-overlay">
+        <div class="work-title">РТ Нева-12</div>
+        <div class="work-sub">Полная замена электрооборудования</div>
+      </div>
+    </div>
+    <div class="work-item reveal" style="transition-delay:0.14s">
+      <div class="work-num">03</div>
+      <div class="work-tag">КОРПУС</div>
+      <div class="work-overlay">
+        <div class="work-title">Яхта Meridian 54</div>
+        <div class="work-sub">Ремонт корпуса и покраска</div>
+      </div>
+    </div>
+    <div class="work-item reveal" style="transition-delay:0.21s">
+      <div class="work-num">04</div>
+      <div class="work-tag">МЕХАНИКА</div>
+      <div class="work-overlay">
+        <div class="work-title">ПТС Ладога</div>
+        <div class="work-sub">Ремонт редуктора и валовой линии</div>
+      </div>
+    </div>
+    <div class="work-item reveal" style="transition-delay:0.28s">
+      <div class="work-num">05</div>
+      <div class="work-tag">ИНТЕРЬЕР</div>
+      <div class="work-overlay">
+        <div class="work-title">МБ Финский залив</div>
+        <div class="work-sub">Обновление интерьера</div>
+      </div>
+    </div>
+    <div class="work-item reveal" style="transition-delay:0.35s">
+      <div class="work-num">06</div>
+      <div class="work-tag">ДИАГНОСТИКА</div>
+      <div class="work-overlay">
+        <div class="work-title">СТ Кронштадт</div>
+        <div class="work-sub">Диагностика и ТО</div>
+      </div>
+    </div>
+    <div class="work-item reveal" style="transition-delay:0.42s">
+      <div class="work-num">07</div>
+      <div class="work-tag">ПРОЕКТ</div>
+      <div class="work-overlay">
+        <div class="work-title">РС Онежский</div>
+        <div class="work-sub">Проектирование модернизации</div>
+      </div>
+    </div>
+    <div class="work-item reveal" style="transition-delay:0.49s">
+      <div class="work-num">08</div>
+      <div class="work-tag">МЕХАНИКА</div>
+      <div class="work-overlay">
+        <div class="work-title">Катер Viking 44</div>
+        <div class="work-sub">Ремонт двигателя Volvo D6</div>
+      </div>
+    </div>
+    <div class="work-item reveal" style="transition-delay:0.56s">
+      <div class="work-num">09</div>
+      <div class="work-tag">ЗАПЧАСТИ</div>
+      <div class="work-overlay">
+        <div class="work-title">МТ Арктика</div>
+        <div class="work-sub">Поставка ЗИП и запчастей</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center; padding:20px 0 40px;">
+    <a href="index.html#contact" class="btn-primary">Обсудить ваш проект →</a>
+  </div>
+</div>
+
+<footer>
+  <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:50px;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:0;">
+    <div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:#fff;line-height:1;">СУДОРЕМОНТ</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:4px;color:rgba(255,255,255,0.35);text-transform:uppercase;margin:4px 0 16px;">remont-katerov.ru</div>
+      <p style="font-size:13px;line-height:1.8;color:rgba(255,255,255,0.4);">Комплексный судоремонт для морского и речного флота. Работаем по всему миру.</p>
+    </div>
+    <div>
+      <h4 style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:16px;">Направления</h4>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+        <li><a href="service-diagnostika.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;transition:color 0.2s;">Диагностика</a></li>
+        <li><a href="service-mechanika.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Механика</a></li>
+        <li><a href="service-elektrika.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Электрика</a></li>
+        <li><a href="service-korpus.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Корпусные работы</a></li>
+        <li><a href="service-zapchasti.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Оборудование и поставки</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:16px;">Компания</h4>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+        <li><a href="index.html#about" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">О нас</a></li>
+        <li><a href="works.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Наши работы</a></li>
+        <li><a href="knowledge.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">База знаний</a></li>
+        <li><a href="index.html#faq" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">FAQ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:16px;">Контакты</h4>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+        <li><a href="tel:+79217727177" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">+7 (921) 77-27-177</a></li>
+        <li><a href="mailto:pilipenko@mmgmt.ru" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">pilipenko@mmgmt.ru</a></li>
+        <li><span style="font-size:13px;color:rgba(255,255,255,0.4);">г. Санкт-Петербург,<br>пр. Крузенштерна, 18</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024–2025 Судоремонт. Все права защищены.</span>
+    <span>Лицензия Российского морского регистра судоходства</span>
+  </div>
+</footer>
+<script>
+  // Scroll shadow on nav
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40), {passive:true});
+
+  // Burger menu
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+    document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      burger.classList.remove('open');
+      navLinks.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // Reveal on scroll
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, {threshold: 0.1});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
