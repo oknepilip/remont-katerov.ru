@@ -1,0 +1,246 @@
+[
+  {
+    "tag": "МЕХАНИКА",
+    "title": "Ремонт алюминиевого корпуса и реданов",
+    "sub": "Демонтаж листа и подготовка набора, монтаж нового листа. Демонтаж старого редана, изготовление и монтаж нового редана.",
+    "cover": "images/100.jpg",
+    "media": [
+      {
+        "type": "img",
+        "dataUrl": "images/101.jpg"
+      },
+      {
+        "type": "img",
+        "dataUrl": "images/102.jpg"
+      },
+      {
+        "type": "img",
+        "dataUrl": "images/103.jpg"
+      },
+      {
+        "type": "img",
+        "dataUrl": "images/104.jpg"
+      },
+      {
+        "type": "img",
+        "dataUrl": "images/105.jpg"
+      }
+    ]
+  },
+  {
+    "tag": "МЕХАНИКА",
+    "title": "Генератор подвесного лодочного мотора",
+    "sub": "Ремонт генератора ПЛМ",
+    "cover": "images/photo_02.jpg",
+    "media": [
+      {
+        "type": "img",
+        "dataUrl": "images/photo_02.jpg"
+      },
+      {
+        "type": "img",
+        "dataUrl": "images/photo_03.jpg"
+      },
+      {
+        "type": "img",
+        "dataUrl": "images/photo_04.jpg"
+      },
+      {
+        "type": "img",
+        "dataUrl": "images/photo_05.jpg"
+      },
+      {
+        "type": "img",
+        "dataUrl": "images/photo_06.jpg"
+      }
+    ]
+  },
+  {
+    "tag": "МЕХАНИКА",
+    "title": "VOLVO PENTA DPH C",
+    "sub": "Устранение эмульсии и замена шестерней в колонке DPH C",
+    "cover": "images/photo_07.jpg",
+    "media": [
+      {
+        "type": "img",
+        "dataUrl": "images/photo_07.jpg"
+      },
+      {
+        "type": "img",
+        "dataUrl": "images/photo_08.jpg"
+      },
+      {
+        "type": "img",
+        "dataUrl": "images/photo_09.jpg"
+      }
+    ]
+  },
+  {
+    "tag": "МЕХАНИКА",
+    "title": "КС110 Рулевое устройство",
+    "sub": "Замена рулевой рейки на КС110",
+    "cover": "images/photo_10.jpg",
+    "media": [
+      {
+        "type": "img",
+        "dataUrl": "images/photo_10.jpg"
+      },
+      {
+        "type": "img",
+        "dataUrl": "images/photo_11.jpg"
+      },
+      {
+        "type": "img",
+        "dataUrl": "images/photo_12.jpg"
+      }
+    ]
+  },
+  {
+    "tag": "ЗАПЧАСТИ",
+    "title": "Mercury QSD 4.2",
+    "sub": "Поставка и установка стационарного двигателя Mercury QSD 4.2 350 ЛС",
+    "cover": "images/photo_13.jpg",
+    "media": [
+      {
+        "type": "img",
+        "dataUrl": "images/photo_13.jpg"
+      }
+    ]
+  },
+  {
+    "tag": "КОРПУС",
+    "title": "North Silver 1440",
+    "sub": "Грунтовка и покраска самополирующимся необрастающим покрытием",
+    "cover": "images/photo_14.jpg",
+    "media": [
+      {
+        "type": "img",
+        "dataUrl": "images/photo_14.jpg"
+      },
+      {
+        "type": "img",
+        "dataUrl": "images/photo_15.jpg"
+      }
+    ]
+  },
+  {
+    "tag": "МЕХАНИКА",
+    "title": "Mercury Verado и Tohatsu",
+    "sub": "Спасение утопленных ПЛМ Mercury и Tohatsu",
+    "cover": "images/photo_16.jpg",
+    "media": [
+      {
+        "type": "img",
+        "dataUrl": "images/photo_16.jpg"
+      },
+      {
+        "type": "img",
+        "dataUrl": "images/photo_17.jpg"
+      }
+    ]
+  },
+  {
+    "tag": "МЕХАНИКА",
+    "title": "ямз-238-нд4-4",
+    "sub": "Регулировка топливной аппаратуры (ТНВД, форсунки), замена распылителей,регулировка зазоров клапанов",
+    "cover": "images/photo_18.jpg",
+    "media": [
+      {
+        "type": "img",
+        "dataUrl": "images/photo_18.jpg"
+      },
+      {
+        "type": "img",
+        "dataUrl": "images/photo_19.jpg"
+      }
+    ]
+  },
+  {
+    "tag": "КОРПУС",
+    "title": "Грунтовка и покраска алюминия",
+    "sub": "Грунтовка и покраска алюминиевого катера",
+    "cover": "images/photo_20.jpg",
+    "media": [
+      {
+        "type": "img",
+        "dataUrl": "images/photo_20.jpg"
+      },
+      {
+        "type": "img",
+        "dataUrl": "images/photo_21.jpg"
+      },
+      {
+        "type": "img",
+        "dataUrl": "images/photo_22.jpg"
+      },
+      {
+        "type": "img",
+        "dataUrl": "images/photo_23.jpg"
+      },
+      {
+        "type": "img",
+        "dataUrl": "images/photo_24.jpg"
+      },
+      {
+        "type": "img",
+        "dataUrl": "images/photo_25.jpg"
+      }
+    ]
+  },
+  {
+    "tag": "ЗАПЧАСТИ",
+    "title": "Nanni Z6.300",
+    "sub": "Поставка запчастей и ТО 1000 часов Nanni Z6.300",
+    "cover": "images/photo_26.jpg",
+    "media": [
+      {
+        "type": "img",
+        "dataUrl": "images/photo_26.jpg"
+      },
+      {
+        "type": "img",
+        "dataUrl": "images/photo_27.jpg"
+      },
+      {
+        "type": "img",
+        "dataUrl": "images/photo_28.jpg"
+      },
+      {
+        "type": "img",
+        "dataUrl": "images/photo_29.jpg"
+      }
+    ]
+  },
+  {
+    "tag": "ЗАПЧАСТИ",
+    "title": "Volvo Penta DPH C",
+    "sub": "Замена уплотнений редуктора. Переуплотнение Volvo Penta DPH C",
+    "cover": "images/photo_30.jpg",
+    "media": [
+      {
+        "type": "img",
+        "dataUrl": "images/photo_30.jpg"
+      },
+      {
+        "type": "img",
+        "dataUrl": "images/photo_31.jpg"
+      },
+      {
+        "type": "img",
+        "dataUrl": "images/photo_32.jpg"
+      }
+    ]
+  },
+  {
+    "tag": "ТО",
+    "title": "ТО Volvo Penta D6",
+    "sub": "Плановое ТО Volvo Penta D6",
+    "cover": "images/photo_33.jpg",
+    "media": [
+      {
+        "type": "img",
+        "dataUrl": "images/photo_33.jpg"
+      }
+    ]
+  }
+]
