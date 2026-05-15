@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Engines Editor</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1117; color: #e6edf3; font-family: 'IBM Plex Mono', monospace; min-height: 100vh; padding: 24px 16px; }
+
+  h1 { font-family: 'Syne', sans-serif; font-size: 24px; letter-spacing: -0.5px; }
+
+  .header { max-width: 780px; margin: 0 auto 24px; }
+  .header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+  .header-meta { color: #555; font-size: 12px; margin-top: 4px; }
+  .header-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  button { font-family: 'IBM Plex Mono', monospace; cursor: pointer; transition: opacity 0.15s; }
+  button:disabled { opacity: 0.3; cursor: default; }
+
+  .btn { border-radius: 7px; padding: 8px 16px; font-size: 12px; border: none; }
+  .btn-copy { background: #21262d; border: 1px solid #30363d; color: #c9d1d9; }
+  .btn-copy.ok { background: #12261e; border-color: #3fb950; color: #3fb950; }
+  .btn-export { background: #1f6feb22; border: 1px solid #1f6feb; color: #58a6ff; }
+  .btn-add { background: #238636; color: #fff; font-weight: 700; }
+
+  .filters { display: flex; gap: 6px; flex-wrap: wrap; }
+  .filter-btn { padding: 5px 12px; border-radius: 20px; font-size: 11px; font-family: 'IBM Plex Mono', monospace; font-weight: 700; letter-spacing: 0.5px; cursor: pointer; transition: all 0.15s; }
+
+  .list { max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; }
+
+  .card { background: #161b22; border: 1px solid #21262d; border-radius: 10px; padding: 14px 16px; display: flex; gap: 14px; align-items: flex-start; transition: border-color 0.15s; }
+  .card:hover { border-color: #30363d; }
+  .card-idx { color: #555; font-size: 13px; min-width: 22px; padding-top: 2px; }
+  .card-body { flex: 1; min-width: 0; }
+  .card-top { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; flex-wrap: wrap; }
+  .card-title { color: #e6edf3; font-weight: 700; font-size: 14px; }
+  .card-sub { color: #7d8590; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .card-meta { color: #444; font-size: 11px; margin-top: 4px; }
+  .card-controls { display: flex; gap: 4px; align-items: center; flex-shrink: 0; }
+  .ctrl-btn { background: none; border: 1px solid #21262d; border-radius: 5px; color: #7d8590; padding: 4px 8px; font-size: 13px; }
+  .ctrl-btn.blue { color: #58a6ff; }
+  .ctrl-btn.red { color: #f85149; }
+
+  .cat-badge { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; padding: 2px 8px; border-radius: 12px; }
+  .stock-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  .empty { color: #555; text-align: center; padding: 40px; }
+  .footer-note { color: #333; font-size: 11px; text-align: center; margin-top: 32px; max-width: 780px; margin-left: auto; margin-right: auto; }
+
+  /* Modal */
+  .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 16px; }
+  .modal { background: #161b22; border: 1px solid #30363d; border-radius: 12px; width: 100%; max-width: 600px; max-height: 92vh; overflow-y: auto; padding: 28px; }
+  .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+  .modal-title { font-family: 'Syne', sans-serif; font-size: 18px; }
+  .modal-close { background: none; border: none; color: #888; font-size: 20px; cursor: pointer; }
+
+  label.field-label { display: block; color: #7d8590; font-size: 12px; margin-bottom: 6px; font-weight: 600; letter-spacing: 0.5px; }
+  input.field, textarea.field, select.field {
+    width: 100%; background: #0d1117; border: 1px solid #30363d; border-radius: 6px;
+    padding: 8px 12px; color: #e6edf3; font-size: 13px; margin-bottom: 14px;
+    font-family: 'IBM Plex Mono', monospace; outline: none;
+  }
+  input.field:focus, textarea.field:focus, select.field:focus { border-color: #58a6ff; }
+  select.field option { background: #161b22; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+  .cat-picker { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
+  .cat-pick-btn { padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.8px; cursor: pointer; font-family: 'IBM Plex Mono', monospace; transition: all 0.15s; border: 1px solid #333; background: #0d1117; color: #666; }
+  .cat-pick-btn.active { background: #1a2d4a; border-color: #58a6ff; color: #58a6ff; }
+
+  .stock-picker { display: flex; gap: 8px; margin-bottom: 16px; }
+  .stock-pick-btn { padding: 6px 14px; border-radius: 6px; font-size: 11px; font-weight: 700;
+    cursor: pointer; font-family: 'IBM Plex Mono', monospace; transition: all 0.15s; border: 1px solid #333; background: #0d1117; color: #666; }
+  .stock-pick-btn.active-in  { background: #122212; border-color: #3fb950; color: #3fb950; }
+  .stock-pick-btn.active-order { background: #1a1a0a; border-color: #d29922; color: #d29922; }
+  .stock-pick-btn.active-out { background: #1f0a0a; border-color: #f85149; color: #f85149; }
+
+  .section-divider { color: #444; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; margin: 20px 0 10px; padding-bottom: 6px; border-bottom: 1px solid #21262d; }
+
+  /* Specs */
+  .specs-list { background: #0d1117; border-radius: 8px; padding: 10px 12px; margin-bottom: 14px; }
+  .spec-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 8px; align-items: center; margin-bottom: 6px; }
+  .spec-row:last-child { margin-bottom: 0; }
+  .spec-input { background: #111; border: 1px solid #333; border-radius: 4px; padding: 5px 8px; color: #ccc; font-size: 12px; font-family: 'IBM Plex Mono', monospace; outline: none; width: 100%; }
+  .spec-input:focus { border-color: #58a6ff; }
+  .spec-remove { background: none; border: 1px solid #333; border-radius: 4px; color: #f85149; padding: 3px 8px; font-size: 12px; flex-shrink: 0; }
+  .btn-add-spec { background: #21262d22; border: 1px solid #30363d; border-radius: 6px; color: #8b949e; padding: 4px 12px; font-size: 12px; margin-bottom: 14px; }
+
+  /* Photos */
+  .photos-list { background: #0d1117; border-radius: 8px; padding: 10px 12px; margin-bottom: 14px; max-height: 180px; overflow-y: auto; }
+  .photo-item { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .photo-item:last-child { margin-bottom: 0; }
+  .photo-num { color: #555; font-size: 12px; min-width: 20px; }
+  .photo-input { flex: 1; background: #111; border: 1px solid #333; border-radius: 4px; padding: 5px 8px; color: #ccc; font-size: 12px; font-family: 'IBM Plex Mono', monospace; outline: none; }
+  .photo-remove { background: none; border: 1px solid #333; border-radius: 4px; color: #f85149; padding: 3px 8px; font-size: 12px; }
+
+  .media-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .btn-add-photo { background: #1f6feb22; border: 1px solid #1f6feb; border-radius: 6px; color: #58a6ff; padding: 4px 12px; font-size: 12px; }
+
+  .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 16px; }
+  .btn-cancel { background: none; border: 1px solid #333; border-radius: 6px; color: #888; padding: 8px 20px; }
+  .btn-save { border: none; border-radius: 6px; color: #fff; padding: 8px 24px; font-weight: 700; background: #1f6feb; }
+  .btn-save:disabled { background: #111; color: #333; cursor: default; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div>
+      <h1>Engines Editor</h1>
+      <p class="header-meta" id="count-label"></p>
+    </div>
+    <div class="header-buttons">
+      <button class="btn btn-copy" id="btn-copy" onclick="copyJson()">Копировать JSON</button>
+      <button class="btn btn-export" onclick="exportJson()">↓ Скачать engines.json</button>
+      <button class="btn btn-add" onclick="openAdd()">+ Добавить позицию</button>
+    </div>
+  </div>
+  <div class="filters" id="filters"></div>
+</div>
+
+<div class="list" id="list"></div>
+
+<p class="footer-note">После редактирования скачайте JSON и замените файл <strong>engines.json</strong> на сервере рядом с engines.html</p>
+
+<!-- Modal -->
+<div class="overlay" id="modal" style="display:none">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title" id="modal-title">Новая позиция</h2>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+
+    <!-- Category -->
+    <label class="field-label">Категория</label>
+    <div class="cat-picker" id="cat-picker"></div>
+
+    <!-- Name -->
+    <label class="field-label">Название *</label>
+    <input class="field" id="f-name" placeholder="Volvo Penta D6-400" oninput="updateSaveBtn()">
+
+    <!-- Price row -->
+    <div class="two-col">
+      <div>
+        <label class="field-label">Цена</label>
+        <input class="field" id="f-price" placeholder="890 000 ₽">
+      </div>
+      <div>
+        <label class="field-label">Примечание к цене</label>
+        <input class="field" id="f-price-note" placeholder="цена без НДС">
+      </div>
+    </div>
+
+    <!-- Stock -->
+    <label class="field-label">Наличие</label>
+    <div class="stock-picker" id="stock-picker"></div>
+
+    <!-- Warranty + Dims -->
+    <div class="two-col">
+      <div>
+        <label class="field-label">Гарантия</label>
+        <input class="field" id="f-warranty" placeholder="2 года">
+      </div>
+      <div>
+        <label class="field-label">Габариты (ШхВхГ)</label>
+        <input class="field" id="f-dims" placeholder="820×710×940 мм">
+      </div>
+    </div>
+
+    <!-- Specs -->
+    <div class="section-divider">Характеристики</div>
+    <div id="specs-list" class="specs-list"></div>
+    <button class="btn-add-spec" onclick="addSpec()">+ Добавить характеристику</button>
+
+    <!-- Photos -->
+    <div class="section-divider">
+      <div class="media-header" style="margin:0">
+        <span>Фотографии (<span id="photos-count">0</span>)</span>
+        <button class="btn-add-photo" onclick="addPhoto()">+ Добавить фото</button>
+      </div>
+    </div>
+    <div class="photos-list" id="photos-list">
+      <p style="color:#555;font-size:12px;text-align:center;padding:8px">Нет фотографий</p>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Отмена</button>
+      <button class="btn-save" id="btn-save" onclick="saveProduct()">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const CATS = {
+  outboard: 'Подвесной',
+  inboard:  'Стационарный',
+  drive:    'Угловая ПОК',
+  gearbox:  'Редуктор',
+  prop:     'Винт',
+};
+const CAT_KEYS = Object.keys(CATS);
+
+const STOCK_LABELS = { in: 'В наличии', order: 'Под заказ', out: 'Нет в наличии' };
+const STOCK_COLORS = { in: '#3fb950', order: '#d29922', out: '#f85149' };
+
+// ── Данные — загружаются из engines.json или используют встроенные ────────────
+let products = [];
+let nextId = 100;
+
+async function loadData() {
+  try {
+    const r = await fetch('engines.json');
+    if (!r.ok) throw new Error();
+    products = await r.json();
+    nextId = Math.max(...products.map(p => p.id), 0) + 1;
+  } catch {
+    // Файл не найден — стартуем с пустым списком
+    products = [];
+    nextId = 1;
+  }
+  render();
+}
+
+let filterCat = 'all';
+let modalMode = null;
+let editIndex = -1;
+let modalCat = 'outboard';
+let modalStock = 'in';
+let modalSpecs = [];
+let modalPhotos = [];
+
+// ── Render ─────────────────────────────────────────────────────────────────────
+
+function render() {
+  document.getElementById('count-label').textContent = products.length + ' позиций в каталоге';
+  renderFilters();
+  renderList();
+}
+
+function renderFilters() {
+  const el = document.getElementById('filters');
+  const allCats = [['all', 'ВСЕ'], ...CAT_KEYS.map(k => [k, CATS[k]])];
+  el.innerHTML = allCats.map(([k, label]) => {
+    const count = k === 'all' ? products.length : products.filter(p => p.cat === k).length;
+    const active = filterCat === k;
+    return `<button class="filter-btn" onclick="setFilter('${k}')"
+      style="border-color:${active ? '#58a6ff' : '#21262d'};background:${active ? '#1a2d4a' : 'transparent'};color:${active ? '#58a6ff' : '#555'}"
+    >${label} <span style="opacity:.6">${count}</span></button>`;
+  }).join('');
+}
+
+function renderList() {
+  const el = document.getElementById('list');
+  const indices = filterCat === 'all'
+    ? products.map((_, i) => i)
+    : products.map((_, i) => i).filter(i => products[i].cat === filterCat);
+
+  if (indices.length === 0) {
+    el.innerHTML = `<p class="empty">Нет позиций в этой категории</p>`;
+    return;
+  }
+
+  el.innerHTML = indices.map(i => {
+    const p = products[i];
+    const sc = STOCK_COLORS[p.stock] || '#666';
+    const specsPreview = Object.entries(p.specs || {}).slice(0, 3).map(([k,v]) => `${k}: ${v}`).join(' · ');
+    return `
+    <div class="card">
+      <span class="card-idx">${i + 1}</span>
+      <div class="card-body">
+        <div class="card-top">
+          <span class="cat-badge" style="background:#1a2d4a;color:#58a6ff;border:1px solid #58a6ff33">${esc(CATS[p.cat] || p.cat)}</span>
+          <span class="stock-dot" style="background:${sc}" title="${STOCK_LABELS[p.stock] || p.stock}"></span>
+          <span class="card-title">${esc(p.name)}</span>
+        </div>
+        <p class="card-sub">${esc(specsPreview || '—')}</p>
+        <p class="card-meta">${esc(p.price)} · ${(p.photos||[]).length} фото · ID ${p.id}</p>
+      </div>
+      <div class="card-controls">
+        <button class="ctrl-btn" onclick="moveUp(${i})" ${i === 0 ? 'disabled' : ''} title="Вверх">↑</button>
+        <button class="ctrl-btn" onclick="moveDown(${i})" ${i === products.length - 1 ? 'disabled' : ''} title="Вниз">↓</button>
+        <button class="ctrl-btn blue" onclick="openEdit(${i})" title="Редактировать">✎</button>
+        <button class="ctrl-btn red" onclick="deleteProduct(${i})" title="Удалить">✕</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── Actions ────────────────────────────────────────────────────────────────────
+
+function setFilter(c) { filterCat = c; render(); }
+
+function moveUp(i) {
+  if (i === 0) return;
+  [products[i-1], products[i]] = [products[i], products[i-1]];
+  render();
+}
+function moveDown(i) {
+  if (i === products.length - 1) return;
+  [products[i+1], products[i]] = [products[i], products[i+1]];
+  render();
+}
+function deleteProduct(i) {
+  if (confirm('Удалить «' + products[i].name + '»?')) {
+    products.splice(i, 1);
+    render();
+  }
+}
+
+function exportJson() {
+  const blob = new Blob([JSON.stringify(products, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'engines.json';
+  a.click();
+}
+
+function copyJson() {
+  navigator.clipboard.writeText(JSON.stringify(products, null, 2)).then(() => {
+    const btn = document.getElementById('btn-copy');
+    btn.textContent = '✓ Скопировано';
+    btn.classList.add('ok');
+    setTimeout(() => { btn.textContent = 'Копировать JSON'; btn.classList.remove('ok'); }, 2000);
+  });
+}
+
+// ── Modal ──────────────────────────────────────────────────────────────────────
+
+function openAdd() {
+  modalMode = 'add';
+  modalCat = 'outboard';
+  modalStock = 'in';
+  modalSpecs = [{ k: '', v: '' }];
+  modalPhotos = [];
+  document.getElementById('modal-title').textContent = 'Новая позиция';
+  document.getElementById('f-name').value = '';
+  document.getElementById('f-price').value = '';
+  document.getElementById('f-price-note').value = 'цена без НДС';
+  document.getElementById('f-warranty').value = '';
+  document.getElementById('f-dims').value = '';
+  renderCatPicker();
+  renderStockPicker();
+  renderSpecs();
+  renderPhotos();
+  updateSaveBtn();
+  document.getElementById('modal').style.display = 'flex';
+  document.getElementById('f-name').focus();
+}
+
+function openEdit(i) {
+  modalMode = 'edit';
+  editIndex = i;
+  const p = products[i];
+  modalCat = p.cat;
+  modalStock = p.stock;
+  modalSpecs = Object.entries(p.specs || {}).map(([k, v]) => ({ k, v }));
+  if (modalSpecs.length === 0) modalSpecs = [{ k: '', v: '' }];
+  modalPhotos = [...(p.photos || [])];
+  document.getElementById('modal-title').textContent = 'Редактировать позицию';
+  document.getElementById('f-name').value = p.name;
+  document.getElementById('f-price').value = p.price;
+  document.getElementById('f-price-note').value = p.priceNote;
+  document.getElementById('f-warranty').value = p.warranty;
+  document.getElementById('f-dims').value = p.dims;
+  renderCatPicker();
+  renderStockPicker();
+  renderSpecs();
+  renderPhotos();
+  updateSaveBtn();
+  document.getElementById('modal').style.display = 'flex';
+}
+
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+}
+
+function renderCatPicker() {
+  const el = document.getElementById('cat-picker');
+  el.innerHTML = CAT_KEYS.map(k => {
+    const active = modalCat === k;
+    return `<button class="cat-pick-btn ${active ? 'active' : ''}" onclick="pickCat('${k}')">${CATS[k]}</button>`;
+  }).join('');
+}
+
+function pickCat(k) { modalCat = k; renderCatPicker(); }
+
+function renderStockPicker() {
+  const el = document.getElementById('stock-picker');
+  el.innerHTML = Object.entries(STOCK_LABELS).map(([k, label]) => {
+    const active = modalStock === k;
+    return `<button class="stock-pick-btn ${active ? 'active-' + k : ''}" onclick="pickStock('${k}')">${label}</button>`;
+  }).join('');
+}
+
+function pickStock(k) { modalStock = k; renderStockPicker(); }
+
+function renderSpecs() {
+  const el = document.getElementById('specs-list');
+  if (modalSpecs.length === 0) {
+    el.innerHTML = '<p style="color:#555;font-size:12px;text-align:center;padding:8px">Нет характеристик</p>';
+    return;
+  }
+  el.innerHTML = modalSpecs.map((s, i) => `
+    <div class="spec-row">
+      <input class="spec-input" placeholder="Мощность" value="${esc(s.k)}"
+        oninput="updateSpec(${i},'k',this.value)" onchange="updateSpec(${i},'k',this.value)">
+      <input class="spec-input" placeholder="400 л.с." value="${esc(s.v)}"
+        oninput="updateSpec(${i},'v',this.value)" onchange="updateSpec(${i},'v',this.value)">
+      <button class="spec-remove" onclick="removeSpec(${i})">✕</button>
+    </div>`).join('');
+}
+
+function addSpec() { modalSpecs.push({ k: '', v: '' }); renderSpecs(); }
+function removeSpec(i) { modalSpecs.splice(i, 1); renderSpecs(); }
+function updateSpec(i, field, val) { modalSpecs[i][field] = val; }
+
+function renderPhotos() {
+  const el = document.getElementById('photos-list');
+  document.getElementById('photos-count').textContent = modalPhotos.length;
+  if (modalPhotos.length === 0) {
+    el.innerHTML = '<p style="color:#555;font-size:12px;text-align:center;padding:8px">Нет фотографий</p>';
+    return;
+  }
+  el.innerHTML = modalPhotos.map((src, i) => `
+    <div class="photo-item">
+      <span class="photo-num">${i+1}.</span>
+      <input class="photo-input" value="${esc(src)}" placeholder="images/photo_XX.jpg"
+        oninput="updatePhoto(${i},this.value)" onchange="updatePhoto(${i},this.value)">
+      <button class="photo-remove" onclick="removePhoto(${i})">✕</button>
+    </div>`).join('');
+}
+
+function addPhoto() { modalPhotos.push(''); renderPhotos(); }
+function removePhoto(i) { modalPhotos.splice(i, 1); renderPhotos(); }
+function updatePhoto(i, val) { modalPhotos[i] = val; }
+
+function updateSaveBtn() {
+  const btn = document.getElementById('btn-save');
+  const valid = document.getElementById('f-name').value.trim() !== '';
+  btn.disabled = !valid;
+}
+
+function saveProduct() {
+  const name = document.getElementById('f-name').value.trim();
+  if (!name) return;
+
+  const specs = {};
+  modalSpecs.forEach(s => { if (s.k.trim()) specs[s.k.trim()] = s.v.trim(); });
+
+  const data = {
+    id: modalMode === 'edit' ? products[editIndex].id : nextId++,
+    cat: modalCat,
+    name,
+    price: document.getElementById('f-price').value.trim() || 'По запросу',
+    priceNote: document.getElementById('f-price-note').value.trim(),
+    stock: modalStock,
+    warranty: document.getElementById('f-warranty').value.trim(),
+    dims: document.getElementById('f-dims').value.trim(),
+    specs,
+    photos: modalPhotos.filter(p => p.trim()),
+  };
+
+  if (modalMode === 'add') {
+    products.push(data);
+  } else {
+    products[editIndex] = data;
+  }
+  closeModal();
+  render();
+}
+
+// Close on overlay click
+document.getElementById('modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ── Init ───────────────────────────────────────────────────────────────────────
+loadData();
+</script>
+</body>
+</html>
