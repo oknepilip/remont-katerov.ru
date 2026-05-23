@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,'script','https://mc.yandex.ru/metrika/tag.js?id=109135905','ym');
+    ym(109135905,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",referrer:document.referrer,url:location.href,accurateTrackBounce:true,trackLinks:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/109135905" style="position:absolute;left:-9999px;" alt=""/></div></noscript>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-L1FT8KJJ5V"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-L1FT8KJJ5V');</script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>База знаний — Судоремонт remont-katerov.ru</title>
+  <meta name="description" content="Технические мануалы, руководства по эксплуатации и обслуживанию двигателей и оборудования. База знаний судоремонтного сервиса.">
+  <meta name="keywords" content="мануалы судоремонт, инструкции двигатели, база знаний судоремонт, техническая документация катера">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://remont-katerov.ru/knowledge.html">
+  <meta property="og:title" content="База знаний — Судоремонт remont-katerov.ru">
+  <meta property="og:description" content="Технические руководства, инструкции по эксплуатации и обслуживанию двигателей и оборудования.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://remont-katerov.ru/knowledge.html">
+  <meta property="og:image" content="https://remont-katerov.ru/hero-photo.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="База знаний — Судоремонт remont-katerov.ru">
+  <meta name="twitter:image" content="https://remont-katerov.ru/hero-photo.png">
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="logo.jpg">
+  <link rel="shortcut icon" type="image/jpeg" href="logo.jpg">
+  <link rel="apple-touch-icon" href="logo.jpg">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg:#f5f3ef; --bg2:#edeae4; --surface:#ffffff;
+      --navy:#1a2535; --steel:#2c3e55; --mid:#5a6a7e; --silver:#8a9ab5; --light:#c4cdd8;
+      --accent:#1e4d8c; --accent2:#d45a00; --white:#ffffff; --text:#1a2535; --text2:#3d4f63;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--bg); color:var(--text); font-family:'Barlow',sans-serif; font-weight:300; overflow-x:hidden; }
+    body.modal-open { overflow:hidden; padding-right:var(--scrollbar-w,0px); }
+    body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E"); pointer-events:none; z-index:0; }
+
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 48px;
+      height: 72px;
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border-bottom: 1px solid transparent;
+      transition: background 0.4s, border-color 0.4s, box-shadow 0.4s, opacity 0.4s, transform 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(4,8,16,0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.3);
+    }
+    nav.nav-hidden { opacity: 0; pointer-events: none; transform: translateY(-100%); }
+
+    .logo { display: flex; flex-direction: row; align-items: center; gap: 12px; text-decoration: none; flex-shrink: 0; }
+    .logo-icon { width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .logo-icon img { width: 56px; height: 56px; object-fit: contain; }
+    .logo-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 3px; color: #fff; line-height: 1; }
+    .logo-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; letter-spacing: 4px; color: rgba(255,255,255,0.45); text-transform: uppercase; margin-top: 2px; }
+
+    .nav-links { display: flex; gap: 0; list-style: none; align-items: center; }
+    .nav-links li a {
+      display: block; color: rgba(255,255,255,0.75); text-decoration: none;
+      font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
+      font-weight: 500; padding: 8px 14px; border-radius: 4px;
+      transition: color 0.2s, background 0.2s; white-space: nowrap;
+    }
+    .nav-links li a:hover, .nav-links li a.active { color: #fff; background: rgba(255,255,255,0.08); }
+
+    .nav-services-li { position: relative; }
+    .nav-services-trigger { display: flex !important; align-items: center !important; gap: 5px !important; }
+    .nav-chevron { transition: transform 0.25s ease; opacity: 0.6; flex-shrink: 0; }
+    .nav-services-li.open .nav-chevron { transform: rotate(180deg); opacity: 1; }
+    .nav-services-drop {
+      position: absolute; top: calc(100% + 4px); left: 0;
+      list-style: none; padding: 8px 0; margin: 0; min-width: 240px;
+      background: transparent; opacity: 0; pointer-events: none;
+      transform: translateY(-6px); transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .nav-services-li.open .nav-services-drop { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .nav-services-drop li a {
+      display: block; padding: 10px 16px !important;
+      font-family: 'Barlow Condensed', sans-serif !important;
+      font-size: 13px !important; font-weight: 600 !important;
+      letter-spacing: 2px !important; text-transform: uppercase !important;
+      color: rgba(255,255,255,0.65) !important; text-decoration: none;
+      background: transparent !important; border-radius: 0 !important;
+      transition: color 0.15s ease !important; white-space: nowrap;
+    }
+    .nav-services-drop li a:hover { color: #ffffff !important; background: transparent !important; }
+
+    .nav-right-block { display: flex; align-items: center; gap: 10px; margin-left: 4px; flex-shrink: 0; }
+    .nav-phone { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 1px; color: #ffffff; text-decoration: none; white-space: nowrap; transition: color 0.2s; }
+    .nav-phone:hover { color: var(--accent2); }
+    .nav-cta-btn {
+      background: var(--accent); color: var(--white) !important;
+      padding: 9px 20px; margin-left: 8px; border-radius: 3px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 600 !important; letter-spacing: 1.5px;
+      text-transform: uppercase; text-decoration: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .nav-cta-btn:hover { background: #163d70; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(30,77,140,0.28); }
+
+    .nav-burger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 10px; z-index: 200; flex-shrink: 0; cursor: pointer; }
+    .nav-burger span { display: block; width: 24px; height: 2px; background: #fff; transition: transform 0.3s, opacity 0.3s; transform-origin: center; }
+    .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ─── MOBILE PHONE BAR ─── */
+    .mobile-phone-bar { display: none; }
+    @media (max-width: 860px) {
+      nav { padding: 0 20px; height: 64px; }
+      .logo-sub { display: none; }
+      .nav-burger { display: flex; }
+      .nav-right-block { display: none; }
+      .nav-links {
+        position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(4,8,16,0.97); backdrop-filter: blur(20px);
+        flex-direction: column; justify-content: center; align-items: center;
+        gap: 4px; z-index: 150; opacity: 0; pointer-events: none;
+        transition: opacity 0.35s;
+      }
+      .nav-links.open { opacity: 1; pointer-events: all; }
+      .nav-links li a { font-size: 20px; letter-spacing: 4px; padding: 14px 32px; color: rgba(255,255,255,0.85) !important; display: block; text-align: center; }
+      .nav-links li a:hover { color: var(--accent2) !important; }
+      .nav-services-drop { display: none !important; }
+      .nav-chevron { display: none !important; }
+      .nav-services-trigger { pointer-events: all !important; }
+      .mobile-phone-bar {
+        display: flex; position: fixed; bottom: 0; left: 0; right: 0;
+        z-index: 9999; background: linear-gradient(135deg,#d45a00 0%,#f07a20 100%);
+        align-items: center; justify-content: center; gap: 10px;
+        height: 50px; box-shadow: 0 -4px 20px rgba(212,90,0,0.45);
+        text-decoration: none; animation: phonePulse 2.5s ease-in-out infinite;
+      }
+      @keyframes phonePulse { 0%,100%{box-shadow:0 -4px 24px rgba(212,90,0,0.55);}50%{box-shadow:0 -4px 36px rgba(212,90,0,0.85);} }
+      .mobile-phone-bar svg { flex-shrink: 0; }
+      .mobile-phone-bar-text { display: flex; flex-direction: column; align-items: flex-start; }
+      .mobile-phone-bar-label { font-family: 'Barlow Condensed',sans-serif; font-size: 8px; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,0.75); line-height: 1; }
+      .mobile-phone-bar-number { font-family: 'Bebas Neue',sans-serif; font-size: 20px; letter-spacing: 2px; color: #fff; line-height: 1; }
+      body { padding-bottom: 50px; }
+    }
+
+    .nav-cta-btn { background:var(--accent); color:var(--white)!important; padding:9px 20px; margin-left:8px; border-radius:3px; font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:600!important; letter-spacing:1.5px; text-transform:uppercase; text-decoration:none; transition:background 0.2s,transform 0.15s,box-shadow 0.2s; white-space:nowrap; flex-shrink:0; }
+    .nav-cta-btn:hover { background:#163d70; transform:translateY(-1px); box-shadow:0 4px 14px rgba(30,77,140,0.28); }
+    .nav-burger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:10px; z-index:200; flex-shrink:0; }
+    .nav-burger span { display:block; width:24px; height:2px; background:#fff; transition:transform 0.3s,opacity 0.3s; transform-origin:center; }
+    .nav-burger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity:0; }
+    .nav-burger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+    /* Services dropdown */
+    .nav-services-li { position:relative; }
+    .nav-services-trigger { display:flex!important; align-items:center!important; gap:5px!important; }
+    .nav-chevron { transition:transform 0.25s ease; opacity:0.6; flex-shrink:0; }
+    .nav-services-li.open .nav-chevron { transform:rotate(180deg); opacity:1; }
+    .nav-services-drop { position:absolute; top:calc(100% + 4px); left:0; list-style:none; padding:8px 0; margin:0; min-width:220px; background:rgba(245,243,239,0.98); backdrop-filter:blur(14px); border:1px solid rgba(26,37,53,0.1); box-shadow:0 16px 40px rgba(26,37,53,0.12); opacity:0; pointer-events:none; transform:translateY(-6px); transition:opacity 0.2s ease,transform 0.2s ease; }
+    .nav-services-li.open .nav-services-drop { opacity:1; pointer-events:all; transform:translateY(0); }
+    .nav-services-drop li a { display:block; padding:9px 16px!important; font-family:'Barlow Condensed',sans-serif!important; font-size:12px!important; font-weight:600!important; letter-spacing:2px!important; text-transform:uppercase!important; color:var(--mid)!important; text-decoration:none; background:transparent!important; border-radius:0!important; transition:color 0.15s,background 0.15s!important; white-space:nowrap; }
+    .nav-services-drop li a:hover { color:var(--accent)!important; background:rgba(30,77,140,0.06)!important; }
+
+    /* ─── PAGE HERO ─── */
+    .page-hero {
+      position: relative;
+      min-height: 40vh;
+      padding: 100px 60px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+      background: linear-gradient(135deg, #040810 0%, #0d1e38 40%, #0a1628 70%, #040810 100%);
+    }
+    /* video убрано — статичный фон */
+    .page-hero::before {
+      content: ''; position: absolute; inset: 0; z-index: 0;
+      background: linear-gradient(105deg,
+        rgba(4,8,16,0.82) 0%,
+        rgba(4,8,16,0.55) 50%,
+        rgba(4,8,16,0.20) 100%);
+    }
+    .page-hero > * { position: relative; z-index: 2; }
+    .page-hero-grid {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(30,77,140,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30,77,140,0.05) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+    .page-hero-waterline {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      height: 40px; z-index: 3; overflow: hidden; pointer-events: none;
+    }
+    .page-hero-waterline svg {
+      position: absolute; bottom: 0; left: -200px;
+      width: calc(100% + 400px); height: 14px;
+      animation: wavemove 5s linear infinite;
+    }
+    @keyframes wavemove { 0% { transform: translateX(0); } 100% { transform: translateX(200px); } }
+    .page-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; letter-spacing: 5px;
+      color: var(--accent2); text-transform: uppercase;
+      margin-bottom: 14px;
+      margin-top: 40px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .page-eyebrow::before { content: ''; display: inline-block; width: 32px; height: 1px; background: var(--accent2); }
+    .page-hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 9vw, 96px);
+      color: var(--white); line-height: 0.95; letter-spacing: 2px;
+      margin-bottom: 18px;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+    }
+    .page-hero h1 em { font-style: normal; color: var(--accent2); }
+    .page-hero p {
+      font-size: 15px; line-height: 1.8;
+      color: rgba(255,255,255,0.72); max-width: 560px; font-weight: 400;
+    }
+
+    /* ─── KB CONTROLS ─── */
+    .kb-controls { padding:40px 60px 24px; background:var(--bg); display:flex; gap:16px; align-items:center; flex-wrap:wrap; border-bottom:1px solid rgba(26,37,53,0.08); position:relative; z-index:1; }
+    .kb-search { flex:1; min-width:240px; position:relative; }
+    .kb-search input { width:100%; padding:12px 16px 12px 42px; border:1px solid rgba(26,37,53,0.14); background:var(--surface); font-family:'Barlow',sans-serif; font-size:14px; color:var(--text); outline:none; transition:border-color 0.25s; }
+    .kb-search input:focus { border-color:var(--accent); }
+    .kb-search svg { position:absolute; left:14px; top:50%; transform:translateY(-50%); stroke:var(--silver); width:16px; height:16px; fill:none; stroke-width:2; }
+    .kb-cats { display:flex; gap:8px; flex-wrap:wrap; }
+    .kb-cat { font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase; padding:8px 16px; border:1px solid rgba(26,37,53,0.14); background:none; cursor:pointer; color:var(--mid); transition:all 0.2s; }
+    .kb-cat:hover, .kb-cat.active { border-color:var(--accent); color:var(--accent); background:rgba(30,77,140,0.05); }
+    .kb-count { padding:12px 60px 0; font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--silver); position:relative; z-index:1; }
+    .kb-grid { padding:24px 60px 80px; display:grid; grid-template-columns:repeat(3,1fr); gap:20px; position:relative; z-index:1; }
+    .kb-card { background:var(--surface); border:1px solid rgba(26,37,53,0.08); padding:24px; cursor:pointer; transition:box-shadow 0.3s,transform 0.3s,border-color 0.3s; position:relative; overflow:hidden; text-decoration:none; display:block; color:inherit; }
+    .kb-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--accent),#3a7bd5); transform:scaleX(0); transform-origin:left; transition:transform 0.35s; }
+    .kb-card:hover { box-shadow:0 12px 36px rgba(26,37,53,0.1); transform:translateY(-3px); border-color:rgba(30,77,140,0.18); }
+    .kb-card:hover::before { transform:scaleX(1); }
+    .kb-card-icon { width:40px; height:40px; background:rgba(30,77,140,0.07); display:flex; align-items:center; justify-content:center; margin-bottom:14px; }
+    .kb-card-icon svg { width:22px; height:22px; stroke:var(--accent); fill:none; stroke-width:1.5; }
+    .kb-type-row { margin-bottom:14px; }
+    .kb-type-badge { font-family:'Barlow Condensed',sans-serif; font-size:10px; letter-spacing:2px; text-transform:uppercase; padding:3px 10px; background:rgba(176,36,24,0.08); color:#b02418; }
+    .kb-card h3 { font-family:'Bebas Neue',sans-serif; font-size:19px; letter-spacing:1px; color:var(--navy); margin-bottom:8px; line-height:1.1; }
+    .kb-card p { font-size:12px; line-height:1.7; color:var(--text2); }
+    .kb-card-meta { display:flex; justify-content:space-between; align-items:center; margin-top:16px; padding-top:14px; border-top:1px solid rgba(26,37,53,0.07); }
+    .kb-card-size { font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:1px; color:var(--silver); }
+    .kb-card-dl { font-family:'Barlow Condensed',sans-serif; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--accent); display:flex; align-items:center; gap:5px; }
+    .kb-card:hover .kb-card-dl { color:var(--accent2); }
+    mark { background:rgba(240,106,0,0.18); color:inherit; border-radius:2px; padding:0 1px; }
+    .kb-empty { display:none; text-align:center; padding:60px 20px; grid-column:1/-1; }
+    .kb-empty svg { width:48px; height:48px; stroke:var(--light); fill:none; stroke-width:1.2; margin-bottom:16px; }
+    .kb-empty p { font-size:14px; color:var(--silver); }
+    .kb-loading { text-align:center; padding:60px; color:var(--silver); font-family:'Barlow Condensed',sans-serif; letter-spacing:2px; font-size:12px; grid-column:1/-1; }
+
+    /* ─── WAVY TEXT ─── */
+    .wavy-text { display: inline-flex; letter-spacing: 4px; }
+    .wavy-text span {
+      display: inline-block;
+      animation: wave 2s ease-in-out infinite;
+    }
+    .wavy-text span:nth-child(1)  { animation-delay: 0.00s; }
+    .wavy-text span:nth-child(2)  { animation-delay: 0.10s; }
+    .wavy-text span:nth-child(3)  { animation-delay: 0.20s; }
+    .wavy-text span:nth-child(4)  { animation-delay: 0.30s; }
+    .wavy-text span:nth-child(5)  { animation-delay: 0.40s; }
+    .wavy-text span:nth-child(6)  { animation-delay: 0.50s; }
+    .wavy-text span:nth-child(7)  { animation-delay: 0.60s; }
+    .wavy-text span:nth-child(8)  { animation-delay: 0.70s; }
+    .wavy-text span:nth-child(9)  { animation-delay: 0.80s; }
+    .wavy-text span:nth-child(10) { animation-delay: 0.90s; }
+    .wavy-text span:nth-child(11) { animation-delay: 1.00s; }
+    .wavy-text span:nth-child(12) { animation-delay: 1.10s; }
+    .wavy-text span:nth-child(13) { animation-delay: 1.20s; }
+    .wavy-text span:nth-child(14) { animation-delay: 1.30s; }
+    .wavy-text span:nth-child(15) { animation-delay: 1.40s; }
+    .wavy-text span:nth-child(16) { animation-delay: 1.50s; }
+    .wavy-text span:nth-child(17) { animation-delay: 1.60s; }
+    .wavy-text span:nth-child(18) { animation-delay: 1.70s; }
+    @keyframes wave {
+      0%, 100% { transform: translateY(0); }
+      40%       { transform: translateY(-7px); }
+      60%       { transform: translateY(-3px); }
+    }
+
+    /* ─── FOOTER ─── */
+    footer { background: transparent; padding: 32px 60px 12px; position: relative; z-index: 1; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 50px; margin-bottom: 50px; padding-bottom: 50px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .footer-brand p { font-size: 13px; color: rgba(255,255,255,0.38); line-height: 1.85; max-width: 280px; margin-top: 16px; }
+    .footer-logo-name { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 4px; color: var(--white); line-height: 1; }
+    .footer-logo-name .wavy-text { color: var(--white); }
+    .footer-logo-name .wavy-text span { color: var(--white); display: inline-block; animation: wave 2s ease-in-out infinite; }
+    .footer-logo-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; letter-spacing: 5px; color: rgba(255,255,255,0.85); text-transform: uppercase; margin-top: 3px; }
+    .footer-col h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent2); margin-bottom: 22px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a { color: rgba(255,255,255,0.42); text-decoration: none; font-size: 13px; transition: color 0.25s; display: inline-block; }
+    .footer-col a:hover { color: var(--white); transform: translateX(3px); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: rgba(255,255,255,0.22); }
+
+    /* ─── FOOTER MODAL BTNS ─── */
+    .footer-modal-btn {
+      background: none; border: none;
+      color: rgba(255,255,255,0.85);
+      font-family: 'Barlow', sans-serif;
+      font-size: 12px; cursor: pointer;
+      padding: 0; transition: color 0.25s;
+      text-decoration: underline; text-underline-offset: 3px;
+    }
+    .footer-modal-btn:hover { color: var(--white); }
+
+    /* ─── MODALS ─── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(10,18,32,0.72);
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal-box {
+      background: var(--surface);
+      width: 100%; max-width: 720px;
+      max-height: 85vh;
+      display: flex; flex-direction: column;
+      box-shadow: 0 32px 80px rgba(10,18,32,0.35);
+      transform: translateY(20px);
+      transition: transform 0.35s cubic-bezier(.4,0,.2,1);
+    }
+    .modal-overlay.open .modal-box { transform: translateY(0); }
+    .modal-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 32px 36px 24px;
+      border-bottom: 1px solid rgba(26,37,53,0.08);
+      flex-shrink: 0; gap: 20px;
+    }
+    .modal-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent2); margin-bottom: 10px; }
+    .modal-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(20px, 3vw, 28px); letter-spacing: 1px; color: var(--navy); line-height: 1.15; margin: 0; }
+    .modal-sub { font-size: 11px; color: var(--mid); margin-top: 6px; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1px; }
+    .modal-close {
+      width: 36px; height: 36px; flex-shrink: 0;
+      border: 1px solid rgba(26,37,53,0.12);
+      background: none; cursor: pointer; color: var(--mid);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .modal-close:hover { background: var(--navy); color: var(--white); border-color: var(--navy); }
+    .modal-body {
+      padding: 28px 36px 36px;
+      overflow-y: auto; flex: 1;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(26,37,53,0.15) transparent;
+    }
+    .modal-body p { font-size: 13px; line-height: 1.85; color: var(--text2); margin-bottom: 14px; }
+    .modal-body p strong { color: var(--navy); font-weight: 600; }
+    .modal-section-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--accent); margin: 24px 0 10px;
+      padding-bottom: 6px; border-bottom: 1px solid rgba(30,77,140,0.12);
+    }
+    .modal-section-title:first-child { margin-top: 0; }
+    .modal-lead { font-size: 15px!important; color: var(--navy)!important; font-weight: 400!important; line-height: 1.75!important; margin-bottom: 20px!important; }
+    .modal-email-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--accent); color: var(--white);
+      padding: 14px 28px;
+      font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 2px;
+      text-decoration: none; text-transform: lowercase; margin-top: 8px;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .modal-email-btn:hover { background: #163d70; transform: translateY(-1px); }
+
+    /* ─── REVEAL ─── */
+    .reveal { opacity:0; transform:translateY(24px); transition:opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width:860px) {
+      nav { padding:0 20px; height:64px; }
+      .nav-links { display:flex; flex-direction:column; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(4,8,16,0.97); backdrop-filter:blur(20px); justify-content:center; align-items:center; gap:4px; z-index:150; opacity:0; pointer-events:none; transition:opacity 0.35s; }
+      .nav-links.open { opacity:1; pointer-events:all; }
+      .nav-links li a { font-size:20px; letter-spacing:4px; padding:14px 32px; color:rgba(255,255,255,0.85)!important; display:block; text-align:center; }
+      .nav-links li a:hover { color:var(--accent2)!important; background:transparent!important; }
+      .nav-right-block { display:none; }
+      .nav-burger { display:flex; }
+      .nav-services-drop { display:none!important; }
+      .nav-chevron { display:none!important; }
+      .page-hero { padding:100px 20px 60px; min-height:50vh; }
+      .kb-controls, .kb-count { padding-left:20px; padding-right:20px; }
+      .kb-grid { padding:20px 20px 48px; grid-template-columns:1fr; }
+      footer { padding:20px 20px 10px; }
+      .footer-bottom { flex-direction:column; gap:8px; text-align:center; }
+      .footer-grid { grid-template-columns:1fr 1fr!important; gap:28px!important; }
+      .footer-brand { grid-column:1 / -1; }
+    }
+    @media (min-width:861px) and (max-width:1100px) { .kb-grid { grid-template-columns:repeat(2,1fr); } }
+    @media (max-width:600px) {
+      .modal-header { padding:24px 20px 18px; }
+      .modal-body { padding:20px 20px 28px; }
+    }
+  
+    /* ══════════════════════════════════════════════
+       АДАПТИВ — планшет (≤ 860px)
+    ══════════════════════════════════════════════ */
+    @media (max-width: 860px) {
+      .page-hero { padding: 72px 20px 40px; min-height: 32vh; }
+      .page-eyebrow { margin-top: 20px; }
+      .page-hero h1 { font-size: clamp(36px, 10vw, 64px); }
+      .page-hero p { font-size: 14px; max-width: 100%; }
+
+      .kb-controls { padding: 24px 20px 16px; flex-direction: column; align-items: stretch; gap: 12px; }
+      .kb-search { min-width: unset; }
+      .kb-cats { gap: 6px; }
+      .kb-cat { font-size: 10px; padding: 7px 12px; }
+      .kb-count { padding: 10px 20px 0; }
+      .kb-grid { padding: 16px 20px 40px; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+      footer { padding: 40px 20px 16px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 32px; padding-bottom: 28px; }
+      .footer-brand { grid-column: 1 / -1; }
+      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+    }
+
+    /* ══════════════════════════════════════════════
+       АДАПТИВ — маленький телефон (≤ 500px)
+    ══════════════════════════════════════════════ */
+    @media (max-width: 500px) {
+      .page-hero { min-height: 28vh; }
+      .page-hero h1 { font-size: clamp(30px, 12vw, 48px); letter-spacing: 1px; }
+
+      .kb-grid { grid-template-columns: 1fr; }
+      .kb-cats { flex-direction: row; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; }
+      .kb-cat { white-space: nowrap; flex-shrink: 0; }
+
+      footer { padding: 32px 16px 12px; }
+      .footer-top { grid-template-columns: 1fr; gap: 24px; }
+    }
+</style>
+</head>
+<body>
+
+
+<!-- ─── МОБИЛЬНЫЙ STICKY ТЕЛЕФОН ─── -->
+<a href="tel:+79217727177" class="mobile-phone-bar" aria-label="Позвонить нам">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.06 1.18 2 2 0 012.03.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+  <div class="mobile-phone-bar-text">
+    <span class="mobile-phone-bar-label">Звонок бесплатно</span>
+    <span class="mobile-phone-bar-number">+7 (921) 772-71-77</span>
+  </div>
+</a>
+
+
+
+<nav id="mainNav">
+  <a href="index.html" class="logo">
+    <div class="logo-icon"><img src="logo.jpg" alt="remont-katerov.ru"></div>
+    <div style="display:flex;flex-direction:column;">
+      <div class="logo-name">REMONT-KATEROV.RU</div>
+      <div class="logo-sub">Профессиональный судоремонт</div>
+    </div>
+  </a>
+
+  <button class="nav-burger" id="burger" aria-label="Меню">
+    <span></span><span></span><span></span>
+  </button>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="works.html">Наши работы</a></li>
+    <li><a href="engines.html">Каталог</a></li>
+    <li><a href="knowledge.html" class="active">База знаний</a></li>
+
+    <li class="nav-services-li" id="navServicesLi">
+      <a href="index.html#services" class="nav-services-trigger" id="navServicesTrigger">Услуги <svg class="nav-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+      <ul class="nav-services-drop" id="navServicesDrop">
+        <li><a href="service-diagnostika.html">Диагностика</a></li>
+        <li><a href="service-mechanika.html">Механика</a></li>
+        <li><a href="service-elektrika.html">Электрика</a></li>
+        <li><a href="service-korpus.html">Корпусные работы</a></li>
+        <li><a href="service-interer.html">Интерьер</a></li>
+        <li><a href="service-proektirovanie.html">Проектирование</a></li>
+        <li><a href="service-upravlenie.html">Управление проектом</a></li>
+        <li><a href="service-zapchasti.html">Оборудование и поставки</a></li>
+      </ul>
+    </li>
+  </ul>
+  <div class="nav-right-block">
+    <a href="tel:+79217727177" class="nav-phone">+7 (921) 77-27-177</a>
+    <a href="index.html#contact" class="nav-cta-btn">Заявка</a>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<div class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="page-eyebrow">Документация</div>
+  <h1>ТЕХНИЧЕСКИЕ ПАСПОРТА И <em>ДОКУМЕНТАЦИЯ</em></h1>
+  <p>Технические руководства, инструкции по эксплуатации и обслуживанию двигателей и оборудования.</p>
+  <div class="page-hero-waterline">
+    <svg viewBox="0 0 1200 14" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,7 C100,2 200,12 300,7 C400,2 500,12 600,7 C700,2 800,12 900,7 C1000,2 1100,12 1200,7"
+            stroke="rgba(240,106,0,0.5)" stroke-width="1.5" fill="none"/>
+    </svg>
+  </div>
+</div>
+
+<!-- ─── KB CONTROLS ─── -->
+<div class="kb-controls">
+  <div class="kb-search">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" id="kbSearch" placeholder="Поиск по названию, марке, модели...">
+  </div>
+  <div class="kb-cats">
+    <button class="kb-cat active" data-cat="all">Все</button>
+    <button class="kb-cat" data-cat="dvs">Двигатели ДВС</button>
+    <button class="kb-cat" data-cat="upok">УПОК</button>
+    <button class="kb-cat" data-cat="electric">Электрика</button>
+    <button class="kb-cat" data-cat="other">Прочее</button>
+  </div>
+</div>
+
+<div class="kb-count" id="kbCount"></div>
+
+<div class="kb-grid" id="kbGrid">
+  <div class="kb-loading">Загрузка документов...</div>
+  <div class="kb-empty" id="kbEmpty">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <p>Ничего не найдено. Попробуйте изменить запрос или фильтр.</p>
+  </div>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer style="position:relative;z-index:2;background:rgba(4,8,16,0.85);">
+  <div class="footer-top" style="grid-template-columns: 1fr; border-bottom: none; margin-bottom: 24px; padding-bottom: 0;">
+    <div class="footer-brand"></div>
+  </div>
+  <div class="footer-bottom">
+    <div style="display:flex;flex-direction:column;gap:2px;">
+      <div class="footer-logo-name" style="font-size:20px;"><span class="wavy-text" id="wavyFooter"></span></div>
+      <div class="footer-logo-name" style="font-size:12px;letter-spacing:5px;"><span class="wavy-text" id="wavyFooter2"></span></div>
+    </div>
+    <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;justify-content:center;">
+      <button onclick="openModal('about')" class="footer-modal-btn">О нас</button>
+      <button onclick="openModal('licenses')" class="footer-modal-btn">Лицензии</button>
+      <button onclick="openModal('career')" class="footer-modal-btn">Вакансии</button>
+      <button onclick="openModal('privacy')" class="footer-modal-btn">Политика конфиденциальности</button>
+      <button onclick="openModal('requisites')" class="footer-modal-btn">Реквизиты</button>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── MODALS ─── -->
+<div class="modal-overlay" id="modal-privacy" onclick="closeModalOutside(event, 'privacy')">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <div class="modal-tag">Документ</div>
+        <h3 class="modal-title">Положение о конфиденциальной информации<br>(коммерческой тайне)</h3>
+        <div class="modal-sub">ООО «Маньяна Менеджмент» · Утверждено 26.02.2024</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('privacy')" aria-label="Закрыть">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2L14 14M14 2L2 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section-title">1. Общие положения</div>
+      <p>Настоящее Положение устанавливает нормы о сведениях, составляющих коммерческую тайну, режиме коммерческой тайны и условиях её защиты, а также меры ответственности за нарушение установленных требований.</p>
+      <p>Положение разработано в соответствии с ГК РФ, Федеральным законом от 29.07.2004 № 98-ФЗ «О коммерческой тайне», ТК РФ и иными нормативными актами РФ.</p>
+      <p><strong>Коммерческая тайна</strong> — режим конфиденциальности информации, позволяющий её обладателю увеличить доходы, избежать неоправданных расходов, сохранить положение на рынке или получить иную коммерческую выгоду.</p>
+      <div class="modal-section-title">2. Права Общества</div>
+      <p>Общество как обладатель коммерческой тайны вправе: устанавливать, изменять и отменять режим коммерческой тайны; разрешать или запрещать доступ к конфиденциальной информации; требовать от контрагентов соблюдения обязанностей по охране конфиденциальности; защищать свои права в случае разглашения или незаконного использования информации.</p>
+      <div class="modal-section-title">3. Охрана конфиденциальности</div>
+      <p>Меры по охране конфиденциальности включают: ведение перечня информации, составляющей коммерческую тайну; ограничение доступа и контроль за его соблюдением; нанесение на носители грифа «Коммерческая тайна», «Конфиденциально» или «Для служебного пользования».</p>
+      <p>Работник обязан: соблюдать режим коммерческой тайны; не разглашать конфиденциальные сведения в течение 3 лет после прекращения трудового договора (если иное не предусмотрено соглашением); возместить Обществу ущерб при виновном разглашении.</p>
+      <div class="modal-section-title">4. Перечень сведений, составляющих коммерческую тайну</div>
+      <p>К коммерческой тайне Общества относятся: данные бухгалтерского учёта и отчётности; условия заключённых сделок и договоров; сведения о банковских счетах; секреты производства (ноу-хау); сведения о поставщиках, клиентах и партнёрах; размеры заработной платы; планы инвестиций, закупок и продаж; маркетинговые стратегии и результаты исследований; иные сведения по решению генерального директора.</p>
+      <div class="modal-section-title">5. Сведения, не составляющие коммерческую тайну</div>
+      <p>Режим коммерческой тайны не может быть установлен в отношении: сведений из учредительных документов и государственных реестров; данных о численности работников и системе оплаты труда; информации о нарушениях законодательства; перечня лиц, имеющих право действовать без доверенности; иных сведений, раскрытие которых предписано законодательством РФ.</p>
+      <div class="modal-section-title">6. Ответственность</div>
+      <p>Нарушение Положения влечёт дисциплинарную, гражданско-правовую, административную или уголовную ответственность в соответствии с законодательством Российской Федерации.</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-about" onclick="closeModalOutside(event, 'about')">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <div class="modal-tag">О компании</div>
+        <h3 class="modal-title">ООО «Маньяна Менеджмент»</h3>
+        <div class="modal-sub">Сервис и ремонт катеров и яхт · Санкт-Петербург</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('about')" aria-label="Закрыть">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2L14 14M14 2L2 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-lead">remont-katerov.ru — профессиональный сервисный центр по обслуживанию и ремонту маломерных судов: катеров, яхт, лодок и гидроциклов.</p>
+      <div class="modal-section-title">Чем мы занимаемся</div>
+      <p>Компания выполняет полный спектр работ по техническому обслуживанию и ремонту маломерного флота: от диагностики и планового ТО до капитального ремонта корпуса, двигателя и всех судовых систем. Мы работаем как со стационарными, так и с подвесными двигателями ведущих мировых производителей.</p>
+      <div class="modal-section-title">Наши преимущества</div>
+      <p><strong>Опытная команда.</strong> В штате — сертифицированные механики, электрики, маляры и сварщики с многолетним практическим опытом в судовом сервисе.</p>
+      <p><strong>Современное оборудование.</strong> Профессиональный инструмент и диагностическое оборудование позволяют точно выявить неисправность и устранить её в сжатые сроки.</p>
+      <p><strong>Прозрачность.</strong> Перед началом работ вы получаете подробную смету. Никаких скрытых доплат — только согласованная стоимость.</p>
+      <p><strong>Гарантия.</strong> На все выполненные работы и установленные запчасти предоставляется гарантия.</p>
+      <div class="modal-section-title">Контакты</div>
+      <p>Санкт-Петербург, п. Лисий Нос · <a href="tel:+79217727177" style="color:var(--accent2);text-decoration:none;">+7 (921) 772-71-77</a></p>
+      <a href="mailto:pilipenko@mmgmt.ru" class="modal-email-btn">
+        <svg width="18" height="14" viewBox="0 0 18 14" fill="none"><rect x="1" y="1" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M1 3L9 8L17 3" stroke="currentColor" stroke-width="1.5"/></svg>
+        pilipenko@mmgmt.ru
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-licenses" onclick="closeModalOutside(event, 'licenses')">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <div class="modal-tag">Документы</div>
+        <h3 class="modal-title">Лицензии и сертификаты</h3>
+        <div class="modal-sub">ООО «Маньяна Менеджмент»</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('licenses')" aria-label="Закрыть">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2L14 14M14 2L2 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-lead">Компания работает в соответствии с требованиями надзорных органов и имеет необходимые разрешительные документы для выполнения судоремонтных работ.</p>
+      <div class="modal-section-title">Российский морской регистр судоходства</div>
+      <p>Сертификат соответствия на выполнение работ по техническому обслуживанию и ремонту маломерных судов морского и внутреннего плавания.</p>
+      <div class="modal-section-title">Контакты для уточнения</div>
+      <p>По вопросам лицензий и разрешительной документации: <a href="mailto:pilipenko@mmgmt.ru" style="color:var(--accent2);text-decoration:none;">pilipenko@mmgmt.ru</a></p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-career" onclick="closeModalOutside(event, 'career')">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <div class="modal-tag">Карьера</div>
+        <h3 class="modal-title">Работа в remont-katerov.ru</h3>
+        <div class="modal-sub">Открытые вакансии · Санкт-Петербург</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('career')" aria-label="Закрыть">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2L14 14M14 2L2 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-lead">Мы строим команду профессионалов, которым важна своя работа. Если вы любите технику и море — вам у нас понравится.</p>
+      <div class="modal-section-title">⚙️ Механик судовой</div>
+      <p>Обслуживание и ремонт стационарных и подвесных двигателей (Volvo Penta, Yamaha, Mercury, Honda и др.). Диагностика неисправностей, замена расходников и узлов, монтаж и демонтаж навесного оборудования. Работа с системами охлаждения, топливными и масляными системами. Опыт в судовом или автомобильном сервисе приветствуется.</p>
+      <div class="modal-section-title">⚡ Электрик судовой</div>
+      <p>Монтаж, диагностика и ремонт бортовой электрики катеров и яхт: навигационное оборудование, автоматика, осветительные системы, зарядные устройства, инверторы. Прокладка кабельных трасс, работа со схемами. Опыт в 12/24В системах обязателен, знание морской электрики — плюс.</p>
+      <div class="modal-section-title">🎨 Маляр по лодкам и катерам</div>
+      <p>Подготовка поверхностей (шлифовка, грунтовка, шпаклёвка), нанесение двухкомпонентных покрытий и антиобрастающих красок. Полировка гелькоута, устранение повреждений корпуса. Опыт покраски в судоремонте или в автомобильной покраске будет преимуществом.</p>
+      <div class="modal-section-title">🔥 Сварщик</div>
+      <p>Сварочные работы с алюминием, нержавеющей сталью и чёрным металлом: ремонт и изготовление корпусных элементов, дуг, рам, кронштейнов. Аргонодуговая и полуавтоматическая сварка. Опыт работы с алюминиевыми сплавами — обязателен.</p>
+      <div class="modal-section-title">Как откликнуться</div>
+      <p>Отправьте резюме с указанием желаемой должности. Мы свяжемся с вами в течение двух рабочих дней.</p>
+      <a href="mailto:pilipenko@mmgmt.ru" class="modal-email-btn">
+        <svg width="18" height="14" viewBox="0 0 18 14" fill="none"><rect x="1" y="1" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M1 3L9 8L17 3" stroke="currentColor" stroke-width="1.5"/></svg>
+        pilipenko@mmgmt.ru
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-requisites" onclick="closeModalOutside(event, 'requisites')">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <div class="modal-tag">Документ</div>
+        <h3 class="modal-title">Реквизиты компании</h3>
+        <div class="modal-sub">ООО «Маньяна Менеджмент»</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('requisites')" aria-label="Закрыть">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2L14 14M14 2L2 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" style="font-size:13px;line-height:2;">
+      <div class="modal-section-title">Общие сведения</div>
+      <p><strong>Полное наименование:</strong> Общество с ограниченной ответственностью «Маньяна Менеджмент»</p>
+      <p><strong>Краткое наименование:</strong> ООО «ММ»</p>
+      <p><strong>Юридический адрес:</strong> 197755, г. Санкт-Петербург, п. Лисий Нос, ул. Ивановская, д. 10, стр. 1, кв. 26</p>
+      <p><strong>Фактический адрес:</strong> г. Санкт-Петербург, проспект Крузенштерна, 18</p>
+      <p><strong>ИНН:</strong> 7814833438</p>
+      <p><strong>ОГРН:</strong> 1247800002890</p>
+      <p><strong>КПП:</strong> 781401001</p>
+      <p><strong>Генеральный директор:</strong> Пилипенко Денис Олегович, действует на основании устава</p>
+      <div class="modal-section-title">Банковские реквизиты</div>
+      <p><strong>Банк:</strong> АО «ТБанк»</p>
+      <p><strong>БИК:</strong> 044525974</p>
+      <p><strong>Расчётный счёт:</strong> 40702810010001550082</p>
+      <p><strong>Корреспондентский счёт:</strong> 30101810145250000974</p>
+      <p><strong>Адрес банка:</strong> 127287, г. Москва, ул. Хуторская 2-я, д. 38А, стр. 26</p>
+      <p><strong>ИНН банка:</strong> 7710140679</p>
+      <div class="modal-section-title">Контакты</div>
+      <p><strong>Телефон:</strong> <a href="tel:+79217727177" style="color:var(--accent2);text-decoration:none;">+7 (921) 772-71-77</a></p>
+      <p><strong>E-mail:</strong> <a href="mailto:pilipenko@mmgmt.ru" style="color:var(--accent2);text-decoration:none;">pilipenko@mmgmt.ru</a></p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ─── NAV ───
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40), {passive:true});
+
+  (function() {
+    function updateNav() {
+      if (window.scrollY > 10) {
+        nav.classList.add('nav-hidden');
+      } else {
+        nav.classList.remove('nav-hidden');
+      }
+    }
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav();
+  })();
+
+  // Burger menu
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+    document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+    const mainNav = document.getElementById('mainNav');
+    if (mainNav && navLinks.classList.contains('open')) mainNav.classList.remove('nav-hidden');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      burger.classList.remove('open');
+      navLinks.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // ── СКРЫВАЕМ NAV ПРИ СКРОЛЛЕ ВНИЗ, ПОКАЗЫВАЕМ ПРИ СКРОЛЛЕ ВВЕРХ ──
+  (function() {
+    const nav      = document.getElementById('mainNav');
+    const navLinks = document.getElementById('navLinks');
+    if (!nav) return;
+    let lastY = window.scrollY;
+    function updateNav() {
+      if (navLinks && navLinks.classList.contains('open')) { lastY = window.scrollY; return; }
+      const y = window.scrollY;
+      if (y > lastY && y > 80) { nav.classList.add('nav-hidden'); }
+      else { nav.classList.remove('nav-hidden'); }
+      lastY = y;
+    }
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav();
+  })();
+
+  // Services dropdown
+  (function() {
+    const li = document.getElementById('navServicesLi');
+    const trigger = document.getElementById('navServicesTrigger');
+    if (!li || !trigger) return;
+    trigger.addEventListener('click', function(e) {
+      if (window.innerWidth <= 860) return;
+      e.preventDefault();
+      li.classList.toggle('open');
+    });
+    document.addEventListener('click', function(e) { if (!li.contains(e.target)) li.classList.remove('open'); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') li.classList.remove('open'); });
+  })();
+
+  // ─── WAVY FOOTER ───
+  const wavyEl = document.getElementById('wavyFooter');
+  if (wavyEl) {
+    'СУДОРЕМОНТ'.split('').forEach(ch => {
+      const s = document.createElement('span');
+      s.textContent = ch === ' ' ? '\u00a0' : ch;
+      wavyEl.appendChild(s);
+    });
+  }
+  const wavyEl2 = document.getElementById('wavyFooter2');
+  if (wavyEl2) {
+    'remont-katerov.ru'.split('').forEach(ch => {
+      const s = document.createElement('span');
+      s.textContent = ch === ' ' ? '\u00a0' : ch;
+      wavyEl2.appendChild(s);
+    });
+  }
+
+  // ─── MODALS ───
+  function openModal(id) {
+    const sw = window.innerWidth - document.documentElement.clientWidth;
+    document.documentElement.style.setProperty('--scrollbar-w', sw + 'px');
+    document.getElementById('modal-' + id).classList.add('open');
+    document.body.classList.add('modal-open');
+  }
+  function closeModal(id) {
+    document.getElementById('modal-' + id).classList.remove('open');
+    document.body.classList.remove('modal-open');
+    document.documentElement.style.setProperty('--scrollbar-w', '0px');
+  }
+  function closeModalOutside(e, id) {
+    if (e.target === document.getElementById('modal-' + id)) closeModal(id);
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.open').forEach(m => {
+        m.classList.remove('open');
+      });
+      document.body.classList.remove('modal-open');
+    }
+  });
+
+  // ─── KB LOGIC ───
+  const ICONS = {
+    dvs:`<svg viewBox="0 0 26 26" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="13" r="10"/><circle cx="13" cy="13" r="5"/><circle cx="13" cy="13" r="1.5" fill="currentColor" stroke="none"/><line x1="13" y1="3" x2="13" y2="7"/><line x1="13" y1="19" x2="13" y2="23"/><line x1="3" y1="13" x2="7" y2="13"/><line x1="19" y1="13" x2="23" y2="13"/></svg>`,
+    upok:`<svg viewBox="0 0 26 26" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="18" height="14" rx="2"/><path d="M8 6V4M18 6V4M4 12h18"/></svg>`,
+    electric:`<svg viewBox="0 0 26 26" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3L8 14H13L12 23L18 12H13L14 3Z"/></svg>`,
+    other:`<svg viewBox="0 0 26 26" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3h-2v8H3v2h8v8h2v-8h8v-2h-8z"/></svg>`,
+  };
+  let DOCS = [], activeCat = 'all', searchVal = '';
+
+  function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function hi(text, q) {
+    if (!q) return esc(text);
+    return esc(text).replace(new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark>$1</mark>');
+  }
+
+  function render() {
+    const grid = document.getElementById('kbGrid');
+    const empty = document.getElementById('kbEmpty');
+    grid.querySelectorAll('.kb-card').forEach(c => c.remove());
+    const q = searchVal.toLowerCase();
+    const filtered = DOCS.filter(d => {
+      const mc = activeCat === 'all' || d.cat === activeCat;
+      const mq = !q || (d.title||'').toLowerCase().includes(q) || (d.desc||'').toLowerCase().includes(q);
+      return mc && mq;
+    });
+    document.getElementById('kbCount').textContent =
+      (q || activeCat !== 'all') ? `Найдено: ${filtered.length} из ${DOCS.length}` : `Документов в базе: ${DOCS.length}`;
+    if (filtered.length === 0) { empty.style.display = 'block'; return; }
+    empty.style.display = 'none';
+    filtered.forEach(d => {
+      const card = document.createElement('a');
+      card.className = 'kb-card';
+      card.href = d.file || '#';
+      card.target = '_blank';
+      card.rel = 'noopener';
+      card.innerHTML = `
+        <div class="kb-card-icon">${ICONS[d.cat]||ICONS.other}</div>
+        <div class="kb-type-row"><span class="kb-type-badge">PDF</span></div>
+        <h3>${hi(d.title, searchVal)}</h3>
+        <p>${hi(d.desc||'', searchVal)}</p>
+        <div class="kb-card-meta">
+          <span class="kb-card-size">${d.size||''}</span>
+          <span class="kb-card-dl">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13M5 16l7 7 7-7"/><line x1="3" y1="22" x2="21" y2="22"/></svg>
+            Открыть
+          </span>
+        </div>`;
+      grid.insertBefore(card, document.getElementById('kbEmpty'));
+    });
+  }
+
+  fetch('knowledge.json')
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(data => { DOCS = data; document.querySelector('.kb-loading')?.remove(); render(); })
+    .catch(() => { document.querySelector('.kb-loading').textContent = 'Не удалось загрузить knowledge.json'; });
+
+  document.querySelectorAll('.kb-cat').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.kb-cat').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeCat = btn.dataset.cat;
+      render();
+    });
+  });
+  document.getElementById('kbSearch').addEventListener('input', e => { searchVal = e.target.value.trim(); render(); });
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, {threshold: 0.1});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
