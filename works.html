@@ -240,7 +240,7 @@
       position: relative;
       min-height: 100svh;
       padding: 0 60px;
-      display: flex; flex-direction: column; justify-content: flex-end;
+      display: flex; flex-direction: column; justify-content: center;
       overflow: hidden;
       background: url('hero-bg.jpg') 65% 40% / cover no-repeat;
     }
@@ -269,7 +269,7 @@
 
     /* ─── HERO INNER LAYOUT ─── */
     .page-hero-inner {
-      display: flex; align-items: flex-end; justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between;
       gap: 60px; width: 100%;
       min-height: calc(100svh - 72px);
       padding-top: 72px; padding-bottom: 72px;
@@ -281,6 +281,7 @@
       color: var(--accent2); text-transform: uppercase;
       margin-bottom: 20px; display: flex; align-items: center; gap: 12px;
     }
+    .page-eyebrow { animation: fadeUp 0.9s 1.8s both; }
     .page-eyebrow::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--accent2); }
     .page-hero h1 {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 900;
@@ -288,8 +289,8 @@
       color: var(--white); margin-bottom: 24px; text-transform: uppercase;
     }
     .page-hero h1 em { font-style: normal; color: var(--accent2); }
-    .page-hero-desc { font-size: 15px; line-height: 1.85; color: rgba(255,255,255,0.6); max-width: 480px; font-weight: 300; margin-bottom: 32px; }
-    .hero-scroll-cta {
+    .page-hero-desc { font-size: 15px; line-height: 1.85; color: rgba(255,255,255,0.6); max-width: 480px; font-weight: 300; margin-bottom: 32px; animation: fadeUp 0.9s 2.1s both; }
+    .hero-scroll-cta { animation: fadeUp 0.9s 2.4s both;
       display: inline-flex; align-items: center; gap: 10px;
       font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
       color: rgba(255,255,255,0.55); text-decoration: none;
@@ -307,12 +308,13 @@
       border: 1px solid rgba(255,255,255,0.10);
       box-shadow: 0 24px 64px rgba(0,0,0,0.35);
       padding: 22px 20px;
-      animation: panelSlideIn 0.7s cubic-bezier(.4,0,.2,1) 0.3s both;
+      animation: panelSlideIn 0.9s cubic-bezier(.4,0,.2,1) 2.1s both;
     }
     @keyframes panelSlideIn {
       from { opacity: 0; transform: translateX(24px); }
       to   { opacity: 1; transform: translateX(0); }
     }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
     .hero-services-label {
       font-size: 9px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase;
       color: var(--accent2); margin-bottom: 16px;
@@ -584,7 +586,6 @@
     <!-- Левая часть: заголовок -->
     <div class="page-hero-left">
       <div class="page-eyebrow">Портфолио</div>
-      <h1>  <em> </em></h1>
       <p class="page-hero-desc">Реализованные проекты по ремонту и обслуживанию катеров, яхт и маломерных судов.</p>
       <a href="#works" class="hero-scroll-cta">
         <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
