@@ -598,24 +598,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       background: rgba(4,8,16,0.92);
       padding: 20px 60px;
     }
-    .footer-bottom {
-      display: flex; justify-content: space-between; align-items: center;
-      font-size: 12px; color: rgba(255,255,255,0.22);
-    }
-    .footer-logo-name {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-weight: 900; font-size: 20px; letter-spacing: 4px; color: var(--white); line-height: 1;
-    }
     .footer-logo-name .wavy-text { color: var(--white); }
     .footer-logo-name .wavy-text span { color: var(--white); display: inline-block; animation: wave 2s ease-in-out infinite; }
-
-    .footer-modal-btn {
-      background: none; border: none; color: rgba(255,255,255,0.55);
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 12px; cursor: pointer; padding: 0;
-      transition: color 0.25s; text-decoration: underline; text-underline-offset: 3px;
-    }
-    .footer-modal-btn:hover { color: var(--white); }
 
     /* ─── WAVY ANIMATION ─── */
     .wavy-text { display: inline-flex; letter-spacing: 4px; }
@@ -688,7 +672,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       .eng-search { max-width: 100%; flex: 1 1 100%; }
       .eng-grid { padding: 16px 20px 60px; grid-template-columns: 1fr 1fr; gap: 12px; }
       footer { padding: 20px; }
-      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
     }
     @media (max-width: 500px) {
       .eng-grid { grid-template-columns: 1fr; }
@@ -717,8 +700,34 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .wavy-text span { display: inline-block; animation: wave 2s ease-in-out infinite; }
   .wavy-text span:nth-child(1){animation-delay:0.00s}.wavy-text span:nth-child(2){animation-delay:0.10s}.wavy-text span:nth-child(3){animation-delay:0.20s}.wavy-text span:nth-child(4){animation-delay:0.30s}.wavy-text span:nth-child(5){animation-delay:0.40s}.wavy-text span:nth-child(6){animation-delay:0.50s}.wavy-text span:nth-child(7){animation-delay:0.60s}.wavy-text span:nth-child(8){animation-delay:0.70s}.wavy-text span:nth-child(9){animation-delay:0.80s}.wavy-text span:nth-child(10){animation-delay:0.90s}
   @keyframes wave { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-7px); } 60% { transform: translateY(-3px); } }
-  @media (max-width: 860px) { .footer-bottom { flex-direction: column; gap: 8px; text-align: center; } footer { padding: 20px !important; } }
-</style>
+  @media (max-width: 860px) { footer { padding: 20px !important; } }
+
+  /* ─── FOOTER ─── */
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: rgba(255,255,255,0.22); flex-wrap: wrap; gap: 16px; }
+  .footer-logo-name { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 900; color: #fff; line-height: 1; }
+  .footer-modal-btn { background: none; border: none; color: rgba(255,255,255,0.55); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px; cursor: pointer; padding: 0; transition: color 0.25s; text-decoration: underline; text-underline-offset: 3px; }
+  .footer-modal-btn:hover { color: #fff; }
+  @media (max-width: 860px) { .footer-bottom { flex-direction: column; align-items: flex-start; gap: 12px; } footer { padding: 20px !important; } }
+  
+  /* ─── MOBILE LOGO FIX ─── */
+  .logo { flex-shrink: 1 !important; min-width: 0; overflow: hidden; }
+  .logo-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .nav-burger { flex-shrink: 0 !important; }
+  @media (max-width: 860px) {
+    .logo-name { font-size: 15px !important; letter-spacing: 2px !important; }
+    .logo-icon { width: 36px !important; height: 36px !important; }
+    .logo-icon img { width: 36px !important; height: 36px !important; }
+    .logo { gap: 8px !important; }
+  }
+  @media (max-width: 400px) {
+    .logo-name { font-size: 13px !important; letter-spacing: 1.5px !important; }
+  }
+  @media (max-width: 860px) {
+    .page-hero { padding: 90px 20px 48px !important; min-height: 44vh !important; background-attachment: scroll !important; }
+    .page-hero h1 { font-size: clamp(36px, 11vw, 60px) !important; }
+    .cat-bar { top: 60px !important; }
+  }
+  </style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
