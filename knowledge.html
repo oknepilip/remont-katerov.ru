@@ -333,33 +333,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .kb-loading { text-align: center; padding: 60px; color: var(--silver); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; letter-spacing: 2px; font-size: 12px; grid-column: 1/-1; }
 
     /* ─── WAVY TEXT ─── */
-    .wavy-text { display: inline-flex; letter-spacing: 4px; }
-    .wavy-text span { display: inline-block; animation: wave 2s ease-in-out infinite; }
-    .wavy-text span:nth-child(1)  { animation-delay: 0.00s; }
-    .wavy-text span:nth-child(2)  { animation-delay: 0.10s; }
-    .wavy-text span:nth-child(3)  { animation-delay: 0.20s; }
-    .wavy-text span:nth-child(4)  { animation-delay: 0.30s; }
-    .wavy-text span:nth-child(5)  { animation-delay: 0.40s; }
-    .wavy-text span:nth-child(6)  { animation-delay: 0.50s; }
-    .wavy-text span:nth-child(7)  { animation-delay: 0.60s; }
-    .wavy-text span:nth-child(8)  { animation-delay: 0.70s; }
-    .wavy-text span:nth-child(9)  { animation-delay: 0.80s; }
-    .wavy-text span:nth-child(10) { animation-delay: 0.90s; }
-    .wavy-text span:nth-child(11) { animation-delay: 1.00s; }
-    .wavy-text span:nth-child(12) { animation-delay: 1.10s; }
-    .wavy-text span:nth-child(13) { animation-delay: 1.20s; }
-    .wavy-text span:nth-child(14) { animation-delay: 1.30s; }
-    .wavy-text span:nth-child(15) { animation-delay: 1.40s; }
-    .wavy-text span:nth-child(16) { animation-delay: 1.50s; }
-    .wavy-text span:nth-child(17) { animation-delay: 1.60s; }
-    .wavy-text span:nth-child(18) { animation-delay: 1.70s; }
-    @keyframes wave {
-      0%, 100% { transform: translateY(0); }
       40%       { transform: translateY(-7px); }
       60%       { transform: translateY(-3px); }
     }
-
-    /* ─── FOOTER MODAL BTNS ─── */
 
     /* ─── MODALS ─── */
     .modal-overlay {
@@ -444,19 +420,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .partners-bar-link:hover { transform: scale(1.05); }
   .partners-bar-link img { height: 44px; width: auto; max-width: 160px; object-fit: contain; display: block; }
   @media (max-width: 600px) { .partners-bar { padding: 20px; gap: 24px; } .partners-bar-logos { gap: 24px; } }
-  /* FOOTER ADDITIONS */
-  .wavy-text { display: inline-flex; letter-spacing: 4px; }
-  .wavy-text span { display: inline-block; animation: wave 2s ease-in-out infinite; }
-  .wavy-text span:nth-child(1){animation-delay:0.00s}.wavy-text span:nth-child(2){animation-delay:0.10s}.wavy-text span:nth-child(3){animation-delay:0.20s}.wavy-text span:nth-child(4){animation-delay:0.30s}.wavy-text span:nth-child(5){animation-delay:0.40s}.wavy-text span:nth-child(6){animation-delay:0.50s}.wavy-text span:nth-child(7){animation-delay:0.60s}.wavy-text span:nth-child(8){animation-delay:0.70s}.wavy-text span:nth-child(9){animation-delay:0.80s}.wavy-text span:nth-child(10){animation-delay:0.90s}
-  @keyframes wave { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-7px); } 60% { transform: translateY(-3px); } }
-  @media (max-width: 860px) { footer { padding: 20px !important; } }
-
-  /* ─── FOOTER ─── */
-  .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: rgba(255,255,255,0.22); flex-wrap: wrap; gap: 16px; }
-  .footer-logo-name { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 900; color: #fff; line-height: 1; }
-  .footer-modal-btn { background: none; border: none; color: rgba(255,255,255,0.55); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px; cursor: pointer; padding: 0; transition: color 0.25s; text-decoration: underline; text-underline-offset: 3px; }
-  .footer-modal-btn:hover { color: #fff; }
-  @media (max-width: 860px) { .footer-bottom { flex-direction: column; align-items: flex-start; gap: 12px; } footer { padding: 20px !important; } }
   
   /* ─── MOBILE LOGO FIX ─── */
   .logo { flex-shrink: 1 !important; min-width: 0; overflow: hidden; }
@@ -470,6 +433,33 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   @media (max-width: 400px) {
     .logo-name { font-size: 13px !important; letter-spacing: 1.5px !important; }
+  }
+  
+  /* ─── FOOTER (exact from index) ─── */
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: rgba(255,255,255,0.22); }
+  .footer-logo-name { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 900; font-size: 24px; letter-spacing: 4px; color: var(--white); line-height: 1; }
+  .footer-logo-name .wavy-text { color: var(--white); }
+  .footer-logo-name .wavy-text span { color: var(--white); display: inline-block; animation: wave 2s ease-in-out infinite; }
+  .footer-modal-btn {
+    background: none; border: none;
+    color: rgba(255,255,255,0.85);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 12px; cursor: pointer;
+    padding: 0; transition: color 0.25s;
+    text-decoration: underline; text-underline-offset: 3px;
+  }
+  .footer-modal-btn:hover { color: var(--white); }
+  .wavy-text { display: inline-flex; letter-spacing: 4px; }
+  .wavy-text span { display: inline-block; animation: wave 2s ease-in-out infinite; }
+  .wavy-text span:nth-child(1){animation-delay:0.00s}.wavy-text span:nth-child(2){animation-delay:0.10s}
+  .wavy-text span:nth-child(3){animation-delay:0.20s}.wavy-text span:nth-child(4){animation-delay:0.30s}
+  .wavy-text span:nth-child(5){animation-delay:0.40s}.wavy-text span:nth-child(6){animation-delay:0.50s}
+  .wavy-text span:nth-child(7){animation-delay:0.60s}.wavy-text span:nth-child(8){animation-delay:0.70s}
+  .wavy-text span:nth-child(9){animation-delay:0.80s}.wavy-text span:nth-child(10){animation-delay:0.90s}
+  @keyframes wave { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-7px); } 60% { transform: translateY(-3px); } }
+  @media (max-width: 860px) {
+    .footer-bottom { flex-direction: column; align-items: flex-start; gap: 12px; }
+    footer { padding: 20px !important; }
   }
   </style>
 </head>
@@ -794,346 +784,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       document.body.classList.remove('modal-open');
     }
   });
-
-  // ─── NAV ───
-  const nav = document.getElementById('mainNav');
-  const heroSec = document.querySelector('.page-hero');
-  function updateNavScroll() {
-    const heroH = heroSec ? heroSec.offsetHeight : 300;
-    nav.classList.toggle('scrolled', window.scrollY > heroH - 80);
-  }
-  window.addEventListener('scroll', updateNavScroll, { passive: true });
-  updateNavScroll();
-
-  // ─── BURGER ───
-  const burger   = document.getElementById('burger');
-  const navLinks = document.getElementById('navLinks');
-  function openMenu() {
-    burger.classList.add('open'); navLinks.classList.add('open');
-    document.body.classList.add('menu-open'); nav.classList.add('scrolled');
-    burger.setAttribute('aria-expanded', 'true');
-  }
-  function closeMenu() {
-    burger.classList.remove('open'); navLinks.classList.remove('open');
-    document.body.classList.remove('menu-open');
-    burger.setAttribute('aria-expanded', 'false');
-  }
-  burger.addEventListener('click', function(e) {
-    e.stopPropagation();
-    navLinks.classList.contains('open') ? closeMenu() : openMenu();
-  });
-  navLinks.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', closeMenu); });
-  document.addEventListener('click', function(e) {
-    if (navLinks.classList.contains('open') && !nav.contains(e.target)) closeMenu();
-  });
-
-  // ─── УСЛУГИ DROPDOWN ───
-  (function() {
-    const li      = document.getElementById('navServicesLi');
-    const trigger = document.getElementById('navServicesTrigger');
-    if (!li || !trigger) return;
-    function setDrop(open) { li.classList.toggle('open', open); trigger.setAttribute('aria-expanded', open ? 'true' : 'false'); }
-    trigger.addEventListener('click', function(e) { e.preventDefault(); setDrop(!li.classList.contains('open')); });
-    document.addEventListener('click', function(e) { if (!li.contains(e.target)) setDrop(false); });
-    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') setDrop(false); });
-  })();
-
-  // ─── СКРЫТИЕ NAV ПРИ СКРОЛЛЕ ───
-  (function() {
-    let lastY = window.scrollY;
-    window.addEventListener('scroll', function() {
-      if (navLinks && navLinks.classList.contains('open')) { lastY = window.scrollY; return; }
-      const isMobile = window.getComputedStyle(burger).display !== 'none';
-      if (isMobile) { lastY = window.scrollY; return; }
-      const y = window.scrollY;
-      if (y > lastY && y > 120) nav.classList.add('nav-hidden');
-      else if (y < lastY) nav.classList.remove('nav-hidden');
-      lastY = y;
-    }, { passive: true });
-  })();
-
-  // ─── WAVY FOOTER ───
-  const wavyEl = document.getElementById('wavyFooter');
-  if (wavyEl) {
-    'СУДОРЕМОНТ'.split('').forEach(ch => {
-      const s = document.createElement('span');
-      s.textContent = ch === ' ' ? '\u00a0' : ch;
-      wavyEl.appendChild(s);
-    });
-  }
-  const wavyEl2 = document.getElementById('wavyFooter2');
-  if (wavyEl2) {
-    'remont-katerov.ru'.split('').forEach(ch => {
-      const s = document.createElement('span');
-      s.textContent = ch === ' ' ? '\u00a0' : ch;
-      wavyEl2.appendChild(s);
-    });
-  }
-
-  // ─── MODALS ───
-  function openModal(id) {
-    const sw = window.innerWidth - document.documentElement.clientWidth;
-    document.documentElement.style.setProperty('--scrollbar-w', sw + 'px');
-    document.getElementById('modal-' + id).classList.add('open');
-    document.body.classList.add('modal-open');
-  }
-  function closeModal(id) {
-    document.getElementById('modal-' + id).classList.remove('open');
-    document.body.classList.remove('modal-open');
-    document.documentElement.style.setProperty('--scrollbar-w', '0px');
-  }
-  function closeModalOutside(e, id) {
-    if (e.target === document.getElementById('modal-' + id)) closeModal(id);
-  }
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-      document.querySelectorAll('.modal-overlay.open').forEach(m => {
-        m.classList.remove('open');
-      });
-      document.body.classList.remove('modal-open');
-    }
-  });
-
-  // ─── KB LOGIC ───
-  const ICONS = {
-    dvs:`<svg viewBox="0 0 26 26" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="13" r="10"/><circle cx="13" cy="13" r="5"/><circle cx="13" cy="13" r="1.5" fill="currentColor" stroke="none"/><line x1="13" y1="3" x2="13" y2="7"/><line x1="13" y1="19" x2="13" y2="23"/><line x1="3" y1="13" x2="7" y2="13"/><line x1="19" y1="13" x2="23" y2="13"/></svg>`,
-    upok:`<svg viewBox="0 0 26 26" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="18" height="14" rx="2"/><path d="M8 6V4M18 6V4M4 12h18"/></svg>`,
-    electric:`<svg viewBox="0 0 26 26" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3L8 14H13L12 23L18 12H13L14 3Z"/></svg>`,
-    other:`<svg viewBox="0 0 26 26" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3h-2v8H3v2h8v8h2v-8h8v-2h-8z"/></svg>`,
-  };
-  let DOCS = [], activeCat = 'all', searchVal = '';
-
-  function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-  function hi(text, q) {
-    if (!q) return esc(text);
-    return esc(text).replace(new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark>$1</mark>');
-  }
-
-  function render() {
-    const grid = document.getElementById('kbGrid');
-    const empty = document.getElementById('kbEmpty');
-    grid.querySelectorAll('.kb-card').forEach(c => c.remove());
-    const q = searchVal.toLowerCase();
-    const filtered = DOCS.filter(d => {
-      const mc = activeCat === 'all' || d.cat === activeCat;
-      const mq = !q || (d.title||'').toLowerCase().includes(q) || (d.desc||'').toLowerCase().includes(q);
-      return mc && mq;
-    });
-    document.getElementById('kbCount').textContent =
-      (q || activeCat !== 'all') ? `Найдено: ${filtered.length} из ${DOCS.length}` : `Документов в базе: ${DOCS.length}`;
-    if (filtered.length === 0) { empty.style.display = 'block'; return; }
-    empty.style.display = 'none';
-    filtered.forEach(d => {
-      const card = document.createElement('a');
-      card.className = 'kb-card';
-      card.href = d.file || '#';
-      card.target = '_blank';
-      card.rel = 'noopener';
-      card.innerHTML = `
-        <div class="kb-card-icon">${ICONS[d.cat]||ICONS.other}</div>
-        <div class="kb-type-row"><span class="kb-type-badge">PDF</span></div>
-        <h3>${hi(d.title, searchVal)}</h3>
-        <p>${hi(d.desc||'', searchVal)}</p>
-        <div class="kb-card-meta">
-          <span class="kb-card-size">${d.size||''}</span>
-          <span class="kb-card-dl">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13M5 16l7 7 7-7"/><line x1="3" y1="22" x2="21" y2="22"/></svg>
-            Открыть
-          </span>
-        </div>`;
-      grid.insertBefore(card, document.getElementById('kbEmpty'));
-    });
-  }
-
-  fetch('knowledge.json')
-    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then(data => { DOCS = data; document.querySelector('.kb-loading')?.remove(); render(); })
-    .catch(() => { document.querySelector('.kb-loading').textContent = 'Не удалось загрузить knowledge.json'; });
-
-  document.querySelectorAll('.kb-cat').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.kb-cat').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeCat = btn.dataset.cat;
-      render();
-    });
-  });
-  document.getElementById('kbSearch').addEventListener('input', e => { searchVal = e.target.value.trim(); render(); });
-
-  // Scroll reveal
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, {threshold: 0.1});
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
-
-<!-- ─── ПАРТНЁРЫ ─── -->
-<div class="partners-bar">
-  <span class="partners-bar-label">Партнёры</span>
-  <div class="partners-bar-logos">
-    <a href="https://www.yacht-club-spb.ru/" target="_blank" rel="noopener" class="partners-bar-link" title="Яхт-клуб Санкт-Петербурга">
-      <img loading="lazy" src="spbyc.svg" alt="Яхт-клуб Санкт-Петербурга">
-    </a>
-    <a href="https://www.portspb.ru/" target="_blank" rel="noopener" class="partners-bar-link" title="Пассажирский порт Санкт-Петербург">
-      <img loading="lazy" src="Порт.png" alt="Пассажирский порт Санкт-Петербург">
-    </a>
-    <a href="https://portsmolenka.ru/" target="_blank" rel="noopener" class="partners-bar-link" title="Яхтенный порт Смоленка">
-      <img loading="lazy" src="logo_site.png" alt="Яхтенный порт Смоленка">
-    </a>
-  </div>
-</div>
-
-<!-- Политика конфиденциальности -->
-<div class="modal-overlay" id="modal-privacy" onclick="closeModalOutside(event, 'privacy')">
-  <div class="modal-box">
-    <div class="modal-header">
-      <div>
-        <div class="modal-tag">Документ</div>
-        <h3 class="modal-title">Положение о конфиденциальной информации<br>(коммерческой тайне)</h3>
-        <div class="modal-sub">ООО «Маньяна Менеджмент» · Утверждено 26.02.2024</div>
-      </div>
-      <button class="modal-close" onclick="closeModal('privacy')" aria-label="Закрыть">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2L14 14M14 2L2 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-      </button>
-    </div>
-    <div class="modal-body">
-
-      <div class="modal-section-title">1. Общие положения</div>
-      <p>Настоящее Положение устанавливает нормы о сведениях, составляющих коммерческую тайну, режиме коммерческой тайны и условиях её защиты, а также меры ответственности за нарушение установленных требований.</p>
-      <p>Положение разработано в соответствии с ГК РФ, Федеральным законом от 29.07.2004 № 98-ФЗ «О коммерческой тайне», ТК РФ и иными нормативными актами РФ.</p>
-      <p><strong>Коммерческая тайна</strong> — режим конфиденциальности информации, позволяющий её обладателю увеличить доходы, избежать неоправданных расходов, сохранить положение на рынке или получить иную коммерческую выгоду.</p>
-
-      <div class="modal-section-title">2. Права Общества</div>
-      <p>Общество как обладатель коммерческой тайны вправе: устанавливать, изменять и отменять режим коммерческой тайны; разрешать или запрещать доступ к конфиденциальной информации; требовать от контрагентов соблюдения обязанностей по охране конфиденциальности; защищать свои права в случае разглашения или незаконного использования информации.</p>
-
-      <div class="modal-section-title">3. Охрана конфиденциальности</div>
-      <p>Меры по охране конфиденциальности включают: ведение перечня информации, составляющей коммерческую тайну; ограничение доступа и контроль за его соблюдением; нанесение на носители грифа «Коммерческая тайна», «Конфиденциально» или «Для служебного пользования».</p>
-      <p>Работник обязан: соблюдать режим коммерческой тайны; не разглашать конфиденциальные сведения в течение 3 лет после прекращения трудового договора (если иное не предусмотрено соглашением); возместить Обществу ущерб при виновном разглашении.</p>
-
-      <div class="modal-section-title">4. Перечень сведений, составляющих коммерческую тайну</div>
-      <p>К коммерческой тайне Общества относятся: данные бухгалтерского учёта и отчётности; условия заключённых сделок и договоров; сведения о банковских счетах; секреты производства (ноу-хау); сведения о поставщиках, клиентах и партнёрах; размеры заработной платы; планы инвестиций, закупок и продаж; маркетинговые стратегии и результаты исследований; иные сведения по решению генерального директора.</p>
-
-      <div class="modal-section-title">5. Сведения, не составляющие коммерческую тайну</div>
-      <p>Режим коммерческой тайны не может быть установлен в отношении: сведений из учредительных документов и государственных реестров; данных о численности работников и системе оплаты труда; информации о нарушениях законодательства; перечня лиц, имеющих право действовать без доверенности; иных сведений, раскрытие которых предписано законодательством РФ.</p>
-
-      <div class="modal-section-title">6. Ответственность</div>
-      <p>Нарушение Положения влечёт дисциплинарную, гражданско-правовую, административную или уголовную ответственность в соответствии с законодательством Российской Федерации.</p>
-
-    </div>
-  </div>
-</div>
-
-<!-- О нас -->
-<div class="modal-overlay" id="modal-about" onclick="closeModalOutside(event, 'about')">
-  <div class="modal-box">
-    <div class="modal-header">
-      <div>
-        <div class="modal-tag">О компании</div>
-        <h3 class="modal-title">ООО «Маньяна Менеджмент»</h3>
-        <div class="modal-sub">Сервис и ремонт катеров и яхт · Санкт-Петербург</div>
-      </div>
-      <button class="modal-close" onclick="closeModal('about')" aria-label="Закрыть">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2L14 14M14 2L2 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-      </button>
-    </div>
-    <div class="modal-body">
-      <p class="modal-lead">remont-katerov.ru — профессиональный сервисный центр по обслуживанию и ремонту маломерных судов: катеров, яхт, лодок и гидроциклов.</p>
-
-      <div class="modal-section-title">Чем мы занимаемся</div>
-      <p>Компания выполняет полный спектр работ по техническому обслуживанию и ремонту маломерного флота: от диагностики и планового ТО до капитального ремонта корпуса, двигателя и всех судовых систем. Мы работаем как со стационарными, так и с подвесными двигателями ведущих мировых производителей.</p>
-
-      <div class="modal-section-title">Наши преимущества</div>
-      <p><strong>Опытная команда.</strong> В штате — сертифицированные механики, электрики, маляры и сварщики с многолетним практическим опытом в судовом сервисе.</p>
-      <p><strong>Современное оборудование.</strong> Профессиональный инструмент и диагностическое оборудование позволяют точно выявить неисправность и устранить её в сжатые сроки.</p>
-      <p><strong>Прозрачность.</strong> Перед началом работ вы получаете подробную смету. Никаких скрытых доплат — только согласованная стоимость.</p>
-      <p><strong>Гарантия.</strong> На все выполненные работы и установленные запчасти предоставляется гарантия.</p>
-
-      <div class="modal-section-title">Контакты</div>
-      <p>Санкт-Петербург, п. Лисий Нос · <a href="tel:+79217727177" style="color:var(--accent2);text-decoration:none;">+7 (921) 772-71-77</a></p>
-      <a href="mailto:pilipenko@mmgmt.ru" class="modal-email-btn">
-        <svg width="18" height="14" viewBox="0 0 18 14" fill="none"><rect x="1" y="1" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M1 3L9 8L17 3" stroke="currentColor" stroke-width="1.5"/></svg>
-        pilipenko@mmgmt.ru
-      </a>
-    </div>
-  </div>
-</div>
-
-<!-- Карьера -->
-<div class="modal-overlay" id="modal-career" onclick="closeModalOutside(event, 'career')">
-  <div class="modal-box">
-    <div class="modal-header">
-      <div>
-        <div class="modal-tag">Карьера</div>
-        <h3 class="modal-title">Работа в remont-katerov.ru</h3>
-        <div class="modal-sub">Открытые вакансии · Санкт-Петербург</div>
-      </div>
-      <button class="modal-close" onclick="closeModal('career')" aria-label="Закрыть">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2L14 14M14 2L2 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-      </button>
-    </div>
-    <div class="modal-body">
-      <p class="modal-lead">Мы строим команду профессионалов, которым важна своя работа. Если вы любите технику и море — вам у нас понравится.</p>
-
-      <div class="modal-section-title">⚙️ Механик судовой</div>
-      <p>Обслуживание и ремонт стационарных и подвесных двигателей (Volvo Penta, Yamaha, Mercury, Honda и др.). Диагностика неисправностей, замена расходников и узлов, монтаж и демонтаж навесного оборудования. Работа с системами охлаждения, топливными и масляными системами. Опыт в судовом или автомобильном сервисе приветствуется.</p>
-
-      <div class="modal-section-title">⚡ Электрик судовой</div>
-      <p>Монтаж, диагностика и ремонт бортовой электрики катеров и яхт: навигационное оборудование, автоматика, осветительные системы, зарядные устройства, инверторы. Прокладка кабельных трасс, работа со схемами. Опыт в 12/24В системах обязателен, знание морской электрики — плюс.</p>
-
-      <div class="modal-section-title">🎨 Маляр по лодкам и катерам</div>
-      <p>Подготовка поверхностей (шлифовка, грунтовка, шпаклёвка), нанесение двухкомпонентных покрытий и антиобрастающих красок. Полировка гелькоута, устранение повреждений корпуса. Опыт покраски в судоремонте или в автомобильной покраске будет преимуществом.</p>
-
-      <div class="modal-section-title">🔥 Сварщик</div>
-      <p>Сварочные работы с алюминием, нержавеющей сталью и чёрным металлом: ремонт и изготовление корпусных элементов, дуг, рам, кронштейнов. Аргонодуговая и полуавтоматическая сварка. Опыт работы с алюминиевыми сплавами — обязателен.</p>
-
-      <div class="modal-section-title">Как откликнуться</div>
-      <p>Отправьте резюме с указанием желаемой должности. Мы свяжемся с вами в течение двух рабочих дней.</p>
-      <a href="mailto:pilipenko@mmgmt.ru" class="modal-email-btn">
-        <svg width="18" height="14" viewBox="0 0 18 14" fill="none"><rect x="1" y="1" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M1 3L9 8L17 3" stroke="currentColor" stroke-width="1.5"/></svg>
-        pilipenko@mmgmt.ru
-      </a>
-    </div>
-  </div>
-</div>
-
-<!-- Реквизиты -->
-<div class="modal-overlay" id="modal-requisites" onclick="closeModalOutside(event, 'requisites')">
-  <div class="modal-box">
-    <div class="modal-header">
-      <div>
-        <div class="modal-tag">Документ</div>
-        <h3 class="modal-title">Реквизиты компании</h3>
-        <div class="modal-sub">ООО «Маньяна Менеджмент»</div>
-      </div>
-      <button class="modal-close" onclick="closeModal('requisites')" aria-label="Закрыть">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2L14 14M14 2L2 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-      </button>
-    </div>
-    <div class="modal-body" style="font-size:13px;line-height:2;">
-      <div class="modal-section-title">Общие сведения</div>
-      <p><strong>Полное наименование:</strong> Общество с ограниченной ответственностью «Маньяна Менеджмент»</p>
-      <p><strong>Краткое наименование:</strong> ООО «ММ»</p>
-      <p><strong>Юридический адрес:</strong> 197755, г. Санкт-Петербург, п. Лисий Нос, ул. Ивановская, д. 10, стр. 1, кв. 26</p>
-      <p><strong>Фактический адрес:</strong> г. Санкт-Петербург, проспект Крузенштерна, 18</p>
-      <p><strong>ИНН:</strong> 7814833438</p>
-      <p><strong>ОГРН:</strong> 1247800002890</p>
-      <p><strong>КПП:</strong> 781401001</p>
-      <p><strong>Генеральный директор:</strong> Пилипенко Денис Олегович, действует на основании устава</p>
-
-      <div class="modal-section-title">Банковские реквизиты</div>
-      <p><strong>Банк:</strong> АО «ТБанк»</p>
-      <p><strong>БИК:</strong> 044525974</p>
-      <p><strong>Расчётный счёт:</strong> 40702810010001550082</p>
-      <p><strong>Корреспондентский счёт:</strong> 30101810145250000974</p>
-      <p><strong>Адрес банка:</strong> 127287, г. Москва, ул. Хуторская 2-я, д. 38А, стр. 26</p>
-      <p><strong>ИНН банка:</strong> 7710140679</p>
-
-      <div class="modal-section-title">Контакты</div>
-      <p><strong>Телефон:</strong> <a href="tel:+79217727177" style="color:var(--accent2);text-decoration:none;">+7 (921) 772-71-77</a></p>
-      <p><strong>E-mail:</strong> <a href="mailto:pilipenko@mmgmt.ru" style="color:var(--accent2);text-decoration:none;">pilipenko@mmgmt.ru</a></p>
-    </div>
-  </div>
-</div>
 
 </body>
 </html>
