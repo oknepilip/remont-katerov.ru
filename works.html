@@ -329,7 +329,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     /* ─── PAGE CONTENT (белый фон) ─── */
     .page-content {
-      padding: 60px 60px 80px;
+      padding: 40px 60px 40px;
       background: #ffffff;
     }
     .section-tag {
@@ -411,8 +411,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
     /* ─── WAVY TEXT ─── */
-    .wavy-text { display: inline-flex; letter-spacing: 4px; }
-    .wavy-text span { display: inline-block; animation: wave 2s ease-in-out infinite; }
+    .wavy-text { display: inline-flex; letter-spacing: 4px; color: #ffffff; }
+    .wavy-text span { display: inline-block; animation: wave 2s ease-in-out infinite; color: #ffffff; }
     .wavy-text span:nth-child(1)  { animation-delay: 0.00s; }
     .wavy-text span:nth-child(2)  { animation-delay: 0.10s; }
     .wavy-text span:nth-child(3)  { animation-delay: 0.20s; }
@@ -495,7 +495,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
 
     @media (max-width: 860px) {
-      .page-content { padding: 32px 20px 48px; }
+      .page-content { padding: 24px 20px 32px; }
       .works-grid { grid-template-columns: 1fr 1fr; }
       footer { padding: 20px 20px 24px; }
       .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
@@ -564,7 +564,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .partners-bar-link { display:block; transition:transform 0.25s; flex-shrink:0; }
   .partners-bar-link:hover { transform:scale(1.05); }
   .partners-bar-link img { height:44px; width:auto; max-width:160px; object-fit:contain; display:block; }
-  @media (max-width:600px) { .partners-bar { padding:20px; gap:24px; } .partners-bar-logos { gap:24px; } }</style>
+  @media (max-width:600px) { .partners-bar { padding:20px; gap:24px; } .partners-bar-logos { gap:24px; } }
+  .footer-logo-name { font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:900; color:#ffffff; line-height:1; }
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -645,7 +647,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- ── MODAL ── -->
   
 
-  <div style="text-align:center; padding:20px 0 40px;">
+  <div style="text-align:center; padding:16px 0 24px;">
     <a href="index.html#contact" class="btn-primary">Обсудить ваш проект →</a>
   </div>
 </div>
