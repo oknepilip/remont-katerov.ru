@@ -235,18 +235,18 @@
       body { padding-bottom: 50px; }
     }
 
-    /* ─── PAGE HERO ─── */
+    /* ─── PAGE HERO — FULLSCREEN ─── */
     .page-hero {
       position: relative;
-      min-height: 52vh;
-      padding: 140px 60px 72px;
+      min-height: 100svh;
+      padding: 0 60px;
       display: flex; flex-direction: column; justify-content: flex-end;
       overflow: hidden;
       background: url('hero-bg.jpg') 65% 40% / cover no-repeat;
     }
     .page-hero::before {
       content: ''; position: absolute; inset: 0; z-index: 0;
-      background: linear-gradient(105deg, rgba(4,8,16,0.80) 0%, rgba(4,8,16,0.55) 55%, rgba(4,8,16,0.20) 100%);
+      background: linear-gradient(105deg, rgba(4,8,16,0.82) 0%, rgba(4,8,16,0.60) 50%, rgba(4,8,16,0.25) 100%);
     }
     .page-hero > * { position: relative; z-index: 2; }
     .page-hero-grid {
@@ -266,27 +266,91 @@
       animation: wavemove 5s linear infinite;
     }
     @keyframes wavemove { 0% { transform: translateX(0); } 100% { transform: translateX(200px); } }
+
+    /* ─── HERO INNER LAYOUT ─── */
+    .page-hero-inner {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: 60px; width: 100%;
+      min-height: calc(100svh - 72px);
+      padding-top: 72px; padding-bottom: 72px;
+    }
+    .page-hero-left { flex: 1; }
     .page-eyebrow {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: 11px; font-weight: 500; letter-spacing: 5px;
       color: var(--accent2); text-transform: uppercase;
-      margin-bottom: 18px; display: flex; align-items: center; gap: 12px;
+      margin-bottom: 20px; display: flex; align-items: center; gap: 12px;
     }
     .page-eyebrow::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--accent2); }
     .page-hero h1 {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 900;
-      font-size: clamp(48px, 7vw, 96px); line-height: 0.93; letter-spacing: 1px;
-      color: var(--white); margin-bottom: 20px; text-transform: uppercase;
+      font-size: clamp(52px, 7vw, 100px); line-height: 0.92; letter-spacing: 1px;
+      color: var(--white); margin-bottom: 24px; text-transform: uppercase;
     }
     .page-hero h1 em { font-style: normal; color: var(--accent2); }
-    .page-hero p { font-size: 15px; line-height: 1.8; color: rgba(255,255,255,0.65); max-width: 560px; font-weight: 300; }
+    .page-hero-desc { font-size: 15px; line-height: 1.85; color: rgba(255,255,255,0.6); max-width: 480px; font-weight: 300; margin-bottom: 32px; }
+    .hero-scroll-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      color: rgba(255,255,255,0.55); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .hero-scroll-cta:hover { color: #fff; }
+    .hero-scroll-cta svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 2; fill: none; animation: bounce 2s ease-in-out infinite; }
+    @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+
+    /* ─── FLOATING SERVICES PANEL ─── */
+    .hero-services-panel {
+      flex-shrink: 0; width: 268px;
+      background: rgba(4,8,16,0.60);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+      padding: 22px 20px;
+      animation: panelSlideIn 0.7s cubic-bezier(.4,0,.2,1) 0.3s both;
+    }
+    @keyframes panelSlideIn {
+      from { opacity: 0; transform: translateX(24px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .hero-services-label {
+      font-size: 9px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 16px;
+      padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.10);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .hero-services-label::before { content: ''; width: 16px; height: 1px; background: var(--accent2); display: inline-block; }
+    .hero-service-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+      text-decoration: none; color: rgba(255,255,255,0.65);
+      font-size: 11px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase;
+      transition: color 0.2s, padding-left 0.25s ease; gap: 8px;
+    }
+    .hero-service-item:last-child { border-bottom: none; }
+    .hero-service-item:hover { color: #fff; padding-left: 6px; }
+    .hero-service-item .svc-arrow {
+      width: 12px; height: 12px; stroke: var(--accent2); stroke-width: 2; fill: none;
+      flex-shrink: 0; opacity: 0; transition: opacity 0.2s;
+    }
+    .hero-service-item:hover .svc-arrow { opacity: 1; }
+
+    /* ─── MOBILE ─── */
     @media (max-width: 860px) {
-      .page-hero { padding: 90px 20px 48px; min-height: 44vh; background-attachment: scroll; }
-      .page-hero h1 { font-size: clamp(38px, 11vw, 64px); }
-      .page-hero p { font-size: 14px; max-width: 100%; }
+      .page-hero { padding: 0 20px; background-attachment: scroll; }
+      .page-hero-inner {
+        flex-direction: column; align-items: flex-start;
+        gap: 28px; padding-top: 60px; padding-bottom: 60px;
+        min-height: calc(100svh - 60px);
+      }
+      .page-hero h1 { font-size: clamp(40px, 12vw, 68px); }
+      .page-hero-desc { font-size: 14px; max-width: 100%; }
+      .hero-services-panel { width: 100%; }
+      .hero-services-label { margin-bottom: 12px; padding-bottom: 10px; }
+      .hero-service-item { font-size: 10px; padding: 8px 0; }
     }
     @media (max-width: 500px) {
-      .page-hero h1 { font-size: clamp(32px, 12vw, 52px); letter-spacing: 0.5px; }
+      .page-hero h1 { font-size: clamp(36px, 13vw, 56px); }
     }
 
     /* ─── PAGE CONTENT (белый фон) ─── */
@@ -515,9 +579,33 @@
 
 <div class="page-hero">
   <div class="page-hero-grid"></div>
-  <div class="page-eyebrow">Портфолио</div>
-  <h1>НАШИ <em>РАБОТЫ</em></h1>
-  <p>Реализованные проекты по ремонту и обслуживанию катеров, яхт и маломерных судов.</p>
+
+  <div class="page-hero-inner">
+    <!-- Левая часть: заголовок -->
+    <div class="page-hero-left">
+      <div class="page-eyebrow">Портфолио</div>
+      <h1>НАШИ <em>РАБОТЫ</em></h1>
+      <p class="page-hero-desc">Реализованные проекты по ремонту и обслуживанию катеров, яхт и маломерных судов.</p>
+      <a href="#works" class="hero-scroll-cta">
+        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        Смотреть проекты
+      </a>
+    </div>
+
+    <!-- Правая часть: плавающий блок услуг -->
+    <div class="hero-services-panel">
+      <div class="hero-services-label">Направления работ</div>
+      <a href="service-diagnostika.html" class="hero-service-item">Диагностика<svg class="svc-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <a href="service-mechanika.html" class="hero-service-item">Механика<svg class="svc-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <a href="service-elektrika.html" class="hero-service-item">Электрика<svg class="svc-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <a href="service-korpus.html" class="hero-service-item">Корпусные работы<svg class="svc-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <a href="service-interer.html" class="hero-service-item">Интерьер<svg class="svc-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <a href="service-proektirovanie.html" class="hero-service-item">Проектирование<svg class="svc-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <a href="service-upravlenie.html" class="hero-service-item">Управление проектом<svg class="svc-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <a href="service-zapchasti.html" class="hero-service-item">Оборудование и поставки<svg class="svc-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+  </div>
+
   <div class="page-hero-waterline">
     <svg viewBox="0 0 1200 14" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M0,7 C100,2 200,12 300,7 C400,2 500,12 600,7 C700,2 800,12 900,7 C1000,2 1100,12 1200,7"
@@ -526,7 +614,7 @@
   </div>
 </div>
 
-<div class="page-content">
+<div class="page-content" id="works">
   <div class="works-grid">
   </div>
 
@@ -666,7 +754,48 @@
   // ── Загружаем проекты из projects.json ──
   fetch('projects.json')
     .then(r => r.json())
-    .then('projects.json не загружен:', err));
+    .then(projects => {
+      const grid = document.querySelector('.works-grid');
+      if (!grid) return;
+      projects.forEach((p, i) => {
+        const item = document.createElement('div');
+        item.className = 'work-item reveal';
+        item.style.transitionDelay = (i * 0.07).toFixed(2) + 's';
+        item.dataset.tag         = p.tag;
+        item.dataset.title       = p.title;
+        item.dataset.sub         = p.sub;
+        item.dataset.mediaStore  = JSON.stringify(p.media);
+
+        const isVid = p.cover && /\.(mp4|webm|ogg|mov)$/i.test(p.cover);
+        const coverHTML = isVid
+          ? `<video src="${p.cover}" muted loop playsinline preload="metadata" autoplay
+               style="width:100%;height:100%;object-fit:cover;display:block;"></video>`
+          : `<img src="${p.cover}" alt="${p.title}" loading="lazy"
+               style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease;">`;
+
+        item.innerHTML = `
+          <div class="work-photo">
+            ${coverHTML}
+            <div class="work-num">${String(i + 1).padStart(2, '0')}</div>
+            <div class="work-tag">${p.tag}</div>
+            <div class="work-view-btn"><span>Смотреть →</span></div>
+          </div>
+          <div class="work-caption">
+            <div class="work-caption-tag">${p.tag}</div>
+            <div class="work-title">${p.title}</div>
+            <div class="work-sub">${p.sub}</div>
+          </div>`;
+
+        item.addEventListener('click', () => openMd(item));
+        grid.appendChild(item);
+      });
+
+      const obs2 = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+      }, { threshold: 0.1 });
+      grid.querySelectorAll('.reveal').forEach(el => obs2.observe(el));
+    })
+    .catch(err => console.warn('projects.json не загружен:', err));
 </script>
 
 
