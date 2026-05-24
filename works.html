@@ -66,10 +66,10 @@
     }
     nav.nav-hidden { opacity: 0; pointer-events: none; transform: translateY(-100%); }
 
-    .logo { display: flex; flex-direction: row; align-items: center; gap: 12px; text-decoration: none; flex-shrink: 0; }
+    .logo { display: flex; flex-direction: row; align-items: center; gap: 12px; text-decoration: none; flex-shrink: 1; min-width: 0; overflow: hidden; }
     .logo-icon { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .logo-icon img { width: 48px; height: 48px; object-fit: contain; border-radius: 50%; }
-    .logo-name { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 900; font-size: 20px; letter-spacing: 3px; color: #fff; line-height: 1; }
+    .logo-name { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 900; font-size: 20px; letter-spacing: 3px; color: #fff; line-height: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .logo-sub  { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 9px; letter-spacing: 4px; color: rgba(255,255,255,0.45); text-transform: uppercase; margin-top: 2px; }
 
     .nav-links { display: flex; gap: 0; list-style: none; align-items: center; margin: 0; padding: 0; }
@@ -95,7 +95,7 @@
     }
     .nav-burger {
       display: none; flex-direction: column; justify-content: center; align-items: center;
-      width: 40px; height: 40px; gap: 5px;
+      width: 40px; height: 40px; gap: 5px; flex-shrink: 0;
       background: none; border: none; cursor: pointer; padding: 4px; z-index: 10;
     }
     .nav-burger span {
@@ -183,8 +183,11 @@
         font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         font-size: 20px; letter-spacing: 2px; color: #fff; font-weight: 900; line-height: 1;
       }
-      nav { padding: 0 20px; height: 60px; z-index: 9000; }
+      nav { padding: 0 16px; height: 60px; z-index: 9000; }
       .logo-sub { display: none; }
+      .logo-name { font-size: 15px; letter-spacing: 2px; }
+      .logo-icon { width: 36px; height: 36px; }
+      .logo-icon img { width: 36px; height: 36px; }
       nav.nav-hidden { opacity: 1 !important; transform: none !important; pointer-events: auto !important; }
       .nav-burger { display: flex; }
       .nav-links {
@@ -266,6 +269,7 @@
       animation: wavemove 5s linear infinite;
     }
     @keyframes wavemove { 0% { transform: translateX(0); } 100% { transform: translateX(200px); } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
 
     /* ─── HERO INNER LAYOUT ─── */
     .page-hero-inner {
@@ -283,17 +287,18 @@
     }
     .page-eyebrow { animation: fadeUp 0.9s 1.8s both; }
     .page-eyebrow::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--accent2); }
+    .page-eyebrow { text-shadow: 0 1px 12px rgba(0,0,0,0.8); }
     .page-hero h1 {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 900;
       font-size: clamp(52px, 7vw, 100px); line-height: 0.92; letter-spacing: 1px;
       color: var(--white); margin-bottom: 24px; text-transform: uppercase;
     }
     .page-hero h1 em { font-style: normal; color: var(--accent2); }
-    .page-hero-desc { font-size: 15px; line-height: 1.85; color: rgba(255,255,255,0.6); max-width: 480px; font-weight: 300; margin-bottom: 32px; animation: fadeUp 0.9s 2.1s both; }
+    .page-hero-desc { font-size: 15px; line-height: 1.85; color: rgba(255,255,255,0.82); max-width: 480px; font-weight: 400; margin-bottom: 32px; animation: fadeUp 0.9s 2.1s both; text-shadow: 0 1px 16px rgba(0,0,0,0.9); }
     .hero-scroll-cta { animation: fadeUp 0.9s 2.4s both;
       display: inline-flex; align-items: center; gap: 10px;
       font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
-      color: rgba(255,255,255,0.55); text-decoration: none;
+      color: rgba(255,255,255,0.75); text-decoration: none;
       transition: color 0.2s;
     }
     .hero-scroll-cta:hover { color: #fff; }
@@ -303,6 +308,7 @@
     /* ─── MOBILE ─── */
     @media (max-width: 860px) {
       .page-hero { padding: 0 20px; background-attachment: scroll; }
+      .page-hero::before { background: linear-gradient(160deg, rgba(4,8,16,0.88) 0%, rgba(4,8,16,0.65) 55%, rgba(4,8,16,0.35) 100%); }
       .page-hero-inner {
         flex-direction: column; align-items: flex-start;
         gap: 28px; padding-top: 60px; padding-bottom: 60px;
