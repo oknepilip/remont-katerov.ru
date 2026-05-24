@@ -224,14 +224,18 @@
     }
 
     /* ─── PAGE HERO ─── */
+    /* ─── PAGE HERO — FULLSCREEN ─── */
     .page-hero {
-      position: relative; min-height: 52vh; padding: 140px 60px 72px;
-      display: flex; flex-direction: column; justify-content: flex-end;
-      overflow: hidden; background: url('hero-bg.jpg') 65% 40% / cover no-repeat;
+      position: relative;
+      min-height: 100svh;
+      padding: 0 60px;
+      display: flex; flex-direction: column; justify-content: center;
+      overflow: hidden;
+      background: url('hero-bg.jpg') 65% 40% / cover no-repeat;
     }
     .page-hero::before {
       content: ''; position: absolute; inset: 0; z-index: 0;
-      background: linear-gradient(105deg, rgba(4,8,16,0.80) 0%, rgba(4,8,16,0.55) 55%, rgba(4,8,16,0.20) 100%);
+      background: linear-gradient(105deg, rgba(4,8,16,0.75) 0%, rgba(4,8,16,0.45) 40%, rgba(4,8,16,0.10) 100%);
     }
     .page-hero > * { position: relative; z-index: 2; }
     .page-hero-grid {
@@ -250,26 +254,43 @@
       width: calc(100% + 400px); height: 14px; animation: wavemove 5s linear infinite;
     }
     @keyframes wavemove { 0% { transform: translateX(0); } 100% { transform: translateX(200px); } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ─── HERO INNER ─── */
+    .page-hero-inner {
+      display: flex; flex-direction: column; justify-content: center;
+      min-height: calc(100svh - 72px);
+      padding-top: 72px; padding-bottom: 72px;
+      max-width: 700px;
+    }
     .page-eyebrow {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 5px;
       color: var(--accent2); text-transform: uppercase;
-      margin-bottom: 18px; display: flex; align-items: center; gap: 12px;
+      margin-bottom: 20px; display: flex; align-items: center; gap: 12px;
+      animation: fadeUp 0.9s 1.8s both;
     }
     .page-eyebrow::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--accent2); }
-    .page-hero h1 {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 900;
-      font-size: clamp(48px, 7vw, 96px); line-height: 0.93; letter-spacing: 1px;
-      color: var(--white); margin-bottom: 20px; text-transform: uppercase;
+    .page-hero-desc {
+      font-size: 16px; line-height: 1.85; color: rgba(255,255,255,0.65);
+      max-width: 520px; font-weight: 300; margin-bottom: 36px;
+      animation: fadeUp 0.9s 2.1s both;
     }
-    .page-hero h1 em { font-style: normal; color: var(--accent2); }
-    .page-hero p { font-size: 15px; line-height: 1.8; color: rgba(255,255,255,0.65); max-width: 560px; font-weight: 300; }
+    .hero-scroll-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s;
+      animation: fadeUp 0.9s 2.4s both;
+    }
+    .hero-scroll-cta:hover { color: #fff; }
+    .hero-scroll-cta svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 2; fill: none; animation: bounce 2s ease-in-out infinite; }
+    @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
     @media (max-width: 860px) {
-      .page-hero { padding: 90px 20px 48px; min-height: 44vh; background-attachment: scroll; }
-      .page-hero h1 { font-size: clamp(38px, 11vw, 64px); }
-      .page-hero p { font-size: 14px; max-width: 100%; }
+      .page-hero { padding: 0 20px; background-attachment: scroll; }
+      .page-hero-inner { min-height: calc(100svh - 60px); padding-top: 60px; padding-bottom: 60px; }
+      .page-hero-desc { font-size: 14px; max-width: 100%; }
     }
     @media (max-width: 500px) {
-      .page-hero h1 { font-size: clamp(32px, 12vw, 52px); letter-spacing: 0.5px; }
+      .page-hero-desc { font-size: 13px; }
     }
 
     /* ─── KB CONTROLS ─── */
@@ -466,19 +487,26 @@
 <!-- ─── HERO ─── -->
 <div class="page-hero">
   <div class="page-hero-grid"></div>
-  <div class="page-eyebrow">Документация</div>
-  <h1>ТЕХНИЧЕСКИЕ ПАСПОРТА И <em>ДОКУМЕНТАЦИЯ</em></h1>
-  <p>Технические руководства, инструкции по эксплуатации и обслуживанию двигателей и оборудования.</p>
+
+  <div class="page-hero-inner">
+    <div class="page-eyebrow">База знаний</div>
+    <p class="page-hero-desc">Технические руководства, инструкции по эксплуатации и обслуживанию двигателей и оборудования.</p>
+    <a href="#kb-content" class="hero-scroll-cta">
+      <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      Смотреть документы
+    </a>
+  </div>
+
   <div class="page-hero-waterline">
     <svg viewBox="0 0 1200 14" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M0,7 C100,2 200,12 300,7 C400,2 500,12 600,7 C700,2 800,12 900,7 C1000,2 1100,12 1200,7"
-            stroke="rgba(240,106,0,0.5)" stroke-width="1.5" fill="none"/>
+            stroke="rgba(212,90,0,0.45)" stroke-width="1.5" fill="none"/>
     </svg>
   </div>
 </div>
 
 <!-- ─── KB CONTROLS ─── -->
-<div class="kb-controls">
+<div class="kb-controls" id="kb-content">
   <div class="kb-search">
     <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
     <input type="text" id="kbSearch" placeholder="Поиск по названию, марке, модели...">
