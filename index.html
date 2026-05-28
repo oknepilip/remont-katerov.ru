@@ -1097,15 +1097,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       background: var(--steel);
       aspect-ratio: 4/3;
     }
-    .work-card img {
+    .work-card img,
+    .work-card video {
       width: 100%; height: 100%;
       object-fit: cover; display: block;
       transition: transform 0.6s cubic-bezier(.4,0,.2,1);
       filter: brightness(0.75) saturate(0.8);
     }
-    .work-card:hover img {
+    .work-card:hover img,
+    .work-card:hover video {
       transform: scale(1.06);
       filter: brightness(0.6) saturate(0.9);
+    }
+    /* Видео в модалке */
+    .works-modal-slide video {
+      width: 100%; height: 100%; object-fit: contain; display: block; background: #000;
     }
     .work-card { cursor: pointer; }
     .work-view-hint {
@@ -2701,9 +2707,14 @@ document.addEventListener('DOMContentLoaded', () => {
           card.dataset.sub   = p.sub;
           card.dataset.mediaStore = JSON.stringify(p.media);
 
+          const isVideoCover = /\.(mp4|webm|mov|ogg)(\?.*)?$/i.test(p.cover);
+          const coverMedia = isVideoCover
+            ? `<video autoplay muted loop playsinline preload="metadata" src="${p.cover}" style="pointer-events:none;"></video>`
+            : `<img loading="lazy" src="${p.cover}" alt="${p.title}">`;
+
           card.innerHTML = `
             <div class="work-view-hint"><span>Смотреть →</span></div>
-            <img loading="lazy" src="${p.cover}" alt="${p.title}">
+            ${coverMedia}
             <div class="work-badge">${p.tag}</div>
             <div class="work-info">
               <div class="work-vessel">${p.title}</div>
@@ -2744,6 +2755,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ── Модальное окно ──
+    function isVideoSrc(src) {
+      return /\.(mp4|webm|mov|ogg)(\?.*)?$/i.test(src);
+    }
+
     function buildSlides() {
       slider.querySelectorAll('.works-modal-slide').forEach(el => el.remove());
       dotsWrap.innerHTML = '';
@@ -2752,14 +2767,28 @@ document.addEventListener('DOMContentLoaded', () => {
         slide.className = 'works-modal-slide' + (i === 0 ? ' active' : '');
         const src = m.dataUrl || m;
         if (src) {
-          const ph = document.createElement('div');
-          ph.className = 'works-modal-slide-ph';
-          ph.innerHTML = '<svg width="56" height="56" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="28" stroke="white" stroke-width="1.5"/><path d="M20 40 L28 28 L34 35 L40 26 L46 40Z" stroke="white" stroke-width="1.5" fill="none"/><circle cx="24" cy="24" r="3" stroke="white" stroke-width="1.5"/></svg><span>Загрузка...</span>';
-          slide.appendChild(ph);
-          const img = new Image();
-          img.onload = () => { slide.innerHTML = ''; slide.appendChild(img); };
-          img.src = src; img.alt = '';
-          img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+          if (isVideoSrc(src)) {
+            const video = document.createElement('video');
+            video.src = src;
+            video.controls = true;
+            video.muted = false;
+            video.playsInline = true;
+            video.preload = 'metadata';
+            video.style.cssText = 'width:100%;height:100%;object-fit:contain;display:block;background:#000;';
+            slide.appendChild(video);
+            if (i === 0) {
+              video.play().catch(() => {});
+            }
+          } else {
+            const ph = document.createElement('div');
+            ph.className = 'works-modal-slide-ph';
+            ph.innerHTML = '<svg width="56" height="56" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="28" stroke="white" stroke-width="1.5"/><path d="M20 40 L28 28 L34 35 L40 26 L46 40Z" stroke="white" stroke-width="1.5" fill="none"/><circle cx="24" cy="24" r="3" stroke="white" stroke-width="1.5"/></svg><span>Загрузка...</span>';
+            slide.appendChild(ph);
+            const img = new Image();
+            img.onload = () => { slide.innerHTML = ''; slide.appendChild(img); };
+            img.src = src; img.alt = '';
+            img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+          }
         }
         slider.insertBefore(slide, prevBtn);
         const dot = document.createElement('button');
@@ -2773,11 +2802,17 @@ document.addEventListener('DOMContentLoaded', () => {
     function goTo(idx) {
       const slides = slider.querySelectorAll('.works-modal-slide');
       const dots   = dotsWrap.querySelectorAll('.works-modal-dot');
+      // Пауза видео в текущем слайде
+      const prevVideo = slides[currentIdx]?.querySelector('video');
+      if (prevVideo) prevVideo.pause();
       slides[currentIdx].classList.remove('active');
       dots[currentIdx].classList.remove('active');
       currentIdx = idx;
       slides[currentIdx].classList.add('active');
       dots[currentIdx].classList.add('active');
+      // Воспроизведение видео в новом слайде
+      const nextVideo = slides[currentIdx]?.querySelector('video');
+      if (nextVideo) nextVideo.play().catch(() => {});
       updateNav();
     }
 
@@ -2805,6 +2840,8 @@ document.addEventListener('DOMContentLoaded', () => {
       modal.classList.remove('open');
       document.body.classList.remove('modal-open');
       document.documentElement.style.setProperty('--scrollbar-w', '0px');
+      // Пауза всех видео при закрытии модалки
+      slider.querySelectorAll('video').forEach(v => v.pause());
     }
 
     closeBtn.addEventListener('click', closeModal);
