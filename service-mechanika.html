@@ -933,7 +933,7 @@
     }
 
     /* ─── FOOTER ─── */
-    footer { background: transparent; padding: 64px 60px 24px; position: relative; z-index: 1; }
+    /* footer bg set via inline style */
     .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 50px; margin-bottom: 50px; padding-bottom: 50px; border-bottom: 1px solid rgba(255,255,255,0.07); }
     .footer-brand p { font-size: 13px; color: rgba(255,255,255,0.38); line-height: 1.85; max-width: 280px; margin-top: 16px; }
     .footer-logo-name { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 900; font-size: 24px; letter-spacing: 4px; color: var(--white); line-height: 1; }
@@ -2057,6 +2057,62 @@
       .knowledge-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
+  
+
+  @media (max-width: 860px) {
+    .mobile-phone-bar {
+      display: flex;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 9999;
+      background: linear-gradient(135deg, #d45a00 0%, #f07a20 100%);
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0;
+      height: 50px;
+      box-shadow: 0 -4px 20px rgba(212,90,0,0.45);
+      text-decoration: none;
+      animation: phonePulse 2.5s ease-in-out infinite;
+    }
+    @keyframes phonePulse {
+      0%, 100% { box-shadow: 0 -4px 24px rgba(212,90,0,0.55); }
+      50% { box-shadow: 0 -4px 36px rgba(212,90,0,0.85); }
+    }
+    .mobile-phone-bar-number {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 20px;
+      letter-spacing: 2px;
+      color: #ffffff;
+      line-height: 1;
+      font-weight: 900;
+    }
+    body { padding-bottom: 50px; }
+  }
+
+    /* ─── FOOTER BG FIX ─── */
+    .cta-footer-wrap footer {
+      background: rgba(4,8,16,0.85) !important;
+      padding: 20px 60px !important;
+      position: relative;
+      z-index: 2;
+    }
+    @media (max-width: 860px) {
+      .cta-footer-wrap footer { padding: 40px 20px 20px !important; }
+    }
+
+    /* ─── SEND SUCCESS ─── */
+    .send-success {
+      display: none;
+      padding: 14px;
+      background: rgba(30,77,140,0.15);
+      border: 1px solid rgba(30,77,140,0.3);
+      font-size: 13px;
+      letter-spacing: 1px;
+      color: rgba(255,255,255,0.8);
+      text-align: center;
+      margin-top: 4px;
+    }
   </style>
 </head>
 <body>
@@ -2235,7 +2291,7 @@
       <div class="send-success" id="sendSuccess">✓ Заявка принята. Ответим в течение 2 часов.</div>
     </div>
   </section>
-  <footer>
+  <footer style="position:relative;z-index:2;background:rgba(4,8,16,0.85);padding:20px 60px;">
     <div class="footer-bottom">
       <div style="display:flex;flex-direction:column;gap:2px;">
         <div class="footer-logo-name"><span class="wavy-text" id="wavyFooter"></span></div>
