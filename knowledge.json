@@ -75,5 +75,12 @@
     "desc": "Suzuki. DT9.9A/DT15A. Технический паспорт",
     "file": "pdfs/Suzuki. DT9.9A_DT15A. Технический паспорт.pdf",
     "size": ""
+  },
+  {
+    "cat": "dvs",
+    "title": "Руководство Меркури. Стационарные двигатели и редукторы Mercury. Inboard engines and sterndrives Mercury.",
+    "desc": "Models Covered Serial Number\nQSD 2.8 Sterndrive 170 HP 88300400 ‑ 88304999\nQSD 2.8 Sterndrive 200 HP 88305400 ‑ 88309999\nQSD 2.8 Sterndrive 230 HP 88310400 ‑ 88314999\nQSD 4.2 Sterndrive 270 HP 88401000 ‑ 88404999\nQSD 4.2 Sterndrive 320 HP 88406000 ‑ 88415999\nQSD 4.2 Sterndrive 350 HP 88417000 ‑ 88419999\nInboard\nModels Covered Serial Number\nQSD 2.8 Inboard 170 HP 88300000 ‑ 88300399\nQSD 2.8 Inboard 200 HP 88305000 ‑ 88305399\nQSD 2.8 Inboard 230 HP 88310000 ‑ 88310399\nQSD 4.2 Inboard 270 HP 88400000 ‑ 88400999\nQSD 4.2 Inboard 320 HP 88405000 ‑ 88405999\nQSD 4.2 Inboard 350 HP 88416000 ‑ 88416999",
+    "file": "pdfs/mercury_inboard_and_strndrives_manual.pdf",
+    "size": ""
   }
 ]
