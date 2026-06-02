@@ -2142,6 +2142,80 @@
     @media (max-width: 1100px) { .doc-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 860px) { .documents-section { padding: 48px 20px; } .doc-grid { grid-template-columns: 1fr; } }
 
+    /* ─── ARTICLE READER MODAL ─── */
+    .article-modal-overlay {
+      position: fixed; inset: 0; z-index: 9100;
+      background: rgba(4,8,16,0.82);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      display: none; align-items: flex-start; justify-content: center;
+      padding: 60px 20px 40px; overflow-y: auto;
+    }
+    .article-modal-overlay.open { display: flex; }
+    .article-modal-box {
+      background: var(--surface); width: 100%; max-width: 780px;
+      position: relative; box-shadow: 0 40px 100px rgba(0,0,0,0.45);
+      border-top: 3px solid var(--accent); animation: articleModalIn 0.3s cubic-bezier(.4,0,.2,1);
+    }
+    @keyframes articleModalIn { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
+    .article-modal-head {
+      padding: 32px 40px 24px; border-bottom: 1px solid rgba(26,37,53,0.08);
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 20px;
+    }
+    .article-modal-cat { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent2); margin-bottom: 8px; }
+    .article-modal-title { font-size: clamp(18px, 2.5vw, 26px); font-weight: 900; letter-spacing: 0.5px; color: var(--navy); line-height: 1.2; }
+    .article-modal-close {
+      flex-shrink: 0; width: 36px; height: 36px;
+      background: none; border: 1px solid rgba(26,37,53,0.15); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.2s, background 0.2s; margin-top: 2px;
+    }
+    .article-modal-close:hover { border-color: var(--accent2); background: rgba(212,90,0,0.06); }
+    .article-modal-close svg { stroke: var(--mid); width: 14px; height: 14px; }
+    .article-modal-body { padding: 36px 40px 48px; }
+    .article-modal-loading {
+      display: flex; align-items: center; justify-content: center;
+      padding: 60px 0; gap: 12px;
+      font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--silver);
+    }
+    .article-modal-loading::before {
+      content: ''; width: 20px; height: 20px; border: 2px solid rgba(30,77,140,0.2);
+      border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .article-modal-error {
+      padding: 40px; text-align: center;
+      font-size: 13px; line-height: 1.7; color: var(--mid);
+    }
+    /* Mammoth docx content styles */
+    .article-modal-body h1 { font-size: 22px; font-weight: 900; color: var(--navy); margin: 0 0 20px; line-height: 1.2; }
+    .article-modal-body h2 { font-size: 17px; font-weight: 700; color: var(--navy); margin: 32px 0 12px; padding-bottom: 8px; border-bottom: 1px solid rgba(26,37,53,0.08); }
+    .article-modal-body h3 { font-size: 15px; font-weight: 700; color: var(--navy); margin: 24px 0 8px; }
+    .article-modal-body p { font-size: 15px; line-height: 1.85; color: var(--text2); margin-bottom: 14px; }
+    .article-modal-body ul, .article-modal-body ol { padding-left: 24px; margin-bottom: 16px; }
+    .article-modal-body li { font-size: 15px; line-height: 1.75; color: var(--text2); margin-bottom: 6px; }
+    .article-modal-body strong { color: var(--navy); font-weight: 600; }
+    .article-modal-body em { font-style: italic; }
+    .article-modal-body table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 13px; }
+    .article-modal-body th { background: rgba(30,77,140,0.07); color: var(--navy); font-weight: 700; padding: 10px 14px; text-align: left; border: 1px solid rgba(26,37,53,0.1); }
+    .article-modal-body td { padding: 9px 14px; border: 1px solid rgba(26,37,53,0.1); color: var(--text2); vertical-align: top; }
+    .article-modal-body tr:nth-child(even) td { background: rgba(26,37,53,0.02); }
+    .article-modal-body img { max-width: 100%; height: auto; margin: 16px 0; }
+    .article-modal-body a { color: var(--accent); text-decoration: underline; }
+    @media (max-width: 860px) {
+      .article-modal-overlay { padding: 50px 0 0; align-items: flex-end; }
+      .article-modal-box { max-width: 100%; border-radius: 0; }
+      .article-modal-head, .article-modal-body { padding-left: 20px; padding-right: 20px; }
+    }
+
+    /* k-card pointer when clickable */
+    .k-card[data-file] { cursor: pointer; }
+    .k-card .k-read {
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--accent); margin-top: 4px; font-weight: 600;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .k-card[data-file]:hover .k-read { color: var(--accent2); }
+
     /* ─── SEND SUCCESS ─── */
     .send-success {
       display: none;
@@ -2244,67 +2318,76 @@
   </div>
   <div class="knowledge-grid" id="kGrid">
 
-    <div class="k-card" data-cat="diagnostika">
+    <div class="k-card" data-cat="diagnostika" data-file="articles/volvo-penta-vodia-codes.docx" data-title="Как читать коды ошибок Volvo Penta VODIA" onclick="openArticle(this)">
       <div class="k-cat">Диагностика</div>
       <div class="k-title">Как читать коды ошибок Volvo Penta VODIA</div>
       <div class="k-desc">Пошаговое руководство по подключению диагностического сканера, интерпретации кодов неисправностей и журнала событий для двигателей серий D4, D6, IPS.</div>
       <div class="k-meta">Двигатели · Volvo Penta</div>
+      <div class="k-read">Читать статью →</div>
     </div>
 
-    <div class="k-card" data-cat="mechanika">
+    <div class="k-card" data-cat="mechanika" data-file="articles/impeller-replacement.docx" data-title="Замена импеллера помпы охлаждения: когда и как" onclick="openArticle(this)">
       <div class="k-cat">Механика</div>
       <div class="k-title">Замена импеллера помпы охлаждения: когда и как</div>
       <div class="k-desc">Признаки износа крыльчатки, периодичность замены для разных марок, инструмент и порядок работ. Почему нельзя откладывать и какие последствия перегрева.</div>
       <div class="k-meta">Охлаждение · Обслуживание</div>
+      <div class="k-read">Читать статью →</div>
     </div>
 
-    <div class="k-card" data-cat="elektrika">
+    <div class="k-card" data-cat="elektrika" data-file="articles/thermal-imaging-electrics.docx" data-title="Тепловизионный контроль судовой электрики: что ищем" onclick="openArticle(this)">
       <div class="k-cat">Электрика</div>
       <div class="k-title">Тепловизионный контроль судовой электрики: что ищем</div>
       <div class="k-desc">Методика инфракрасной съёмки распредщитов, клеммных соединений и кабельных трасс. Примеры типичных дефектов и критерии опасного перегрева.</div>
       <div class="k-meta">Электросистемы · Безопасность</div>
+      <div class="k-read">Читать статью →</div>
     </div>
 
-    <div class="k-card" data-cat="mechanika">
+    <div class="k-card" data-cat="mechanika" data-file="articles/shaft-alignment.docx" data-title="Центровка валовой линии: допуски и методы контроля" onclick="openArticle(this)">
       <div class="k-cat">Механика</div>
       <div class="k-title">Центровка валовой линии: допуски и методы контроля</div>
       <div class="k-desc">Методы лазерной и индикаторной центровки, допустимые отклонения для разных типов муфт, признаки расцентровки на ходу и при вибродиагностике.</div>
       <div class="k-meta">Валовая линия · MAN · Volvo Penta</div>
+      <div class="k-read">Читать статью →</div>
     </div>
 
-    <div class="k-card" data-cat="korpus">
+    <div class="k-card" data-cat="korpus" data-file="articles/uzk-hull-survey.docx" data-title="УЗК-обмер обшивки: как интерпретировать результаты" onclick="openArticle(this)">
       <div class="k-cat">Корпус</div>
       <div class="k-title">УЗК-обмер обшивки: как интерпретировать результаты</div>
       <div class="k-desc">Что такое критическая толщина, как строится карта замеров, когда требуется замена листов и что означают расслоения в показаниях ультразвукового толщиномера.</div>
       <div class="k-meta">Корпусные работы · НК</div>
+      <div class="k-read">Читать статью →</div>
     </div>
 
-    <div class="k-card" data-cat="obsluzhivanie">
+    <div class="k-card" data-cat="obsluzhivanie" data-file="articles/winterization-checklist.docx" data-title="Консервация судна на зиму: полный чек-лист" onclick="openArticle(this)">
       <div class="k-cat">Обслуживание</div>
       <div class="k-title">Консервация судна на зиму: полный чек-лист</div>
       <div class="k-desc">Порядок консервации двигателя, топливной системы, электрики, трубопроводов и корпуса. Типичные ошибки и их последствия весной при расконсервации.</div>
       <div class="k-meta">Сезонное ТО · Все марки</div>
+      <div class="k-read">Читать статью →</div>
     </div>
 
-    <div class="k-card" data-cat="mechanika">
+    <div class="k-card" data-cat="mechanika" data-file="articles/oil-analysis.docx" data-title="Анализ масла двигателя: что говорят результаты" onclick="openArticle(this)">
       <div class="k-cat">Механика</div>
       <div class="k-title">Анализ масла двигателя: что говорят результаты</div>
       <div class="k-desc">Экспресс-тест на борту и лабораторный анализ — в чём разница. Какие элементы в масле на что указывают, когда нужен капремонт, а когда достаточно заменить кольца.</div>
       <div class="k-meta">Диагностика · Двигатели</div>
+      <div class="k-read">Читать статью →</div>
     </div>
 
-    <div class="k-card" data-cat="elektrika">
+    <div class="k-card" data-cat="elektrika" data-file="articles/parallel-generators.docx" data-title="Параллельная работа генераторов: требования и типичные проблемы" onclick="openArticle(this)">
       <div class="k-cat">Электрика</div>
       <div class="k-title">Параллельная работа генераторов: требования и типичные проблемы</div>
       <div class="k-desc">Условия синхронизации, схемы защиты при обратном токе, типичные ошибки монтажа и симптомы нарушений при параллельной работе судовых генераторов.</div>
       <div class="k-meta">Генераторы · Электросистемы</div>
+      <div class="k-read">Читать статью →</div>
     </div>
 
-    <div class="k-card" data-cat="korpus">
+    <div class="k-card" data-cat="korpus" data-file="articles/aluminium-sandblasting.docx" data-title="Пескоструйная очистка алюминия: тонкости и ошибки" onclick="openArticle(this)">
       <div class="k-cat">Корпус</div>
       <div class="k-title">Пескоструйная очистка алюминия: тонкости и ошибки</div>
       <div class="k-desc">Выбор абразива для алюминиевых сплавов, степени очистки Sa 2,5 / Sa 3, режимы давления, контроль профиля поверхности и подготовка к грунтованию.</div>
       <div class="k-meta">Корпус · Покрытия · Алюминий</div>
+      <div class="k-read">Читать статью →</div>
     </div>
 
   </div>
@@ -2600,6 +2683,25 @@
 <div class="modal-overlay" id="modal-career" onclick="closeModalOutside(event,'career')"><div class="modal-box"><div class="modal-header"><div><div class="modal-tag-sm">Карьера</div><h3 class="modal-title">Работа в remont-katerov.ru</h3></div><button class="modal-close" onclick="closeModal('career')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2L14 14M14 2L2 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div><div class="modal-body"><p>Механик судовой, электрик, маляр, сварщик. Отправьте резюме: <a href="mailto:pilipenko@mmgmt.ru" style="color:var(--accent)">pilipenko@mmgmt.ru</a></p></div></div></div>
 <div class="modal-overlay" id="modal-requisites" onclick="closeModalOutside(event,'requisites')"><div class="modal-box"><div class="modal-header"><div><div class="modal-tag-sm">Реквизиты</div><h3 class="modal-title">ООО «Маньяна Менеджмент»</h3></div><button class="modal-close" onclick="closeModal('requisites')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2L14 14M14 2L2 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div><div class="modal-body"><p>ИНН: 7814833438 · ОГРН: 1247800002890<br>г. Санкт-Петербург, пр. Крузенштерна, 18<br>р/с: 40702810010001550082 · АО «ТБанк» · БИК: 044525974</p></div></div></div>
 
+<!-- ARTICLE READER MODAL -->
+<div class="article-modal-overlay" id="articleModal" onclick="closeArticleModalOutside(event)">
+  <div class="article-modal-box" id="articleModalBox">
+    <div class="article-modal-head">
+      <div>
+        <div class="article-modal-cat" id="articleModalCat"></div>
+        <div class="article-modal-title" id="articleModalTitle"></div>
+      </div>
+      <button class="article-modal-close" onclick="closeArticleModal()" aria-label="Закрыть">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M2 2L14 14M14 2L2 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="article-modal-body" id="articleModalBody">
+      <div class="article-modal-loading">Загрузка статьи…</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const nav = document.getElementById('mainNav');
@@ -2687,6 +2789,55 @@ function filterDocs(cat, btn) {
     c.classList.toggle('hidden', cat !== 'all' && c.dataset.cat !== cat);
   });
 }
+
+// Article reader modal
+async function openArticle(card) {
+  const file = card.dataset.file;
+  const title = card.dataset.title;
+  const cat = card.querySelector('.k-cat') ? card.querySelector('.k-cat').textContent : '';
+
+  document.getElementById('articleModalCat').textContent = cat;
+  document.getElementById('articleModalTitle').textContent = title;
+  document.getElementById('articleModalBody').innerHTML = '<div class="article-modal-loading">Загрузка статьи…</div>';
+
+  const overlay = document.getElementById('articleModal');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  overlay.scrollTop = 0;
+
+  if (!file) {
+    document.getElementById('articleModalBody').innerHTML =
+      '<div class="article-modal-error">Файл статьи не прикреплён.<br>Добавьте .docx файл в папку <code>articles/</code>.</div>';
+    return;
+  }
+
+  try {
+    const response = await fetch(file);
+    if (!response.ok) throw new Error('not found');
+    const arrayBuffer = await response.arrayBuffer();
+    const result = await mammoth.convertToHtml({ arrayBuffer });
+    document.getElementById('articleModalBody').innerHTML = result.value || '<p>Документ пуст.</p>';
+  } catch (e) {
+    document.getElementById('articleModalBody').innerHTML =
+      `<div class="article-modal-error">
+        Не удалось загрузить файл статьи.<br>
+        <small style="opacity:.6">Убедитесь, что файл <code>${file}</code> находится рядом с HTML-страницей на сервере.</small>
+      </div>`;
+  }
+}
+
+function closeArticleModal() {
+  document.getElementById('articleModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeArticleModalOutside(e) {
+  if (e.target === document.getElementById('articleModal')) closeArticleModal();
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeArticleModal();
+});
 
 // Modals
 function openModal(id) { const m = document.getElementById('modal-'+id); if(m){m.classList.add('open');document.body.style.overflow='hidden';} }
