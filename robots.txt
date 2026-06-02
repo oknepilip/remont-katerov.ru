@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://remont-katerov.ru/sitemap.xml
+Sitemap: https://remontkaterov.ru/sitemap.xml
