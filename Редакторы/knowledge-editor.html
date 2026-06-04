@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>База знаний — редактор</title>
+<style>
+  :root {
+    --bg:#f5f3ef; --surface:#ffffff; --navy:#1a2535; --steel:#2c3e55;
+    --mid:#5a6a7e; --silver:#8a9ab5; --light:#c4cdd8;
+    --accent:#1e4d8c; --accent2:#d45a00; --text:#1a2535; --text2:#3d4f63;
+    --green:#1a7a4a; --red:#b03030;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--text);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:300;min-height:100vh;}
+
+  /* TOP BAR */
+  .topbar{background:var(--navy);padding:0 48px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+  .topbar-logo{font-weight:900;font-size:16px;letter-spacing:4px;color:#fff;}
+  .topbar-logo span{color:var(--accent2);}
+  .topbar-sub{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:2px;}
+  .topbar-left{display:flex;flex-direction:column;gap:0;}
+  .topbar-badge{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);border:1px solid rgba(255,255,255,0.15);padding:4px 12px;}
+
+  /* IMPORT BAR */
+  .import-bar{background:rgba(30,77,140,0.07);border-bottom:1px solid rgba(30,77,140,0.12);padding:12px 40px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+  .import-bar-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--mid);white-space:nowrap;}
+  .import-drop{
+    flex:1;min-width:200px;border:1px dashed rgba(30,77,140,0.3);padding:10px 18px;
+    display:flex;align-items:center;gap:10px;cursor:pointer;
+    background:transparent;transition:border-color 0.2s,background 0.2s;
+  }
+  .import-drop:hover,.import-drop.over{border-color:var(--accent);background:rgba(30,77,140,0.05);}
+  .import-drop svg{width:16px;height:16px;stroke:var(--accent);fill:none;stroke-width:1.5;flex-shrink:0;}
+  .import-drop-text{font-size:12px;letter-spacing:1px;color:var(--mid);}
+  .import-status{font-size:11px;letter-spacing:1px;white-space:nowrap;}
+  .import-status.loaded{color:var(--green);}
+  .import-status.empty{color:var(--silver);}
+
+  /* LAYOUT */
+  .wrap{display:grid;grid-template-columns:380px 1fr;min-height:calc(100vh - 64px);}
+
+  /* LEFT PANEL — FORM */
+  .panel-form{background:var(--surface);border-right:1px solid rgba(26,37,53,0.1);padding:36px 32px;overflow-y:auto;max-height:calc(100vh - 64px);position:sticky;top:64px;}
+  .panel-title{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--accent2);margin-bottom:24px;display:flex;align-items:center;gap:10px;}
+  .panel-title::before{content:'';width:20px;height:1px;background:var(--accent2);}
+
+  /* TYPE SWITCHER */
+  .type-switcher{display:flex;gap:0;margin-bottom:28px;border:1px solid rgba(26,37,53,0.12);}
+  .type-btn{flex:1;padding:10px 0;font-size:11px;letter-spacing:2px;text-transform:uppercase;background:transparent;border:none;cursor:pointer;color:var(--mid);font-family:inherit;transition:background 0.2s,color 0.2s;}
+  .type-btn.active{background:var(--navy);color:#fff;}
+
+  /* FORM FIELDS */
+  .field{margin-bottom:18px;}
+  .field label{display:block;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--mid);margin-bottom:6px;}
+  .field input,.field select,.field textarea{
+    width:100%;padding:10px 14px;
+    background:var(--bg);border:1px solid rgba(26,37,53,0.13);
+    font-family:inherit;font-size:13px;color:var(--text);
+    transition:border-color 0.2s;outline:none;
+  }
+  .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);}
+  .field textarea{min-height:72px;resize:vertical;line-height:1.6;}
+  .field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235a6a7e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;}
+
+  /* FILE DROP */
+  .drop-zone{
+    border:2px dashed rgba(30,77,140,0.25);padding:24px;text-align:center;
+    cursor:pointer;transition:border-color 0.2s,background 0.2s;
+    background:transparent;
+  }
+  .drop-zone:hover,.drop-zone.over{border-color:var(--accent);background:rgba(30,77,140,0.04);}
+  .drop-icon{margin-bottom:8px;opacity:0.4;}
+  .drop-icon svg{width:28px;height:28px;stroke:var(--accent);}
+  .drop-hint{font-size:12px;letter-spacing:1px;color:var(--mid);}
+  .drop-name{font-size:13px;letter-spacing:1px;color:var(--accent);margin-top:6px;font-weight:600;word-break:break-all;}
+
+  /* TAGS */
+  .tags-wrap{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+  .tag-chip{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--accent);border:1px solid rgba(30,77,140,0.2);padding:3px 10px;display:flex;align-items:center;gap:6px;}
+  .tag-chip button{background:none;border:none;cursor:pointer;color:var(--accent2);font-size:12px;line-height:1;padding:0;}
+  .tag-input-row{display:flex;gap:0;}
+  .tag-input-row input{flex:1;}
+  .tag-add-btn{padding:10px 14px;background:var(--navy);border:1px solid var(--navy);color:#fff;font-size:11px;letter-spacing:1px;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background 0.2s;}
+  .tag-add-btn:hover{background:var(--accent);}
+
+  /* SUBMIT */
+  .submit-btn{
+    width:100%;padding:14px;background:var(--accent);border:none;color:#fff;
+    font-family:inherit;font-size:12px;letter-spacing:3px;text-transform:uppercase;
+    font-weight:700;cursor:pointer;margin-top:8px;
+    transition:background 0.2s,transform 0.15s;
+  }
+  .submit-btn:hover{background:#163d70;transform:translateY(-1px);}
+  .submit-btn:disabled{background:var(--light);cursor:default;transform:none;}
+
+  /* NOTICE */
+  .notice{padding:12px 16px;font-size:12px;letter-spacing:0.5px;line-height:1.6;margin-bottom:16px;display:none;}
+  .notice.ok{background:rgba(26,122,74,0.08);border-left:3px solid var(--green);color:var(--green);}
+  .notice.err{background:rgba(176,48,48,0.08);border-left:3px solid var(--red);color:var(--red);}
+  .notice.show{display:block;}
+
+  /* RIGHT PANEL — OUTPUT */
+  .panel-output{padding:36px 40px;overflow-y:auto;max-height:calc(100vh - 64px);}
+  .out-title{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--accent2);margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;}
+  .out-title-left{display:flex;align-items:center;gap:10px;}
+  .out-title-left::before{content:'';width:20px;height:1px;background:var(--accent2);}
+
+  /* OUTPUT ACTIONS */
+  .out-actions{display:flex;gap:8px;}
+  .out-btn{padding:8px 16px;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:inherit;font-weight:600;transition:background 0.2s,color 0.2s;}
+  .out-btn-copy{background:transparent;border:1px solid rgba(26,37,53,0.2);color:var(--mid);}
+  .out-btn-copy:hover{border-color:var(--accent);color:var(--accent);}
+  .out-btn-dl{background:var(--accent2);border:1px solid var(--accent2);color:#fff;}
+  .out-btn-dl:hover{background:#b04800;}
+  .out-btn-clear{background:transparent;border:1px solid rgba(176,48,48,0.3);color:var(--red);}
+  .out-btn-clear:hover{background:rgba(176,48,48,0.06);}
+
+  /* ENTRY LIST */
+  .entry-list{display:flex;flex-direction:column;gap:2px;margin-bottom:32px;}
+  .entry-item{
+    background:var(--surface);border:1px solid rgba(26,37,53,0.08);
+    padding:16px 20px;display:flex;align-items:flex-start;gap:16px;
+    position:relative;overflow:hidden;
+  }
+  .entry-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);}
+  .entry-item.doc-type::before{background:var(--accent2);}
+  .entry-body{flex:1;min-width:0;}
+  .entry-type-badge{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--accent2);margin-bottom:4px;}
+  .entry-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:4px;line-height:1.3;}
+  .entry-file{font-size:11px;letter-spacing:1px;color:var(--mid);font-family:monospace;}
+  .entry-del{background:none;border:none;cursor:pointer;color:var(--light);font-size:18px;line-height:1;padding:2px 4px;transition:color 0.2s;flex-shrink:0;margin-top:-2px;}
+  .entry-del:hover{color:var(--red);}
+
+  /* JSON PREVIEW */
+  .json-box{background:var(--navy);padding:24px;overflow-x:auto;}
+  .json-box pre{font-family:'SF Mono','Fira Code',monospace;font-size:11px;line-height:1.7;color:rgba(255,255,255,0.75);white-space:pre;margin:0;}
+  .json-str{color:#7ec8a6;}
+  .json-key{color:#89b4fa;}
+  .json-num{color:#f9e2af;}
+  .json-bool{color:#cba6f7;}
+
+  /* EMPTY STATE */
+  .empty-state{text-align:center;padding:60px 20px;color:var(--light);}
+  .empty-state svg{width:48px;height:48px;stroke:var(--light);fill:none;stroke-width:1;margin-bottom:16px;}
+  .empty-state p{font-size:12px;letter-spacing:2px;text-transform:uppercase;}
+
+  /* SECTION DIVIDER */
+  .section-div{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--silver);margin:24px 0 12px;padding-bottom:6px;border-bottom:1px solid rgba(26,37,53,0.08);}
+
+  /* DOC-ONLY FIELDS */
+  .doc-fields{display:none;}
+  .article-fields{display:none;}
+
+  .field-hint{font-size:11px;color:var(--silver);margin-top:4px;letter-spacing:0.3px;}
+
+  @media(max-width:900px){
+    .wrap{grid-template-columns:1fr;}
+    .panel-form{position:static;max-height:none;border-right:none;border-bottom:1px solid rgba(26,37,53,0.1);}
+    .panel-output{max-height:none;}
+    .topbar{padding:0 20px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-logo">REMONT<span>-</span>KATEROV</div>
+    <div class="topbar-sub">Редактор базы знаний</div>
+  </div>
+  <div class="topbar-badge">ADMIN TOOL</div>
+</div>
+
+<!-- IMPORT BAR -->
+<div class="import-bar">
+  <span class="import-bar-label">Текущий JSON</span>
+  <div class="import-drop" id="importDrop" onclick="document.getElementById('jsonImportInput').click()">
+    <svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M12 16V8M9 11l3-3 3 3"/><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+    <span class="import-drop-text">Загрузить knowledge.json — перетащить или нажать</span>
+  </div>
+  <span class="import-status empty" id="importStatus">Файл не загружен — начнёт с нуля</span>
+  <input type="file" id="jsonImportInput" accept=".json" style="display:none"/>
+</div>
+
+<div class="wrap">
+
+  <!-- ═══ LEFT: FORM ═══ -->
+  <div class="panel-form">
+    <div class="panel-title">Добавить запись</div>
+
+    <div class="type-switcher">
+      <button class="type-btn active" data-type="article" onclick="setType('article')">Статья</button>
+      <button class="type-btn" data-type="doc" onclick="setType('doc')">Документ</button>
+    </div>
+
+    <div id="notice" class="notice"></div>
+
+    <!-- ── ОБЩЕЕ ── -->
+    <div class="section-div">Основное</div>
+
+    <!-- Категория -->
+    <div class="field">
+      <label>Категория</label>
+      <select id="fCat">
+        <option value="diagnostika">Диагностика</option>
+        <option value="mechanika">Механика</option>
+        <option value="elektrika">Электрика</option>
+        <option value="korpus">Корпусные работы</option>
+        <option value="interer">Интерьер</option>
+        <option value="obsluzhivanie">Обслуживание</option>
+        <option value="dvs">Двигатели / ДВС</option>
+        <option value="other">Прочее</option>
+      </select>
+    </div>
+
+    <!-- Заголовок -->
+    <div class="field">
+      <label>Заголовок</label>
+      <input type="text" id="fTitle" placeholder="Например: Замена сальника гребного вала"/>
+    </div>
+
+    <!-- Описание -->
+    <div class="field">
+      <label>Описание</label>
+      <textarea id="fDesc" placeholder="Краткое описание — 1–2 предложения, что узнает читатель"></textarea>
+    </div>
+
+    <!-- ── СТАТЬЯ ── -->
+    <div class="article-fields" id="articleFields">
+      <div class="section-div">Только для статьи</div>
+      <div class="field">
+        <label>Мета-метка <span style="font-weight:300;letter-spacing:0">(отображается как подпись к карточке)</span></label>
+        <input type="text" id="fMeta" placeholder="Охлаждение · Обслуживание"/>
+        <div class="field-hint">Например: «Двигатели · Volvo Penta» или «Корпус · НК»</div>
+      </div>
+    </div>
+
+    <!-- ── ДОКУМЕНТ ── -->
+    <div class="doc-fields" id="docFields">
+      <div class="section-div">Только для документа</div>
+      <div class="field">
+        <label>Бренд</label>
+        <input type="text" id="fBrand" placeholder="Suzuki, Mercury, Volvo Penta…"/>
+      </div>
+      <div class="field">
+        <label>Тип документа</label>
+        <select id="fDoctype">
+          <option value="Паспорт">Паспорт / инструкция по эксплуатации</option>
+          <option value="Каталог">Каталог запчастей</option>
+          <option value="Руководство">Руководство по ремонту / сервисное</option>
+          <option value="Схема">Схема / чертёж</option>
+          <option value="ГОСТ">ГОСТ / стандарт</option>
+          <option value="Прочее">Прочее</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- ── ФАЙЛ ── -->
+    <div class="section-div">Файл</div>
+    <div class="field">
+      <label>Перетащите файл или нажмите</label>
+      <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+        <div class="drop-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+            <path d="M12 16V8M9 11l3-3 3 3"/>
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+          </svg>
+        </div>
+        <div class="drop-hint">PDF, DOCX, XLSX — файл не загружается,<br>только считывается имя</div>
+        <div class="drop-name" id="dropName"></div>
+      </div>
+      <input type="file" id="fileInput" style="display:none" accept=".pdf,.docx,.xlsx,.doc,.xls"/>
+    </div>
+
+    <div class="field">
+      <label>Папка на сервере</label>
+      <select id="fFolder">
+        <option value="pdfs/">pdfs/</option>
+        <option value="articles/">articles/</option>
+        <option value="docs/">docs/</option>
+      </select>
+      <div class="field-hint">Файл нужно положить вручную в эту папку на сайте</div>
+    </div>
+
+    <div class="field">
+      <label>Путь к файлу <span style="font-weight:300">(заполняется автоматически)</span></label>
+      <input type="text" id="fFile" placeholder="pdfs/filename.pdf"/>
+    </div>
+
+    <!-- ── ТЕГИ ── -->
+    <div class="section-div">Теги</div>
+    <div class="field">
+      <div class="tag-input-row">
+        <input type="text" id="tagInput" placeholder="Введите тег и нажмите +" onkeydown="if(event.key==='Enter'){event.preventDefault();addTag();}"/>
+        <button class="tag-add-btn" onclick="addTag()">+ Добавить</button>
+      </div>
+      <div class="tags-wrap" id="tagsWrap"></div>
+      <div class="field-hint">Теги подставятся автоматически из заголовка при добавлении</div>
+    </div>
+
+    <button class="submit-btn" id="submitBtn" onclick="addEntry()">Добавить в список →</button>
+  </div>
+
+  <!-- ═══ RIGHT: OUTPUT ═══ -->
+  <div class="panel-output">
+    <div class="out-title">
+      <div class="out-title-left">Список записей</div>
+      <div class="out-actions">
+        <button class="out-btn out-btn-copy" onclick="copyJSON()">Скопировать JSON</button>
+        <button class="out-btn out-btn-dl" onclick="downloadJSON()">Скачать JSON</button>
+        <button class="out-btn out-btn-clear" onclick="clearAll()">Очистить</button>
+      </div>
+    </div>
+
+    <div id="entryList" class="entry-list"></div>
+    <div id="emptyState" class="empty-state">
+      <svg viewBox="0 0 48 48"><rect x="8" y="8" width="32" height="32" rx="3"/><line x1="16" y1="18" x2="32" y2="18"/><line x1="16" y1="24" x2="28" y2="24"/><line x1="16" y1="30" x2="24" y2="30"/></svg>
+      <p>Записей пока нет</p>
+    </div>
+
+    <div id="jsonSection" style="display:none">
+      <div class="section-div" style="margin-top:32px;">Предпросмотр JSON</div>
+      <div class="json-box">
+        <pre id="jsonPreview"></pre>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ─── JSON IMPORT ─────────────────────────────────────────
+const importDrop = document.getElementById('importDrop');
+const jsonImportInput = document.getElementById('jsonImportInput');
+
+importDrop.addEventListener('dragover', e => { e.preventDefault(); importDrop.classList.add('over'); });
+importDrop.addEventListener('dragleave', () => importDrop.classList.remove('over'));
+importDrop.addEventListener('drop', e => {
+  e.preventDefault(); importDrop.classList.remove('over');
+  const f = e.dataTransfer.files[0];
+  if (f && f.name.endsWith('.json')) loadJSON(f);
+});
+jsonImportInput.addEventListener('change', () => {
+  if (jsonImportInput.files[0]) loadJSON(jsonImportInput.files[0]);
+});
+
+function loadJSON(f) {
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try {
+      const parsed = JSON.parse(ev.target.result);
+      if (!Array.isArray(parsed)) throw new Error('Не массив');
+      entries = parsed;
+      importedFileName = f.name;
+      renderEntries();
+      renderJSON();
+      const st = document.getElementById('importStatus');
+      st.textContent = '✓ Загружено ' + entries.length + ' записей из ' + f.name;
+      st.className = 'import-status loaded';
+      importDrop.querySelector('.import-drop-text').textContent = f.name;
+    } catch(e) {
+      showNotice('Ошибка парсинга JSON: ' + e.message, 'err');
+    }
+  };
+  reader.readAsText(f);
+}
+
+
+let currentType = 'article';
+let tags = [];
+let entries = [];
+let detectedFileName = '';
+let importedFileName = 'knowledge.json';
+
+// ─── TYPE SWITCHER ────────────────────────────────────────
+function setType(t) {
+  currentType = t;
+  document.querySelectorAll('.type-btn').forEach(b => b.classList.toggle('active', b.dataset.type === t));
+  document.getElementById('articleFields').style.display = t === 'article' ? 'block' : 'none';
+  document.getElementById('docFields').style.display = t === 'doc' ? 'block' : 'none';
+  // Adjust folder default
+  const folder = document.getElementById('fFolder');
+  folder.value = t === 'doc' ? 'pdfs/' : 'articles/';
+  updateFilePath();
+}
+// Init
+setType('article');
+
+// ─── FILE DROP ────────────────────────────────────────────
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('over'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault(); dropZone.classList.remove('over');
+  const f = e.dataTransfer.files[0];
+  if (f) handleFile(f);
+});
+fileInput.addEventListener('change', () => { if (fileInput.files[0]) handleFile(fileInput.files[0]); });
+
+function handleFile(f) {
+  detectedFileName = f.name;
+  document.getElementById('dropName').textContent = '📄 ' + f.name;
+  updateFilePath();
+}
+
+document.getElementById('fFolder').addEventListener('change', updateFilePath);
+
+function updateFilePath() {
+  if (!detectedFileName) return;
+  const folder = document.getElementById('fFolder').value;
+  document.getElementById('fFile').value = folder + detectedFileName;
+}
+
+// ─── TAGS ─────────────────────────────────────────────────
+function addTag() {
+  const input = document.getElementById('tagInput');
+  const val = input.value.trim().toLowerCase();
+  if (val && !tags.includes(val)) { tags.push(val); renderTags(); }
+  input.value = '';
+  input.focus();
+}
+function removeTag(t) {
+  tags = tags.filter(x => x !== t);
+  renderTags();
+}
+function renderTags() {
+  const wrap = document.getElementById('tagsWrap');
+  wrap.innerHTML = tags.map(t =>
+    `<span class="tag-chip">${t}<button onclick="removeTag('${t}')" title="Удалить">×</button></span>`
+  ).join('');
+}
+
+// ─── AUTO-TAGS from TITLE ─────────────────────────────────
+document.getElementById('fTitle').addEventListener('blur', function() {
+  const title = this.value.toLowerCase();
+  const keywords = ['volvo', 'penta', 'suzuki', 'mercury', 'yanmar', 'man', 'yamaha',
+    'двигатель', 'мотор', 'вал', 'корпус', 'электрика', 'генератор', 'импеллер',
+    'масло', 'помпа', 'диагностика', 'центровка', 'покрытие', 'алюминий'];
+  keywords.forEach(kw => {
+    if (title.includes(kw) && !tags.includes(kw)) tags.push(kw);
+  });
+  renderTags();
+});
+
+// ─── ADD ENTRY ────────────────────────────────────────────
+function addEntry() {
+  const title = document.getElementById('fTitle').value.trim();
+  const desc  = document.getElementById('fDesc').value.trim();
+  const cat   = document.getElementById('fCat').value;
+  const file  = document.getElementById('fFile').value.trim();
+
+  if (!title) return showNotice('Укажите заголовок', 'err');
+  if (!desc)  return showNotice('Добавьте описание', 'err');
+  if (!file)  return showNotice('Перетащите файл или укажите путь', 'err');
+
+  let entry = { type: currentType, cat, title, desc };
+
+  if (currentType === 'article') {
+    entry.meta = document.getElementById('fMeta').value.trim() || '';
+    entry.file = file;
+  } else {
+    entry.brand   = document.getElementById('fBrand').value.trim();
+    entry.doctype = document.getElementById('fDoctype').value;
+    entry.file    = file;
+  }
+
+  entry.tags = [...tags];
+  entries.push(entry);
+
+  renderEntries();
+  renderJSON();
+  resetForm();
+  showNotice('Запись добавлена. Файл положите в папку: ' + file.split('/')[0] + '/', 'ok');
+}
+
+function resetForm() {
+  document.getElementById('fTitle').value = '';
+  document.getElementById('fDesc').value = '';
+  document.getElementById('fMeta').value = '';
+  document.getElementById('fBrand').value = '';
+  document.getElementById('fFile').value = '';
+  document.getElementById('dropName').textContent = '';
+  detectedFileName = '';
+  tags = [];
+  renderTags();
+  fileInput.value = '';
+}
+
+// ─── RENDER ENTRIES ───────────────────────────────────────
+function renderEntries() {
+  const list = document.getElementById('entryList');
+  const empty = document.getElementById('emptyState');
+  if (!entries.length) { list.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  list.innerHTML = entries.map((e, i) => `
+    <div class="entry-item ${e.type === 'doc' ? 'doc-type' : ''}">
+      <div class="entry-body">
+        <div class="entry-type-badge">${e.type === 'doc' ? '📄 Документ' + (e.brand ? ' · ' + e.brand : '') + (e.doctype ? ' · ' + e.doctype : '') : '📝 Статья'}</div>
+        <div class="entry-title">${e.title}</div>
+        <div class="entry-file">${e.file}</div>
+      </div>
+      <button class="entry-del" onclick="deleteEntry(${i})" title="Удалить">×</button>
+    </div>
+  `).join('');
+}
+
+function deleteEntry(i) {
+  entries.splice(i, 1);
+  renderEntries();
+  renderJSON();
+}
+
+// ─── RENDER JSON ──────────────────────────────────────────
+function syntaxHighlight(json) {
+  return json
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, match => {
+      if (/^"/.test(match)) {
+        if (/:$/.test(match)) return `<span class="json-key">${match}</span>`;
+        return `<span class="json-str">${match}</span>`;
+      }
+      if (/true|false/.test(match)) return `<span class="json-bool">${match}</span>`;
+      return `<span class="json-num">${match}</span>`;
+    });
+}
+
+function renderJSON() {
+  const sec = document.getElementById('jsonSection');
+  if (!entries.length) { sec.style.display = 'none'; return; }
+  sec.style.display = 'block';
+  const json = JSON.stringify(entries, null, 2);
+  document.getElementById('jsonPreview').innerHTML = syntaxHighlight(json);
+}
+
+// ─── COPY / DOWNLOAD ─────────────────────────────────────
+function copyJSON() {
+  if (!entries.length) return showNotice('Нет записей для копирования', 'err');
+  navigator.clipboard.writeText(JSON.stringify(entries, null, 2))
+    .then(() => showNotice('JSON скопирован в буфер обмена', 'ok'))
+    .catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = JSON.stringify(entries, null, 2);
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+      document.body.removeChild(ta);
+      showNotice('JSON скопирован', 'ok');
+    });
+}
+
+function downloadJSON() {
+  if (!entries.length) return showNotice('Нет записей для скачивания', 'err');
+  const blob = new Blob([JSON.stringify(entries, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = importedFileName || 'knowledge.json';
+  a.click();
+  showNotice('Файл knowledge-new-entries.json скачан', 'ok');
+}
+
+function clearAll() {
+  if (!entries.length) return;
+  if (!confirm('Очистить все записи?')) return;
+  entries = [];
+  renderEntries();
+  renderJSON();
+}
+
+// ─── NOTICE ──────────────────────────────────────────────
+let noticeTimer;
+function showNotice(msg, type) {
+  const el = document.getElementById('notice');
+  el.textContent = msg;
+  el.className = 'notice ' + type + ' show';
+  clearTimeout(noticeTimer);
+  noticeTimer = setTimeout(() => el.classList.remove('show'), 4000);
+}
+</script>
+</body>
+</html>
