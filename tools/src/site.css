@@ -144,9 +144,19 @@ footer{background:var(--r900);color:var(--r50);padding:2rem 0;margin-top:3rem;fo
 .arts li{background:var(--sf);border:1px solid var(--bd);border-radius:12px;padding:.7rem 1.1rem}
 .arts a{font-weight:700;display:inline-flex;align-items:center;min-height:44px}.arts span{display:block;color:var(--mu);font-size:.95rem;line-height:1.45}
 .art h2{font-size:clamp(1.3rem,1.1rem + .8vw,1.75rem);margin:2rem 0 .7rem}.art h3{font-size:1.15rem;margin:1.3rem 0 .5rem}
-.tbl{overflow-x:auto;margin:0 0 1.2rem;border:1px solid var(--bd);border-radius:12px;background:var(--sf)}
+.tbl{position:relative;overflow-x:auto;margin:0 0 1.2rem;border:1px solid var(--bd);border-radius:12px;background:var(--sf)}
 .tbl:focus-visible{outline:3px solid #8CC4FF}
 .tbl table{border-collapse:collapse;width:100%;font-size:.95rem;min-width:30rem}
 .tbl th,.tbl td{text-align:left;vertical-align:top;padding:.55rem .8rem;border-bottom:1px solid var(--bd)}
 .tbl tr:last-child td{border-bottom:0}.tbl th{font-weight:700;background:var(--r100)}
 @media (prefers-color-scheme:dark){.tbl th{background:var(--r850)}}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.btn.sm{min-height:44px;padding:0 .8rem;font-size:.9375rem;white-space:nowrap}
+.tbl tbody th{font-weight:700;background:none}
+.tbl td,.tbl tbody th{vertical-align:middle}
+@media (max-width:40rem){
+ .eng{overflow:visible;border:0;background:none}.eng table{min-width:0;display:block}.eng thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+ .eng tbody{display:grid;gap:.6rem}.eng tr{display:grid;grid-template-columns:1fr auto;gap:.15rem .8rem;align-items:center;background:var(--sf);border:1px solid var(--bd);border-radius:12px;padding:.7rem .9rem}
+ .eng th,.eng td{display:block;padding:0;border:0!important}.eng tbody th{grid-column:1;font-size:1.0625rem}
+ .eng td{grid-column:1;font-size:.95rem;color:var(--mu)}.eng td[data-l]::before{content:attr(data-l) ": "}
+ .eng td:last-child{grid-column:2;grid-row:1/span 4}}

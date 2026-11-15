@@ -207,6 +207,15 @@ document.querySelectorAll('[data-reqform]').forEach(function(box){
     onDone:function(r){box.innerHTML='';var p=el('p','okm',r&&r.test?'✔ Тестовый режим: заявка не отправлена.':'✔ Заявка отправлена. Мастер перезвонит.');p.setAttribute('role','status');p.tabIndex=-1;box.append(p);p.focus()}});
 });
 
+/* ---------- «Узнать цену»: модель подставляется в заявку ---------- */
+document.addEventListener('click',function(ev){
+  var b=ev.target.closest('[data-ask]');if(!b)return;
+  var ta=document.querySelector('#request textarea');if(!ta)return;
+  var line='Цена и срок поставки: '+b.dataset.ask;
+  ta.value=ta.value.trim()?ta.value.trim()+'\n'+line:line;
+  document.getElementById('request').scrollIntoView({block:'start'});ta.focus({preventScroll:true});
+});
+
 /* ---------- меню и заставка ---------- */
 var mb=$('#menuBtn'),nav=$('#nav');
 if(mb&&nav){

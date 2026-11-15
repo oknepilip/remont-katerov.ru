@@ -73,7 +73,7 @@ def layout(path, title, desc, body, jsonld="", cur="", home=False, ogimg=None):
 <footer id="contacts"><div class="wrap fcols">
 <div><b>Маньяна Менеджмент</b><br>ООО «Маньяна Менеджмент», работаем с {C.YEAR} года<br>Порт «Морской Фасад», пр. Крузенштерна, 18<br>п. Лисий Нос<br><a href="{C.TEL_HREF}">{C.TEL}</a><br><a href="mailto:{C.EMAIL}">{C.EMAIL}</a></div>
 <div><b>Услуги</b><ul>{servs}</ul></div>
-<div><b>Марки</b><ul>{brands}</ul><b>Разделы</b><ul><li><a href="{url('/raboty/')}">Работы</a></li><li><a href="{url('/baza-znanij/')}">База знаний</a></li><li><a href="{url('/kommercheskie-suda/')}">Коммерческие суда</a></li><li><a href="{url('/o-kompanii/')}">О компании и реквизиты</a></li><li><a href="{url('/kontakty/')}">Контакты</a></li><li><a href="{url('/dostupnost/')}">Доступность</a></li><li><a href="{url('/politika/')}">Политика конфиденциальности</a></li></ul></div>
+<div><b>Марки</b><ul>{brands}</ul><b>Разделы</b><ul><li><a href="{url('/raboty/')}">Работы</a></li><li><a href="{url('/dvigateli/')}">Двигатели под заказ</a></li><li><a href="{url('/baza-znanij/')}">База знаний</a></li><li><a href="{url('/kommercheskie-suda/')}">Коммерческие суда</a></li><li><a href="{url('/o-kompanii/')}">О компании и реквизиты</a></li><li><a href="{url('/kontakty/')}">Контакты</a></li><li><a href="{url('/dostupnost/')}">Доступность</a></li><li><a href="{url('/politika/')}">Политика конфиденциальности</a></li></ul></div>
 </div></footer>
 <script>window.MM={{base:{json.dumps(BASE)},worker:{json.dumps(WORKER)}}}</script>
 <script src="{url('/assets/site.js')}?v={VER}" defer></script>
@@ -188,12 +188,14 @@ def service_page(s):
     cases = f'<section class="s wrap" aria-labelledby="h-cases"><h2 id="h-cases">Наши работы по теме</h2><div class="cases">{"".join(case_card(c) for c in cs)}</div></section>' if cs else ""
     arts = [a for a in C.ARTICLES if a["service"] == s["slug"]]
     arts_h = f'<section class="s wrap" aria-labelledby="h-arts"><h2 id="h-arts">Полезно почитать</h2>{art_list(arts)}</section>' if arts else ""
+    eng_h = f'<section class="s wrap" aria-labelledby="h-eng"><h2 id="h-eng">Двигатели под заказ</h2><p>Поставляем и устанавливаем подвесные моторы и стационарные дизели. <a href="{url("/dvigateli/")}">Список двигателей</a>, цена по запросу.</p></section>' if s["slug"] == "zapchasti" else ""
     brands_h = ('<section class="s wrap" aria-labelledby="h-br"><h2 id="h-br">Марки двигателей</h2><ul class="chips">%s</ul></section>' % "".join('<li><a href="%s">%s</a></li>' % (url("/marki/%s/" % b["slug"]), e(b["name"])) for b in C.BRANDS)) if s["slug"] in ("mehanika", "zapchasti") else ""
     others = "".join('<li><a href="%s">%s</a></li>' % (url("/uslugi/%s/" % o["slug"]), e(o["name"])) for o in C.SERVICES if o is not s)
     body = head(cr, s["h1"], s["lead"]) + f"""
 <section class="s wrap" aria-labelledby="h-works"><h2 id="h-works">Что делаем</h2>{todo(s.get("todo"))}{works(s["works"])}<p class="note" style="max-width:46rem;font-size:1rem">Стоимость называем после осмотра: она зависит от модели, состояния узла и цены запчастей. Работу начинаем после вашего согласия.</p></section>
 <section class="s wrap" aria-labelledby="h-proc"><h2 id="h-proc">Как проходит работа</h2>{steps(s.get("steps") or C.STEPS_DEFAULT)}</section>
 {cases}
+{eng_h}
 {brands_h}
 <section class="s wrap" aria-labelledby="h-faq"><h2 id="h-faq">Вопросы и ответы</h2>{faq(s["faq"])}</section>
 {arts_h}
@@ -257,6 +259,25 @@ def policy():
 <h2>Как отозвать согласие</h2><p>Напишите на <a href="mailto:{C.EMAIL}">{C.EMAIL}</a> или позвоните: <a href="{C.TEL_HREF}">{C.TEL}</a>. Удалим ваши данные из переписки по заявке.</p></div></section>"""
     layout(p, "Политика конфиденциальности — Маньяна Менеджмент", "Какие данные получает сайт remontkaterov.ru, зачем и как отозвать согласие на обработку.", body, ld(crumbs_ld(cr)))
 
+def engine_table(rows, caption):
+    tr = "".join('<tr><th scope="row">%s</th><td data-l="Тип">%s</td><td data-l="Мощность">%s</td><td data-l="Цена">по запросу</td><td><button class="btn o sm" type="button" data-ask="%s">Узнать цену<span class="vh"> на %s</span></button></td></tr>'
+                 % (e(m), e(t), e(pw), e(m), e(m)) for _, m, t, pw in rows)
+    return f'<div class="tbl eng" tabindex="0" role="region" aria-label="{e(caption)}"><table><caption class="vh">{e(caption)}</caption><thead><tr><th scope="col">Модель</th><th scope="col">Тип</th><th scope="col">Мощность</th><th scope="col">Цена</th><th scope="col"><span class="vh">Запрос</span></th></tr></thead><tbody>{tr}</tbody></table></div>'
+
+def engines():
+    p = "/dvigateli/"; cr = [("Главная", "/"), ("Услуги", "/uslugi/"), ("Запчасти", "/uslugi/zapchasti/"), ("Двигатели под заказ", p)]
+    secs = "".join(f'<h2 id="{gid}">{e(g)}</h2>{engine_table(rows, g)}' for g, gid, rows in C.ENGINE_GROUPS)
+    body = head(cr, "Двигатели под заказ", "Поставляем подвесные моторы и стационарные дизели и устанавливаем их на судно. Цену и срок поставки называем по запросу: они зависят от комплектации и курса.", acts=False) + f"""
+<section class="s wrap" aria-labelledby="h-eng"><h2 id="h-eng" class="vh">Список двигателей</h2>{todo(C.ENGINES_TODO)}{secs}
+<p class="note" style="max-width:46rem;font-size:1rem">Нажмите «Узнать цену», модель подставится в заявку. Нет нужной модели? Напишите её в заявке: проверим, сможем ли поставить.</p></section>
+<section class="s wrap" aria-labelledby="h-how"><h2 id="h-how">Как проходит поставка</h2>{steps([("Запрос", "Называете модель или задачу: судно, нужную мощность, тип управления."), ("Предложение", "Подбираем двигатель и комплектацию, называем цену и срок."), ("Поставка", "Привозим двигатель на базу."), ("Установка", "Устанавливаем, подключаем и проверяем на воде. Так мы поставили Mercury QSD 4.2.")])}</section>
+<section class="s wrap" aria-labelledby="h-cases"><h2 id="h-cases">Наша установка</h2><div class="cases">{case_card(case("mercury-qsd-4-2-ustanovka"))}</div></section>
+{request("Двигатели под заказ")}"""
+    lst = {"@type": "ItemList", "name": "Двигатели под заказ", "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": m} for i, m in enumerate(m for _, _, rows in C.ENGINE_GROUPS for _, m, _, _ in rows)]}
+    layout(p, "Лодочные моторы и судовые дизели под заказ в Санкт-Петербурге — Маньяна Менеджмент",
+           "Поставка и установка подвесных моторов Yamaha, Mercury, Suzuki, Tohatsu и стационарных дизелей Volvo Penta, Mercury, Yanmar, MAN, Cummins, Caterpillar. Цена по запросу.",
+           body, ld(lst, crumbs_ld(cr)), cur="uslugi", ogimg="photo_13")
+
 def kb_index():
     p = "/baza-znanij/"; cr = [("Главная", "/"), ("База знаний", p)]
     groups = [("Двигатели и механика", ["zamena-impellera", "analiz-masla", "kody-oshibok-volvo-penta-vodia", "centrovka-valovoj-linii"]),
@@ -302,10 +323,13 @@ def brand_page(b):
     casesh = f'<section class="s wrap" aria-labelledby="h-cases"><h2 id="h-cases">Наши работы с {e(b["name"])}</h2><div class="cases">{"".join(case_card(c) for c in cs)}</div></section>' if cs else ""
     mansh = f'<section class="s wrap" aria-labelledby="h-man"><h2 id="h-man">Документы {e(b["name"])}</h2><p class="sub">Технические паспорта и каталоги запчастей, PDF.</p>{manual_list(mans)}</section>' if mans else ""
     artsh = f'<section class="s wrap" aria-labelledby="h-arts"><h2 id="h-arts">Полезно почитать</h2>{art_list(arts)}</section>' if arts else ""
+    eng = [r for _, _, rows in C.ENGINE_GROUPS for r in rows if r[0] == C.BRAND_ENGINE[b["slug"]]]
+    engh = f'<section class="s wrap" aria-labelledby="h-eng"><h2 id="h-eng">Двигатели {e(b["name"])} под заказ</h2>{engine_table(eng, "Двигатели " + b["name"])}<p><a href="{url("/dvigateli/")}">Все двигатели под заказ</a></p></section>' if eng else ""
     others = "".join('<li><a href="%s">%s</a></li>' % (url("/marki/%s/" % o["slug"]), e(o["name"])) for o in C.BRANDS if o is not b)
     body = head(cr, b["h1"], b["lead"]) + f"""
 <section class="s wrap" aria-labelledby="h-works"><h2 id="h-works">Что делаем</h2>{todo(b.get("todo"))}{works(b["works"])}<p class="note" style="max-width:46rem;font-size:1rem">Стоимость называем после осмотра. Работу начинаем после вашего согласия.</p></section>
 {casesh}
+{engh}
 {mansh}
 <section class="s wrap" aria-labelledby="h-faq"><h2 id="h-faq">Вопросы и ответы</h2>{faq(b["faq"])}</section>
 {artsh}
@@ -379,7 +403,7 @@ def main():
     home(); services_index()
     for s in C.SERVICES: service_page(s)
     commercial(); cases_index()
-    kb_index()
+    engines(); kb_index()
     for a in C.ARTICLES: article_page(a)
     for b in C.BRANDS: brand_page(b)
     about(); contacts(); accessibility()
