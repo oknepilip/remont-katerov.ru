@@ -140,3 +140,13 @@ footer{background:var(--r900);color:var(--r50);padding:2rem 0;margin-top:3rem;fo
 @supports (animation-timeline:view()){@media (prefers-reduced-motion:no-preference){.bento a,.step,.tm{animation:rise linear both;animation-timeline:view();animation-range:entry 0% entry 35%}}}
 @media (prefers-reduced-motion:reduce){.splash{display:none}html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
 @media (forced-colors:active){.btn{border:2px solid ButtonText}.logo{forced-color-adjust:none;background:CanvasText}}
+.arts{list-style:none;margin:0 0 1rem;padding:0;display:grid;gap:.6rem;max-width:52rem}
+.arts li{background:var(--sf);border:1px solid var(--bd);border-radius:12px;padding:.7rem 1.1rem}
+.arts a{font-weight:700;display:inline-flex;align-items:center;min-height:44px}.arts span{display:block;color:var(--mu);font-size:.95rem;line-height:1.45}
+.art h2{font-size:clamp(1.3rem,1.1rem + .8vw,1.75rem);margin:2rem 0 .7rem}.art h3{font-size:1.15rem;margin:1.3rem 0 .5rem}
+.tbl{overflow-x:auto;margin:0 0 1.2rem;border:1px solid var(--bd);border-radius:12px;background:var(--sf)}
+.tbl:focus-visible{outline:3px solid #8CC4FF}
+.tbl table{border-collapse:collapse;width:100%;font-size:.95rem;min-width:30rem}
+.tbl th,.tbl td{text-align:left;vertical-align:top;padding:.55rem .8rem;border-bottom:1px solid var(--bd)}
+.tbl tr:last-child td{border-bottom:0}.tbl th{font-weight:700;background:var(--r100)}
+@media (prefers-color-scheme:dark){.tbl th{background:var(--r850)}}

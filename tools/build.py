@@ -39,13 +39,14 @@ def faq_ld(faq):
 
 def layout(path, title, desc, body, jsonld="", cur="", home=False, ogimg=None):
     PAGES.append(path)
-    nav = [("Услуги", "/uslugi/", "uslugi"), ("Работы", "/raboty/", "raboty"), ("Коммерческие суда", "/kommercheskie-suda/", "kom"), ("Вопросы", "/#faq", "")]
+    nav = [("Услуги", "/uslugi/", "uslugi"), ("Работы", "/raboty/", "raboty"), ("База знаний", "/baza-znanij/", "kb"), ("Коммерческие суда", "/kommercheskie-suda/", "kom")]
     navh = "".join('<a href="%s"%s>%s</a>' % (h if h.startswith("#") else url(h), ' aria-current="page"' if k and k == cur else "", n) for n, h, k in nav)
     robots = "" if LIVE else '<meta name="robots" content="noindex, nofollow">\n'
     metrika = ("""<script>(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,'script','https://mc.yandex.ru/metrika/tag.js?id=%s','ym');ym(%s,'init',{webvisor:true,clickmap:true,accurateTrackBounce:true,trackLinks:true});</script>
 <noscript><div><img src="https://mc.yandex.ru/watch/%s" style="position:absolute;left:-9999px" alt=""></div></noscript>\n""" % (METRIKA, METRIKA, METRIKA)) if LIVE else ""
     og = absu("/img/%s.webp" % (ogimg or "100"))
     splash = '<div class="splash" id="splash"><span class="logo" role="img" aria-label="Логотип"></span><p>Маньяна Менеджмент · судоремонт</p><button class="btn" id="skipSplash" type="button">Пропустить</button></div>\n' if home else ""
+    brands = "".join('<li><a href="%s">%s</a></li>' % (url("/marki/%s/" % b["slug"]), b["name"]) for b in C.BRANDS)
     servs = "".join('<li><a href="%s">%s</a></li>' % (url("/uslugi/%s/" % s["slug"]), s["name"]) for s in C.SERVICES)
     page = f"""<!DOCTYPE html>
 <html lang="ru"><head>
@@ -72,7 +73,7 @@ def layout(path, title, desc, body, jsonld="", cur="", home=False, ogimg=None):
 <footer id="contacts"><div class="wrap fcols">
 <div><b>Маньяна Менеджмент</b><br>ООО «Маньяна Менеджмент», работаем с {C.YEAR} года<br>Порт «Морской Фасад», пр. Крузенштерна, 18<br>п. Лисий Нос<br><a href="{C.TEL_HREF}">{C.TEL}</a><br><a href="mailto:{C.EMAIL}">{C.EMAIL}</a></div>
 <div><b>Услуги</b><ul>{servs}</ul></div>
-<div><b>Разделы</b><ul><li><a href="{url('/raboty/')}">Работы</a></li><li><a href="{url('/kommercheskie-suda/')}">Коммерческие суда</a></li><li><a href="{url('/politika/')}">Политика конфиденциальности</a></li></ul></div>
+<div><b>Марки</b><ul>{brands}</ul><b>Разделы</b><ul><li><a href="{url('/raboty/')}">Работы</a></li><li><a href="{url('/baza-znanij/')}">База знаний</a></li><li><a href="{url('/kommercheskie-suda/')}">Коммерческие суда</a></li><li><a href="{url('/o-kompanii/')}">О компании и реквизиты</a></li><li><a href="{url('/kontakty/')}">Контакты</a></li><li><a href="{url('/dostupnost/')}">Доступность</a></li><li><a href="{url('/politika/')}">Политика конфиденциальности</a></li></ul></div>
 </div></footer>
 <script>window.MM={{base:{json.dumps(BASE)},worker:{json.dumps(WORKER)}}}</script>
 <script src="{url('/assets/site.js')}?v={VER}" defer></script>
@@ -120,6 +121,19 @@ def head(crumbs, h1, lead, acts=True):
     a = f'<div class="acts"><a class="btn" href="#request">Оставить заявку</a><a class="btn o" href="{C.TEL_HREF}">{C.TEL}</a></div>' if acts else ""
     return f'<div class="first"><div class="ph-head wrap"><nav aria-label="Хлебные крошки"><ol class="crumbs">{cr}</ol></nav><h1>{e(h1)}</h1><p class="lead">{e(lead)}</p>{a}</div></div>'
 
+def art(slug): return next(a for a in C.ARTICLES if a["slug"] == slug)
+def brand(slug): return next(b for b in C.BRANDS if b["slug"] == slug)
+
+def art_list(items):
+    return '<ul class="arts">%s</ul>' % "".join('<li><a href="%s">%s</a><span>%s</span></li>' % (url("/baza-znanij/%s/" % a["slug"]), e(a["title"]), e(a["desc"])) for a in items)
+
+def manual_list(items):
+    out = ""
+    for name, kind, f, _ in items:
+        size = os.path.getsize(os.path.join(ROOT, "preview", "manuals", f)) / 1e6
+        out += '<li><a href="%s" target="_blank" rel="noopener">%s: %s</a><span>PDF, %s МБ</span></li>' % (url("/manuals/" + f), e(name), e(kind), ("%.1f" % size).replace(".", ","))
+    return '<ul class="arts">%s</ul>' % out
+
 def bento():
     out = ""
     for s in C.SERVICES:
@@ -146,9 +160,10 @@ def home():
 <div class="tm"><div class="ph" role="img" aria-label="Заглушка для фото сотрудника"><span>Фото механика<small>заглушка</small></span></div><b>Имя Фамилия</b><br>Механик · стаж __ лет<br><span>Работал на: __</span></div>
 <div class="tm"><div class="ph" role="img" aria-label="Заглушка для фото сотрудника"><span>Фото электрика<small>заглушка</small></span></div><b>Имя Фамилия</b><br>Электрик · стаж __ лет<br><span>Работал на: __</span></div></div></section>
 <section class="s wrap" id="about" aria-labelledby="h-about"><h2 id="h-about">Коротко о компании</h2><div class="two">
-<dl class="facts"><dt>Компания</dt><dd>ООО «Маньяна Менеджмент», работаем с {C.YEAR} года</dd><dt>Где</dt><dd>Санкт-Петербург, порт «Морской Фасад» (пр. Крузенштерна, 18) и п. Лисий Нос</dd><dt>Суда</dt><dd>Яхты и катера от 5 до 30 м. В <a href="{url('/kommercheskie-suda/')}">большой судоремонт</a> мы только заходим</dd><dt>Двигатели</dt><dd>Volvo Penta, Mercury, Yamaha, Suzuki</dd><dt>Заказчики</dt><dd>Владельцы яхт и катеров, государственные службы</dd></dl>
+<dl class="facts"><dt>Компания</dt><dd>ООО «Маньяна Менеджмент», работаем с {C.YEAR} года. <a href="{url('/o-kompanii/')}">Реквизиты</a></dd><dt>Где</dt><dd>Санкт-Петербург, порт «Морской Фасад» (пр. Крузенштерна, 18) и п. Лисий Нос</dd><dt>Суда</dt><dd>Яхты и катера от 5 до 30 м. В <a href="{url('/kommercheskie-suda/')}">большой судоремонт</a> мы только заходим</dd><dt>Двигатели</dt><dd>{", ".join('<a href="%s">%s</a>' % (url("/marki/%s/" % b["slug"]), b["name"]) for b in C.BRANDS)}</dd><dt>Заказчики</dt><dd>Владельцы яхт и катеров, государственные службы</dd></dl>
 <div class="gov"><h3>Как работает Стармех</h3><ul><li>Кнопки и ветки диалога написаны заранее и работают всегда.</li><li>На вопрос по технике Стармех ищет документ в базе мануалов.</li><li>Если ответа нет, вопрос уходит мастеру как заявка.</li><li>Цены, сроки и гарантии называет мастер, а не Стармех.</li></ul></div></div></section>
 <section class="s wrap" id="faq" aria-labelledby="h-faq"><h2 id="h-faq">Частые вопросы</h2>{faq(C.FAQ_HOME)}</section>
+<section class="s wrap" aria-labelledby="h-kb"><h2 id="h-kb">Полезное</h2><p class="sub">Статьи и документы для владельцев катеров. <a href="{url('/baza-znanij/')}">Вся база знаний</a></p>{art_list([art("konservaciya-na-zimu"), art("zamena-impellera"), art("kody-oshibok-volvo-penta-vodia")])}</section>
 <section class="s wrap" aria-labelledby="h-part"><h2 id="h-part">Партнёры</h2><ul class="chips"><li>Яхт-клуб Санкт-Петербурга</li><li>Пассажирский порт</li><li>Смоленка</li></ul></section>
 {request()}"""
     org = dict(ORG, description="Ремонт и обслуживание яхт и катеров от 5 до 30 м в Санкт-Петербурге: двигатели, редукторы, электрика, корпус, интерьер, зимнее хранение и консервация.")
@@ -171,12 +186,17 @@ def service_page(s):
     cr = [("Главная", "/"), ("Услуги", "/uslugi/"), (s["name"], p)]
     cs = [case(x) for x in s.get("cases", [])]
     cases = f'<section class="s wrap" aria-labelledby="h-cases"><h2 id="h-cases">Наши работы по теме</h2><div class="cases">{"".join(case_card(c) for c in cs)}</div></section>' if cs else ""
+    arts = [a for a in C.ARTICLES if a["service"] == s["slug"]]
+    arts_h = f'<section class="s wrap" aria-labelledby="h-arts"><h2 id="h-arts">Полезно почитать</h2>{art_list(arts)}</section>' if arts else ""
+    brands_h = ('<section class="s wrap" aria-labelledby="h-br"><h2 id="h-br">Марки двигателей</h2><ul class="chips">%s</ul></section>' % "".join('<li><a href="%s">%s</a></li>' % (url("/marki/%s/" % b["slug"]), e(b["name"])) for b in C.BRANDS)) if s["slug"] in ("mehanika", "zapchasti") else ""
     others = "".join('<li><a href="%s">%s</a></li>' % (url("/uslugi/%s/" % o["slug"]), e(o["name"])) for o in C.SERVICES if o is not s)
     body = head(cr, s["h1"], s["lead"]) + f"""
 <section class="s wrap" aria-labelledby="h-works"><h2 id="h-works">Что делаем</h2>{todo(s.get("todo"))}{works(s["works"])}<p class="note" style="max-width:46rem;font-size:1rem">Стоимость называем после осмотра: она зависит от модели, состояния узла и цены запчастей. Работу начинаем после вашего согласия.</p></section>
 <section class="s wrap" aria-labelledby="h-proc"><h2 id="h-proc">Как проходит работа</h2>{steps(s.get("steps") or C.STEPS_DEFAULT)}</section>
 {cases}
+{brands_h}
 <section class="s wrap" aria-labelledby="h-faq"><h2 id="h-faq">Вопросы и ответы</h2>{faq(s["faq"])}</section>
+{arts_h}
 <section class="s wrap" aria-labelledby="h-ask"><div class="ask"><div><h2 id="h-ask">Расскажите о задаче</h2><p>Стармех задаст несколько вопросов и передаст заявку мастеру. Цену и срок назовёт мастер.</p></div>{chat(s["start"])}</div></section>
 <section class="s wrap" aria-labelledby="h-oth"><h2 id="h-oth">Другие услуги</h2><ul class="chips">{others}</ul></section>
 {request(s["name"])}"""
@@ -237,6 +257,121 @@ def policy():
 <h2>Как отозвать согласие</h2><p>Напишите на <a href="mailto:{C.EMAIL}">{C.EMAIL}</a> или позвоните: <a href="{C.TEL_HREF}">{C.TEL}</a>. Удалим ваши данные из переписки по заявке.</p></div></section>"""
     layout(p, "Политика конфиденциальности — Маньяна Менеджмент", "Какие данные получает сайт remontkaterov.ru, зачем и как отозвать согласие на обработку.", body, ld(crumbs_ld(cr)))
 
+def kb_index():
+    p = "/baza-znanij/"; cr = [("Главная", "/"), ("База знаний", p)]
+    groups = [("Двигатели и механика", ["zamena-impellera", "analiz-masla", "kody-oshibok-volvo-penta-vodia", "centrovka-valovoj-linii"]),
+              ("Электрика", ["teplovizor-elektrika", "parallelnaya-rabota-generatorov"]),
+              ("Корпус", ["uzk-obmer-obshivki", "peskostrujnaya-ochistka-alyuminiya"]),
+              ("Сезонное обслуживание", ["konservaciya-na-zimu"])]
+    secs = "".join(f'<h3>{e(g)}</h3>{art_list([art(x) for x in items])}' for g, items in groups)
+    body = head(cr, "База знаний", "Статьи о ремонте и обслуживании катеров и технические документы на двигатели. Не нашли ответ? Спросите Стармеха.", acts=False) + f"""
+<section class="s wrap" aria-labelledby="h-arts"><h2 id="h-arts">Статьи</h2>{secs}</section>
+<section class="s wrap" id="manuals" aria-labelledby="h-man"><h2 id="h-man">Технические документы</h2><p class="sub">Паспорта и каталоги запчастей открываются в новой вкладке. Файлы большие, на мобильном интернете загрузка займёт время.</p>{manual_list(C.MANUALS)}</section>
+<section class="s wrap" aria-labelledby="h-ask"><div class="ask"><div><h2 id="h-ask">Спросите Стармеха</h2><p>Напишите модель мотора и вопрос. Стармех найдёт статью или документ, а если не найдёт, передаст вопрос мастеру.</p></div>{chat("k")}</div></section>
+{request("База знаний")}"""
+    lst = {"@type": "CollectionPage", "name": "База знаний", "url": absu(p), "hasPart": [{"@type": "Article", "headline": a["title"], "url": absu("/baza-znanij/%s/" % a["slug"])} for a in C.ARTICLES]}
+    layout(p, "База знаний: ремонт и обслуживание катеров — Маньяна Менеджмент",
+           "Статьи о ремонте и обслуживании катеров: импеллер, анализ масла, коды Volvo Penta, центровка вала, консервация на зиму. Паспорта и каталоги Suzuki.",
+           body, ld(lst, crumbs_ld(cr)), cur="kb")
+
+def article_page(a):
+    p = "/baza-znanij/%s/" % a["slug"]; s = svc(a["service"])
+    cr = [("Главная", "/"), ("База знаний", "/baza-znanij/"), (a["title"], p)]
+    frag = open(os.path.join(ROOT, "tools", "articles", a["file"] + ".html"), encoding="utf-8").read()
+    frag = frag.replace('<div class="tbl">', '<div class="tbl" tabindex="0" role="region" aria-label="Таблица">')
+    rel = [x for x in C.ARTICLES if x["service"] == a["service"] and x is not a][:3]
+    br = [brand(b) for b in a["brands"]]
+    brh = ('<p>Марки: %s</p>' % ", ".join('<a href="%s">%s</a>' % (url("/marki/%s/" % b["slug"]), e(b["name"])) for b in br)) if br else ""
+    relh = f'<section class="s wrap" aria-labelledby="h-rel"><h2 id="h-rel">Ещё по теме</h2>{art_list(rel)}</section>' if rel else ""
+    body = head(cr, a["title"], a["lead"], acts=False) + f"""
+<section class="s wrap"><article class="prose art">{todo(C.ARTICLE_TODO)}{frag}
+<p class="note" style="font-size:1rem">{e(C.ARTICLE_NOTE)}</p>
+<p>Услуга: <a href="{url('/uslugi/%s/' % s['slug'])}">{e(s['name'])}</a></p>{brh}</article></section>
+{relh}
+<section class="s wrap" aria-labelledby="h-ask"><div class="ask"><div><h2 id="h-ask">Остались вопросы?</h2><p>Спросите Стармеха или оставьте заявку: мастер перезвонит.</p></div>{chat("k")}</div></section>
+{request(a["title"])}"""
+    artld = {"@type": "Article", "headline": a["title"], "description": a["desc"], "inLanguage": "ru", "author": {"@id": SITE + "/#org"}, "publisher": ORG, "mainEntityOfPage": absu(p)}
+    layout(p, a["title"] + " — база знаний Маньяна Менеджмент", a["desc"], body, ld(artld, crumbs_ld(cr)), cur="kb")
+
+def brand_page(b):
+    p = "/marki/%s/" % b["slug"]
+    cr = [("Главная", "/"), ("Услуги", "/uslugi/"), ("Механика", "/uslugi/mehanika/"), (b["name"], p)]
+    cs = [case(x) for x in b["cases"]]
+    arts = [a for a in C.ARTICLES if b["slug"] in a["brands"]]
+    mans = [m for m in C.MANUALS if m[3] == b["slug"]]
+    casesh = f'<section class="s wrap" aria-labelledby="h-cases"><h2 id="h-cases">Наши работы с {e(b["name"])}</h2><div class="cases">{"".join(case_card(c) for c in cs)}</div></section>' if cs else ""
+    mansh = f'<section class="s wrap" aria-labelledby="h-man"><h2 id="h-man">Документы {e(b["name"])}</h2><p class="sub">Технические паспорта и каталоги запчастей, PDF.</p>{manual_list(mans)}</section>' if mans else ""
+    artsh = f'<section class="s wrap" aria-labelledby="h-arts"><h2 id="h-arts">Полезно почитать</h2>{art_list(arts)}</section>' if arts else ""
+    others = "".join('<li><a href="%s">%s</a></li>' % (url("/marki/%s/" % o["slug"]), e(o["name"])) for o in C.BRANDS if o is not b)
+    body = head(cr, b["h1"], b["lead"]) + f"""
+<section class="s wrap" aria-labelledby="h-works"><h2 id="h-works">Что делаем</h2>{todo(b.get("todo"))}{works(b["works"])}<p class="note" style="max-width:46rem;font-size:1rem">Стоимость называем после осмотра. Работу начинаем после вашего согласия.</p></section>
+{casesh}
+{mansh}
+<section class="s wrap" aria-labelledby="h-faq"><h2 id="h-faq">Вопросы и ответы</h2>{faq(b["faq"])}</section>
+{artsh}
+<section class="s wrap" aria-labelledby="h-ask"><div class="ask"><div><h2 id="h-ask">Расскажите, что с мотором</h2><p>Стармех задаст несколько вопросов и передаст заявку мастеру.</p></div>{chat(b["start"])}</div></section>
+<section class="s wrap" aria-labelledby="h-oth"><h2 id="h-oth">Другие марки</h2><ul class="chips">{others}<li><a href="{url('/uslugi/mehanika/')}">Все работы по механике</a></li></ul></section>
+{request(b["name"])}"""
+    service = {"@type": "Service", "name": b["h1"], "description": b["desc"], "brand": {"@type": "Brand", "name": b["name"]}, "url": absu(p), "areaServed": ["Санкт-Петербург", "Ленинградская область"], "provider": ORG}
+    layout(p, b["title"] + " — Маньяна Менеджмент", b["desc"], body, ld(service, crumbs_ld(cr), faq_ld(b["faq"])), cur="uslugi",
+           ogimg=(cs[0].get("cover") or cs[0]["imgs"][0]) if cs else None)
+
+def about():
+    p = "/o-kompanii/"; cr = [("Главная", "/"), ("О компании", p)]
+    req = "".join("<dt>%s</dt><dd>%s</dd>" % (e(a), e(b)) for a, b in C.REQ)
+    vac = "".join("<li>%s</li>" % e(v) for v in C.VACANCIES)
+    body = head(cr, "О компании", f"ООО «Маньяна Менеджмент» ремонтирует и обслуживает яхты и катера от 5 до 30 метров в Санкт-Петербурге и Ленинградской области. Работаем с {C.YEAR} года.", acts=False) + f"""
+<section class="s wrap" aria-labelledby="h-who"><h2 id="h-who">Кто мы</h2><div class="two"><div class="prose">
+<p>У нас две площадки: цех в порту «Морской Фасад» на Васильевском острове и база в посёлке Лисий Нос. Ремонтируем в своих помещениях.</p>
+<p>Основная работа: двигатели и редукторы, электрика, корпус, интерьер, зимнее хранение и консервация. Ремонтируем и обслуживаем катера государственных служб.</p>
+<p>В команде сварщики, механики и электрики, которые работали на сухогрузах, танкерах, буксирах и катерах. Как компания мы только заходим в <a href="{url('/kommercheskie-suda/')}">большой судоремонт</a>.</p>
+<p>Цены, сроки и гарантии называет мастер после осмотра. Договор, смета до начала работ, акт после.</p></div>
+<div class="gov"><h3>Коротко</h3><ul><li>Суда от 5 до 30 м</li><li>Volvo Penta, Mercury, Yamaha, Suzuki</li><li>Санкт-Петербург и Ленинградская область</li><li>Партнёры: Яхт-клуб Санкт-Петербурга, Пассажирский порт, Смоленка</li></ul></div></div></section>
+<section class="s wrap" id="rekvizity" aria-labelledby="h-req2"><h2 id="h-req2">Реквизиты</h2><dl class="facts">{req}</dl></section>
+<section class="s wrap" id="vakansii" aria-labelledby="h-vac"><h2 id="h-vac">Вакансии</h2><div class="prose"><p>Ищем людей в команду:</p><ul>{vac}</ul><p>Пришлите резюме на <a href="mailto:{C.EMAIL}">{C.EMAIL}</a> или позвоните: <a href="{C.TEL_HREF}">{C.TEL}</a>.</p></div>{todo(["Проверьте, актуален ли список вакансий: он взят с текущего сайта."])}</section>
+{request()}"""
+    layout(p, "О компании и реквизиты — Маньяна Менеджмент", f"ООО «Маньяна Менеджмент»: ремонт яхт и катеров в Санкт-Петербурге с {C.YEAR} года. Реквизиты, площадки, вакансии.",
+           body, ld(dict(ORG, taxID="7814833438"), crumbs_ld(cr)))
+
+def contacts():
+    p = "/kontakty/"; cr = [("Главная", "/"), ("Контакты", p)]
+    ymap = "https://yandex.ru/maps/?text=" + "%D0%A1%D0%B0%D0%BD%D0%BA%D1%82-%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B1%D1%83%D1%80%D0%B3%2C%20%D0%BF%D1%80%D0%BE%D1%81%D0%BF%D0%B5%D0%BA%D1%82%20%D0%9A%D1%80%D1%83%D0%B7%D0%B5%D0%BD%D1%88%D1%82%D0%B5%D1%80%D0%BD%D0%B0%2C%2018"
+    body = head(cr, "Контакты", "Позвоните или оставьте заявку: мастер перезвонит. По срочным поломкам в Санкт-Петербурге и Ленинградской области выезжаем.", acts=False) + f"""
+<section class="s wrap" aria-labelledby="h-c"><h2 id="h-c">Как связаться</h2>{todo(["Нужны: часы работы, мессенджеры (Telegram, WhatsApp, MAX), точный адрес базы в Лисьем Носу, как проехать и где парковка."])}<div class="works">
+<div class="wk"><h3>Телефон и почта</h3><p style="margin:0"><a class="btn" href="{C.TEL_HREF}">{C.TEL}</a></p><p><a href="mailto:{C.EMAIL}">{C.EMAIL}</a></p></div>
+<div class="wk"><h3>Порт «Морской Фасад»</h3><p style="margin:0 0 .5rem">Санкт-Петербург, проспект Крузенштерна, 18. Цех и офис.</p><a href="{ymap}" target="_blank" rel="noopener">Открыть на Яндекс Картах</a></div>
+<div class="wk"><h3>Лисий Нос</h3><p style="margin:0">Посёлок Лисий Нос, Санкт-Петербург. Адрес базы уточняйте по телефону.</p></div>
+</div></section>
+<section class="s wrap" aria-labelledby="h-ask"><div class="ask"><div><h2 id="h-ask">Или опишите задачу Стармеху</h2><p>Он задаст несколько вопросов и передаст заявку мастеру.</p></div>{chat()}</div></section>
+{request("Контакты")}"""
+    cp = dict(ORG, contactPoint={"@type": "ContactPoint", "telephone": "+7 921 772-71-77", "email": C.EMAIL, "contactType": "customer service", "areaServed": "RU", "availableLanguage": "ru"})
+    layout(p, "Контакты — Маньяна Менеджмент, ремонт катеров в Санкт-Петербурге", "Телефон +7 (921) 772-71-77, почта, адрес цеха в порту «Морской Фасад» (пр. Крузенштерна, 18) и базы в Лисьем Носу.",
+           body, ld(cp, crumbs_ld(cr)), cur="kont")
+
+def accessibility():
+    p = "/dostupnost/"; cr = [("Главная", "/"), ("Доступность", p)]
+    body = head(cr, "Доступность сайта", "Мы хотим, чтобы сайтом мог пользоваться каждый: с экранным диктором, с клавиатуры, с увеличенным шрифтом, на старом телефоне.", acts=False) + f"""
+<section class="s wrap"><div class="prose">
+<h2>К чему стремимся</h2><p>Цель: соответствие WCAG 2.2 на уровне AA полностью и AAA там, где это возможно.</p>
+<h2>Что уже сделано</h2><ul>
+<li>Контраст текста не ниже 4,5:1, у основного текста 13:1.</li>
+<li>Всем можно пользоваться с клавиатуры, фокус виден.</li>
+<li>Кнопки и ссылки не меньше 44×44 пикселей.</li>
+<li>Ошибки в формах описаны словами, а не только цветом.</li>
+<li>Реплики Стармеха озвучиваются экранным диктором по мере появления.</li>
+<li>Анимация отключается, если в системе выбрано уменьшение движения.</li>
+<li>Тёмная тема включается по настройке системы.</li>
+<li>Диалог со Стармехом не обязателен: телефон, меню и форма заявки доступны всегда.</li></ul>
+<h2>Известные ограничения</h2><ul>
+<li>Видео об удалении краски без звука и без текстового описания шагов.</li>
+<li>Технические документы в PDF взяты у производителей и могут быть плохо доступны для экранного диктора.</li>
+<li>Часть фотографий пока заменена заглушками.</li></ul>
+<h2>Как сообщить о проблеме</h2><p>Если что-то на сайте не работает для вас, напишите через форму ниже, на <a href="mailto:{C.EMAIL}">{C.EMAIL}</a> или позвоните: <a href="{C.TEL_HREF}">{C.TEL}</a>. Ответим и исправим.</p>
+<p>Сайт проверяем раз в полгода. Последняя проверка: ноябрь 2026.</p></div></section>
+<section class="s wrap" id="request" aria-labelledby="h-req"><div class="req"><div><h2 id="h-req">Сообщить о проблеме</h2><p>Опишите, на какой странице и что не получилось. Оставьте телефон, если нужен ответ.</p></div><div data-reqform="Доступность"></div></div></section>"""
+    layout(p, "Доступность сайта — Маньяна Менеджмент", "Как сайт remontkaterov.ru поддерживает экранные дикторы, клавиатуру и крупный шрифт. Известные ограничения и как сообщить о проблеме.",
+           body, ld(crumbs_ld(cr)))
+
 def main():
     os.makedirs(os.path.join(OUT, "assets"), exist_ok=True)
     for f in ("site.css", "site.js"):
@@ -244,6 +379,10 @@ def main():
     home(); services_index()
     for s in C.SERVICES: service_page(s)
     commercial(); cases_index()
+    kb_index()
+    for a in C.ARTICLES: article_page(a)
+    for b in C.BRANDS: brand_page(b)
+    about(); contacts(); accessibility()
     for c in C.CASES: case_page(c)
     policy()
     if LIVE:

@@ -102,8 +102,8 @@ var N={
  sos2:{say:'Коротко опишите, что случилось и где стоит судно.',form:[['msg','Что случилось и где судно','ta',1]],urgent:1},
 
  /* вопрос по технике */
- k:{say:'Спросите про свой мотор или редуктор. Поищу в мануалах, а если не найду, передам вопрос мастеру.',ask:1},
- koff:{tag:'ИИ офлайн',say:'В мануалах ответа не нашёл, а ИИ сейчас не на связи. Сохраню вопрос как заявку, мастер ответит. Оставьте телефон.',form:[['msg','Ваш вопрос','ta',1]]},
+ k:{say:'Спросите про свой мотор или редуктор. Поищу в статьях и мануалах, а если не найду, передам вопрос мастеру.',ask:1},
+ koff:{tag:'ИИ офлайн',say:'В базе знаний ответа не нашёл, а ИИ сейчас не на связи. Сохраню вопрос как заявку, мастер ответит. Оставьте телефон.',form:[['msg','Ваш вопрос','ta',1]]},
 
  form:{say:'Опишите, что происходит и когда. Оставьте телефон, мастер перезвонит.',form:[['msg','Что случилось','ta',0]]}
 };
@@ -118,6 +118,18 @@ var KB=[
  [/якорн|цеп[ьи]|швартов/i,'Якоря и якорные цепи',[['ГОСТ 228-79. Цепи якорные','gost-228-79-yakornye-cepi.pdf'],['ГОСТ Р 51722-2001. Нормы снабжения','gost-r-51722-2001-snabzhenie.pdf']]]
 ];
 
+/* статьи базы знаний: [выражение, название, адрес] */
+var ART=[
+ [/импеллер|крыльчатк|помп[аыу]|перегре|tell-?tale|контрольн\S* отверсти/i,'Замена импеллера помпы охлаждения','zamena-impellera'],
+ [/анализ\S* масл|масло\S* (анализ|проб)|металл\S* в масл|щелочн|tbn/i,'Анализ масла двигателя','analiz-masla'],
+ [/vodia|код\S* (ошиб|неисправ)|ошибк\S* volvo|spn|fmi|dtc|event log/i,'Как читать коды ошибок Volvo Penta VODIA','kody-oshibok-volvo-penta-vodia'],
+ [/тепловиз|греет\S* (провод|клемм|автомат)|нагрев\S* (провод|клемм|щит)/i,'Тепловизионный контроль судовой электрики','teplovizor-elektrika'],
+ [/параллел|синхрониз|два генератор|обратн\S* мощност/i,'Параллельная работа генераторов','parallelnaya-rabota-generatorov'],
+ [/центровк|расцентр|вибрац|гребн\S* вал|дейдвуд|муфт/i,'Центровка валовой линии','centrovka-valovoj-linii'],
+ [/узк|толщин\S* (обшив|лист|металл)|толщиномер|ультразвук/i,'УЗК-обмер обшивки','uzk-obmer-obshivki'],
+ [/пескостру|абразив|дробеструй/i,'Пескоструйная очистка алюминия','peskostrujnaya-ochistka-alyuminiya'],
+ [/консерв|зим[уаео]|зимн|морозы?|хранени/i,'Консервация катера на зиму: чек-лист','konservaciya-na-zimu']
+];
 function Chat(root){
   var log=$('.clog',root),ctl=$('.cctl',root),hist=[],path=[],first=true,question='';
   function say(t,who,tag,link){
@@ -168,12 +180,16 @@ function Chat(root){
     focusFirst();
   }
   function answer(q){
-    var hit=null;KB.forEach(function(k){if(!hit&&k[0].test(q))hit=k});
-    if(!hit){path.push('Вопрос по технике');go('koff');return}
+    var hit=null,arts=[];KB.forEach(function(k){if(!hit&&k[0].test(q))hit=k});
+    ART.forEach(function(k){if(arts.length<2&&k[0].test(q))arts.push(k)});
+    if(!hit&&!arts.length){path.push('Вопрос по технике');go('koff');return}
     var d=el('div','row'),a=el('span','av');a.setAttribute('aria-hidden','true');var m=el('div','m');
-    m.append(el('b',null,'Стармех · база знаний'),'В базе знаний есть документы по '+hit[1]+': ');
-    hit[2].forEach(function(f,i){if(i)m.append(', ');var l=el('a',null,f[0]+' (PDF)');l.href=(MM.base||'')+'/manuals/'+f[1];l.target='_blank';l.rel='noopener';m.append(l)});
-    m.append('. Если ответа там нет, передам вопрос мастеру.');d.append(a,m);log.append(d);log.scrollTop=log.scrollHeight;
+    m.append(el('b',null,'Стармех · база знаний'));
+    if(arts.length){m.append(arts.length>1?'Об этом есть статьи: ':'Об этом есть статья: ');
+      arts.forEach(function(k,i){if(i)m.append(', ');var l=el('a',null,k[1]);l.href=(MM.base||'')+'/baza-znanij/'+k[2]+'/';m.append(l)});m.append('. ')}
+    if(hit){m.append('Документы по '+hit[1]+': ');
+      hit[2].forEach(function(f,i){if(i)m.append(', ');var l=el('a',null,f[0]+' (PDF)');l.href=(MM.base||'')+'/manuals/'+f[1];l.target='_blank';l.rel='noopener';m.append(l)});m.append('. ')}
+    m.append('Если ответа там нет, передам вопрос мастеру.');d.append(a,m);log.append(d);log.scrollTop=log.scrollHeight;
     ctl.innerHTML='';var w=el('div','opts');
     var b1=el('button','btn main','Передать вопрос мастеру');b1.type='button';b1.onclick=function(){say('Передать вопрос мастеру',1);path.push('Вопрос по технике');go('koff')};
     var b2=el('button','btn','Задать другой вопрос');b2.type='button';b2.onclick=function(){hist.pop();question='';go('k')};
