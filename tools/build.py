@@ -18,7 +18,7 @@ VER = "1"
 e = html.escape
 PAGES = []  # (path, title) для sitemap
 
-ORG = {"@type": "LocalBusiness", "@id": SITE + "/#org", "name": "Маньяна Менеджмент", "legalName": "ООО «Маньяна Менеджмент»",
+ORG = {"@type": "LocalBusiness", "paymentAccepted": "Наличные, безналичный расчёт", "@id": SITE + "/#org", "name": "Маньяна Менеджмент", "legalName": "ООО «Маньяна Менеджмент»",
        "url": SITE + "/", "telephone": "+7 921 772-71-77", "email": C.EMAIL, "foundingDate": C.YEAR,
        "address": {"@type": "PostalAddress", "streetAddress": "пр. Крузенштерна, 18", "addressLocality": "Санкт-Петербург", "addressCountry": "RU"},
        "areaServed": ["Санкт-Петербург", "Ленинградская область"]}
@@ -39,7 +39,7 @@ def faq_ld(faq):
 
 def layout(path, title, desc, body, jsonld="", cur="", home=False, ogimg=None):
     PAGES.append(path)
-    nav = [("Услуги", "/uslugi/", "uslugi"), ("Работы", "/raboty/", "raboty"), ("База знаний", "/baza-znanij/", "kb"), ("Коммерческие суда", "/kommercheskie-suda/", "kom")]
+    nav = [("Услуги", "/uslugi/", "uslugi"), ("Работы", "/raboty/", "raboty"), ("База знаний", "/baza-znanij/", "kb"), ("Для организаций", "/kommercheskie-i-sluzhebnye-suda/", "kom")]
     navh = "".join('<a href="%s"%s>%s</a>' % (h if h.startswith("#") else url(h), ' aria-current="page"' if k and k == cur else "", n) for n, h, k in nav)
     robots = "" if LIVE else '<meta name="robots" content="noindex, nofollow">\n'
     metrika = ("""<script>(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,'script','https://mc.yandex.ru/metrika/tag.js?id=%s','ym');ym(%s,'init',{webvisor:true,clickmap:true,accurateTrackBounce:true,trackLinks:true});</script>
@@ -73,7 +73,7 @@ def layout(path, title, desc, body, jsonld="", cur="", home=False, ogimg=None):
 <footer id="contacts"><div class="wrap fcols">
 <div><b>Маньяна Менеджмент</b><br>ООО «Маньяна Менеджмент», работаем с {C.YEAR} года<br>Порт «Морской Фасад», пр. Крузенштерна, 18<br>п. Лисий Нос<br><a href="{C.TEL_HREF}">{C.TEL}</a><br><a href="mailto:{C.EMAIL}">{C.EMAIL}</a></div>
 <div><b>Услуги</b><ul>{servs}</ul></div>
-<div><b>Марки</b><ul>{brands}</ul><b>Разделы</b><ul><li><a href="{url('/raboty/')}">Работы</a></li><li><a href="{url('/dvigateli/')}">Двигатели под заказ</a></li><li><a href="{url('/baza-znanij/')}">База знаний</a></li><li><a href="{url('/kommercheskie-suda/')}">Коммерческие суда</a></li><li><a href="{url('/o-kompanii/')}">О компании и реквизиты</a></li><li><a href="{url('/kontakty/')}">Контакты</a></li><li><a href="{url('/dostupnost/')}">Доступность</a></li><li><a href="{url('/politika/')}">Политика конфиденциальности</a></li></ul></div>
+<div><b>Марки</b><ul>{brands}</ul><b>Разделы</b><ul><li><a href="{url('/raboty/')}">Работы</a></li><li><a href="{url('/dvigateli/')}">Двигатели под заказ</a></li><li><a href="{url('/baza-znanij/')}">База знаний</a></li><li><a href="{url('/kommercheskie-i-sluzhebnye-suda/')}">Коммерческие и служебные суда</a></li><li><a href="{url('/o-kompanii/')}">О компании и реквизиты</a></li><li><a href="{url('/kontakty/')}">Контакты</a></li><li><a href="{url('/dostupnost/')}">Доступность</a></li><li><a href="{url('/politika/')}">Политика конфиденциальности</a></li></ul></div>
 </div></footer>
 <script>window.MM={{base:{json.dumps(BASE)},worker:{json.dumps(WORKER)}}}</script>
 <script src="{url('/assets/site.js')}?v={VER}" defer></script>
@@ -134,6 +134,9 @@ def manual_list(items):
         out += '<li><a href="%s" target="_blank" rel="noopener">%s: %s</a><span>PDF, %s МБ</span></li>' % (url("/manuals/" + f), e(name), e(kind), ("%.1f" % size).replace(".", ","))
     return '<ul class="arts">%s</ul>' % out
 
+def adv():
+    return '<div class="works adv">%s</div>' % "".join('<div class="wk"><h3>%s</h3><p style="margin:0">%s</p></div>' % (e(a), e(b)) for a, b in C.ADVANTAGES)
+
 def bento():
     out = ""
     for s in C.SERVICES:
@@ -145,35 +148,36 @@ def bento():
 def home():
     cases = "".join(case_card(c) for c in C.CASES[:6])
     body = f"""<div class="first" id="top"><div class="fw wrap">
-<div class="head"><span class="stamp">отвечает мастер, Стармех помогает</span><h1>Ремонт катеров и яхт в <em>Санкт-Петербурге</em></h1></div>
+<div class="head"><span class="stamp">отвечает мастер, Стармех помогает</span><h1>Ремонт катеров, яхт, коммерческих и служебных судов в <em>Санкт-Петербурге</em></h1></div>
 <div class="chatw">{chat()}
  <a class="show" href="#services">Показать сайт без диалога ↓</a></div>
-<div class="info"><p class="lead">Двигатели, редукторы, электрика, корпус, интерьер, зимнее хранение. Суда от 5 до 30 метров. База в порту «Морской Фасад» и на Лисьем Носу.</p>
-<ul class="trust"><li>Работаем с {C.YEAR} года, ремонтируем в своих помещениях</li><li>Ремонтируем и обслуживаем катера государственных служб</li><li>В команде сварщики, механики и электрики, которые работали на сухогрузах и других коммерческих судах</li></ul></div>
+<div class="info"><p class="lead">Двигатели, редукторы, электрика, корпус, интерьер, зимнее хранение. Работаем с частными владельцами и организациями. База в порту «Морской Фасад» и на Лисьем Носу.</p>
+<ul class="trust"><li>Работаем по договору, наличный и безналичный расчёт</li><li>Участвуем в закупках, в том числе на АСТ ГОЗ</li><li>Ремонтируем и обслуживаем катера государственных служб</li></ul></div>
 <div class="pics"><div class="ph" role="img" aria-label="Заглушка для фото цеха"><span>Фото: цех на «Морском Фасаде»<small>заглушка, нужно своё фото</small></span></div><div class="ph" role="img" aria-label="Заглушка для фото мастера за работой"><span>Фото: мастер за работой<small>заглушка</small></span></div><div class="ph" role="img" aria-label="Заглушка для фото катера на базе"><span>Фото: катер на базе<small>заглушка</small></span></div></div>
 </div></div>
 <section class="s wrap" id="services" aria-labelledby="h-serv"><h2 id="h-serv">Услуги</h2>{bento()}</section>
+<section class="s wrap" id="why" aria-labelledby="h-why"><h2 id="h-why">Почему с нами удобно</h2>{adv()}</section>
 <section class="s wrap" id="process" aria-labelledby="h-proc"><h2 id="h-proc">Как мы работаем</h2>{steps(C.STEPS_DEFAULT)}</section>
 <section class="s wrap" id="cases" aria-labelledby="h-cases"><h2 id="h-cases">Работы</h2><p class="sub">Настоящие фото из нашего цеха. <a href="{url('/raboty/')}">Все {len(C.CASES)} работ</a></p><div class="cases">{cases}</div></section>
-<section class="s wrap" id="team" aria-labelledby="h-team"><h2 id="h-team">Команда</h2><p class="sub">Сварщики, механики и электрики, которые работали на сухогрузах, танкерах, буксирах и катерах.</p><div class="team">
+<section class="s wrap" id="team" aria-labelledby="h-team"><h2 id="h-team">Команда</h2><p class="sub">Сварщики, механики и электрики с опытом работы на коммерческом флоте.</p><div class="team">
 <div class="tm"><div class="ph" role="img" aria-label="Заглушка для фото сотрудника"><span>Фото сварщика<small>заглушка</small></span></div><b>Имя Фамилия</b><br>Сварщик · стаж __ лет<br><span>Работал на: __. Аттестация: __</span></div>
 <div class="tm"><div class="ph" role="img" aria-label="Заглушка для фото сотрудника"><span>Фото механика<small>заглушка</small></span></div><b>Имя Фамилия</b><br>Механик · стаж __ лет<br><span>Работал на: __</span></div>
 <div class="tm"><div class="ph" role="img" aria-label="Заглушка для фото сотрудника"><span>Фото электрика<small>заглушка</small></span></div><b>Имя Фамилия</b><br>Электрик · стаж __ лет<br><span>Работал на: __</span></div></div></section>
 <section class="s wrap" id="about" aria-labelledby="h-about"><h2 id="h-about">Коротко о компании</h2><div class="two">
-<dl class="facts"><dt>Компания</dt><dd>ООО «Маньяна Менеджмент», работаем с {C.YEAR} года. <a href="{url('/o-kompanii/')}">Реквизиты</a></dd><dt>Где</dt><dd>Санкт-Петербург, порт «Морской Фасад» (пр. Крузенштерна, 18) и п. Лисий Нос</dd><dt>Суда</dt><dd>Яхты и катера от 5 до 30 м. В <a href="{url('/kommercheskie-suda/')}">большой судоремонт</a> мы только заходим</dd><dt>Двигатели</dt><dd>{", ".join('<a href="%s">%s</a>' % (url("/marki/%s/" % b["slug"]), b["name"]) for b in C.BRANDS)}</dd><dt>Заказчики</dt><dd>Владельцы яхт и катеров, государственные службы</dd></dl>
+<dl class="facts"><dt>Компания</dt><dd>ООО «Маньяна Менеджмент», работаем с {C.YEAR} года. <a href="{url('/o-kompanii/')}">Реквизиты</a></dd><dt>Где</dt><dd>Санкт-Петербург, порт «Морской Фасад» (пр. Крузенштерна, 18) и п. Лисий Нос</dd><dt>Суда</dt><dd>Катера и яхты, <a href="{url('/kommercheskie-i-sluzhebnye-suda/')}">коммерческие и служебные суда</a></dd><dt>Оплата</dt><dd>По договору, наличный и безналичный расчёт</dd><dt>Закупки</dt><dd>Участвуем, в том числе на площадке АСТ ГОЗ</dd><dt>Двигатели</dt><dd>{", ".join('<a href="%s">%s</a>' % (url("/marki/%s/" % b["slug"]), b["name"]) for b in C.BRANDS)}</dd><dt>Заказчики</dt><dd>Владельцы катеров и яхт, компании, государственные службы</dd></dl>
 <div class="gov"><h3>Как работает Стармех</h3><ul><li>Кнопки и ветки диалога написаны заранее и работают всегда.</li><li>На вопрос по технике Стармех ищет документ в базе мануалов.</li><li>Если ответа нет, вопрос уходит мастеру как заявка.</li><li>Цены, сроки и гарантии называет мастер, а не Стармех.</li></ul></div></div></section>
 <section class="s wrap" id="faq" aria-labelledby="h-faq"><h2 id="h-faq">Частые вопросы</h2>{faq(C.FAQ_HOME)}</section>
 <section class="s wrap" aria-labelledby="h-kb"><h2 id="h-kb">Полезное</h2><p class="sub">Статьи и документы для владельцев катеров. <a href="{url('/baza-znanij/')}">Вся база знаний</a></p>{art_list([art("konservaciya-na-zimu"), art("zamena-impellera"), art("kody-oshibok-volvo-penta-vodia")])}</section>
 <section class="s wrap" aria-labelledby="h-part"><h2 id="h-part">Партнёры</h2><ul class="chips"><li>Яхт-клуб Санкт-Петербурга</li><li>Пассажирский порт</li><li>Смоленка</li></ul></section>
 {request()}"""
-    org = dict(ORG, description="Ремонт и обслуживание яхт и катеров от 5 до 30 м в Санкт-Петербурге: двигатели, редукторы, электрика, корпус, интерьер, зимнее хранение и консервация.")
-    layout("/", "Ремонт катеров и яхт в Санкт-Петербурге — Маньяна Менеджмент",
-           "Ремонт и обслуживание яхт и катеров 5–30 м в Санкт-Петербурге: двигатели Volvo Penta, Mercury, Yamaha, Suzuki, редукторы, электрика, корпус, интерьер, зимнее хранение.",
+    org = dict(ORG, description="Ремонт и обслуживание катеров и яхт, коммерческих и служебных судов в Санкт-Петербурге: двигатели, редукторы, электрика, корпус, интерьер, зимнее хранение. Работа по договору, наличный и безналичный расчёт, участие в закупках.")
+    layout("/", "Ремонт катеров, яхт, коммерческих и служебных судов в Санкт-Петербурге — Маньяна Менеджмент",
+           "Ремонт и обслуживание катеров, яхт, коммерческих и служебных судов в Санкт-Петербурге: двигатели, редукторы, электрика, корпус. По договору, нал и безнал, участие в закупках.",
            body, ld(org, faq_ld(C.FAQ_HOME)), home=True)
 
 def services_index():
     cr = [("Главная", "/"), ("Услуги", "/uslugi/")]
-    body = head(cr, "Услуги по ремонту катеров и яхт", "Ремонтируем и обслуживаем яхты и катера от 5 до 30 метров в Санкт-Петербурге и Ленинградской области. Выберите направление или опишите задачу Стармеху.") + \
+    body = head(cr, "Услуги по ремонту катеров и яхт", "Ремонтируем и обслуживаем катера и яхты, коммерческие и служебные суда в Санкт-Петербурге и Ленинградской области. Выберите направление или опишите задачу Стармеху.") + \
         f'<section class="s wrap" aria-labelledby="h-serv"><h2 id="h-serv">Направления</h2>{bento()}</section>' + \
         f'<section class="s wrap" aria-labelledby="h-proc"><h2 id="h-proc">Как мы работаем</h2>{steps(C.STEPS_DEFAULT)}</section>' + \
         f'<section class="s wrap" aria-labelledby="h-ask"><div class="ask"><div><h2 id="h-ask">Не знаете, что выбрать?</h2><p>Стармех задаст несколько вопросов и передаст заявку мастеру.</p></div>{chat()}</div></section>' + request()
@@ -209,16 +213,17 @@ def service_page(s):
            ogimg=(cs[0].get("cover") or cs[0]["imgs"][0]) if cs else None)
 
 def commercial():
-    k = C.COMMERCIAL; p = "/kommercheskie-suda/"
-    cr = [("Главная", "/"), ("Коммерческие суда", p)]
+    k = C.COMMERCIAL; p = "/kommercheskie-i-sluzhebnye-suda/"
+    cr = [("Главная", "/"), ("Коммерческие и служебные суда", p)]
     honest = "".join("<li>%s</li>" % e(x) for x in k["honest"])
     body = head(cr, k["h1"], k["lead"]) + f"""
 <section class="s wrap" aria-labelledby="h-works"><h2 id="h-works">С чем можно обратиться</h2>{todo(k["todo"])}{works(k["works"])}</section>
-<section class="s wrap" aria-labelledby="h-hon"><h2 id="h-hon">Что важно знать заранее</h2><div class="gov" style="max-width:52rem"><ul>{honest}</ul></div></section>
-<section class="s wrap" aria-labelledby="h-cases"><h2 id="h-cases">Работы, близкие к коммерческому флоту</h2><div class="cases">{case_card(case("yamz-238-toplivnaya-apparatura"))}{case_card(case("diagnostika-mtu-zf"))}{case_card(case("chervyachnyj-reduktor-opressovka"))}{case_card(case("zamena-uchastkov-obshivki"))}</div></section>
+<section class="s wrap" aria-labelledby="h-hon"><h2 id="h-hon">Что важно знать</h2><div class="gov" style="max-width:52rem"><ul>{honest}</ul></div></section>
+<section class="s wrap" aria-labelledby="h-cases"><h2 id="h-cases">Похожие работы</h2><div class="cases">{case_card(case("yamz-238-toplivnaya-apparatura"))}{case_card(case("diagnostika-mtu-zf"))}{case_card(case("chervyachnyj-reduktor-opressovka"))}{case_card(case("zamena-uchastkov-obshivki"))}</div></section>
 <section class="s wrap" aria-labelledby="h-faq"><h2 id="h-faq">Вопросы и ответы</h2>{faq(k["faq"])}</section>
-<section class="s wrap" aria-labelledby="h-ask"><div class="ask"><div><h2 id="h-ask">Опишите задачу</h2><p>Укажите тип судна, объём работ и сроки. Ответим, что берём и что нет.</p></div>{chat("c")}</div></section>
-{request("Коммерческие суда")}"""
+<section class="s wrap" aria-labelledby="h-ask"><div class="ask"><div><h2 id="h-ask">Опишите задачу</h2><p>Укажите тип судна, объём работ и сроки или пришлите номер закупки. Ответим, что берём и сколько это стоит.</p></div>{chat("c")}</div></section>
+<section class="s wrap" aria-labelledby="h-why"><h2 id="h-why">Почему с нами удобно</h2>{adv()}</section>
+{request("Коммерческие и служебные суда")}"""
     service = {"@type": "Service", "name": k["h1"], "description": k["desc"], "url": absu(p), "areaServed": ["Санкт-Петербург", "Ленинградская область"], "provider": ORG}
     layout(p, k["title"] + " — Маньяна Менеджмент", k["desc"], body, ld(service, crumbs_ld(cr), faq_ld(k["faq"])), cur="kom", ogimg="photo_18")
 
@@ -346,13 +351,13 @@ def about():
     p = "/o-kompanii/"; cr = [("Главная", "/"), ("О компании", p)]
     req = "".join("<dt>%s</dt><dd>%s</dd>" % (e(a), e(b)) for a, b in C.REQ)
     vac = "".join("<li>%s</li>" % e(v) for v in C.VACANCIES)
-    body = head(cr, "О компании", f"ООО «Маньяна Менеджмент» ремонтирует и обслуживает яхты и катера от 5 до 30 метров в Санкт-Петербурге и Ленинградской области. Работаем с {C.YEAR} года.", acts=False) + f"""
+    body = head(cr, "О компании", f"ООО «Маньяна Менеджмент» ремонтирует и обслуживает катера и яхты, коммерческие и служебные суда в Санкт-Петербурге и Ленинградской области. Работаем с {C.YEAR} года.", acts=False) + f"""
 <section class="s wrap" aria-labelledby="h-who"><h2 id="h-who">Кто мы</h2><div class="two"><div class="prose">
 <p>У нас две площадки: цех в порту «Морской Фасад» на Васильевском острове и база в посёлке Лисий Нос. Ремонтируем в своих помещениях.</p>
 <p>Основная работа: двигатели и редукторы, электрика, корпус, интерьер, зимнее хранение и консервация. Ремонтируем и обслуживаем катера государственных служб.</p>
-<p>В команде сварщики, механики и электрики, которые работали на сухогрузах, танкерах, буксирах и катерах. Как компания мы только заходим в <a href="{url('/kommercheskie-suda/')}">большой судоремонт</a>.</p>
+<p>В команде сварщики, механики и электрики с опытом работы на коммерческом флоте. Работаем с частными владельцами и с <a href="{url('/kommercheskie-i-sluzhebnye-suda/')}">организациями</a>: по договору, с наличным и безналичным расчётом, участвуем в закупках, в том числе на площадке АСТ ГОЗ.</p>
 <p>Цены, сроки и гарантии называет мастер после осмотра. Договор, смета до начала работ, акт после.</p></div>
-<div class="gov"><h3>Коротко</h3><ul><li>Суда от 5 до 30 м</li><li>Volvo Penta, Mercury, Yamaha, Suzuki</li><li>Санкт-Петербург и Ленинградская область</li><li>Партнёры: Яхт-клуб Санкт-Петербурга, Пассажирский порт, Смоленка</li></ul></div></div></section>
+<div class="gov"><h3>Коротко</h3><ul><li>Катера и яхты, коммерческие и служебные суда</li><li>Договор, наличный и безналичный расчёт</li><li>Участие в закупках, в том числе на АСТ ГОЗ</li><li>Volvo Penta, Mercury, Yamaha, Suzuki</li><li>Санкт-Петербург и Ленинградская область</li><li>Партнёры: Яхт-клуб Санкт-Петербурга, Пассажирский порт, Смоленка</li></ul></div></div></section>
 <section class="s wrap" id="rekvizity" aria-labelledby="h-req2"><h2 id="h-req2">Реквизиты</h2><dl class="facts">{req}</dl></section>
 <section class="s wrap" id="vakansii" aria-labelledby="h-vac"><h2 id="h-vac">Вакансии</h2><div class="prose"><p>Ищем людей в команду:</p><ul>{vac}</ul><p>Пришлите резюме на <a href="mailto:{C.EMAIL}">{C.EMAIL}</a> или позвоните: <a href="{C.TEL_HREF}">{C.TEL}</a>.</p></div>{todo(["Проверьте, актуален ли список вакансий: он взят с текущего сайта."])}</section>
 {request()}"""
