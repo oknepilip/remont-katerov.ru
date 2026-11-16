@@ -185,6 +185,7 @@ def service_page(s):
     p = "/uslugi/%s/" % s["slug"]
     cr = [("Главная", "/"), ("Услуги", "/uslugi/"), (s["name"], p)]
     cs = [case(x) for x in s.get("cases", [])]
+    cs += [c for c in C.CASES if c.get("from_photos") and c["service"] == s["slug"] and c not in cs]
     cases = f'<section class="s wrap" aria-labelledby="h-cases"><h2 id="h-cases">Наши работы по теме</h2><div class="cases">{"".join(case_card(c) for c in cs)}</div></section>' if cs else ""
     arts = [a for a in C.ARTICLES if a["service"] == s["slug"]]
     arts_h = f'<section class="s wrap" aria-labelledby="h-arts"><h2 id="h-arts">Полезно почитать</h2>{art_list(arts)}</section>' if arts else ""
@@ -214,7 +215,7 @@ def commercial():
     body = head(cr, k["h1"], k["lead"]) + f"""
 <section class="s wrap" aria-labelledby="h-works"><h2 id="h-works">С чем можно обратиться</h2>{todo(k["todo"])}{works(k["works"])}</section>
 <section class="s wrap" aria-labelledby="h-hon"><h2 id="h-hon">Что важно знать заранее</h2><div class="gov" style="max-width:52rem"><ul>{honest}</ul></div></section>
-<section class="s wrap" aria-labelledby="h-cases"><h2 id="h-cases">Работа с дизелем</h2><div class="cases">{case_card(case("yamz-238-toplivnaya-apparatura"))}</div></section>
+<section class="s wrap" aria-labelledby="h-cases"><h2 id="h-cases">Работы, близкие к коммерческому флоту</h2><div class="cases">{case_card(case("yamz-238-toplivnaya-apparatura"))}{case_card(case("diagnostika-mtu-zf"))}{case_card(case("chervyachnyj-reduktor-opressovka"))}{case_card(case("zamena-uchastkov-obshivki"))}</div></section>
 <section class="s wrap" aria-labelledby="h-faq"><h2 id="h-faq">Вопросы и ответы</h2>{faq(k["faq"])}</section>
 <section class="s wrap" aria-labelledby="h-ask"><div class="ask"><div><h2 id="h-ask">Опишите задачу</h2><p>Укажите тип судна, объём работ и сроки. Ответим, что берём и что нет.</p></div>{chat("c")}</div></section>
 {request("Коммерческие суда")}"""
@@ -240,7 +241,7 @@ def case_page(c):
     same = [x for x in C.CASES if x["service"] == c["service"] and x is not c][:3]
     more = f'<section class="s wrap" aria-labelledby="h-more"><h2 id="h-more">Похожие работы</h2><div class="cases">{"".join(case_card(x) for x in same)}</div></section>' if same else ""
     body = head(cr, c["title"], c["text"], acts=False) + f"""
-<section class="s wrap" aria-labelledby="h-gal"><h2 id="h-gal">Фото работы</h2>{todo(["Добавьте к этой работе: какое судно, что было не так, что сделали по шагам, сколько заняло. Сейчас здесь только одна фраза с текущего сайта."])}<div class="gal">{gal}</div>
+<section class="s wrap" aria-labelledby="h-gal"><h2 id="h-gal">Фото работы</h2>{todo(C.PHOTO_CASE_TODO if c.get("from_photos") else ["Добавьте к этой работе: какое судно, что было не так, что сделали по шагам, сколько заняло. Сейчас здесь только одна фраза с текущего сайта."])}<div class="gal">{gal}</div>
 <p style="margin-top:1.25rem">Услуга: <a href="{url('/uslugi/%s/' % s['slug'])}">{e(s['name'])}</a></p></section>
 {more}
 {request(c["title"])}"""
@@ -318,6 +319,7 @@ def brand_page(b):
     p = "/marki/%s/" % b["slug"]
     cr = [("Главная", "/"), ("Услуги", "/uslugi/"), ("Механика", "/uslugi/mehanika/"), (b["name"], p)]
     cs = [case(x) for x in b["cases"]]
+    cs += [c for c in C.CASES if c.get("from_photos") and b["name"].lower() in c["title"].lower() and c not in cs]
     arts = [a for a in C.ARTICLES if b["slug"] in a["brands"]]
     mans = [m for m in C.MANUALS if m[3] == b["slug"]]
     casesh = f'<section class="s wrap" aria-labelledby="h-cases"><h2 id="h-cases">Наши работы с {e(b["name"])}</h2><div class="cases">{"".join(case_card(c) for c in cs)}</div></section>' if cs else ""
